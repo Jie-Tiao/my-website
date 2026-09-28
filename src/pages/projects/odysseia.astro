@@ -1,0 +1,891 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const title = 'Odysseia';
+const description =
+  'A myth-inspired 3D adventure game developed by Gaucho Game Lab. I served as Puzzle Lead, designing and implementing systemic puzzle mechanics, levels, and gameplay systems in Unity.';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+
+  <body>
+    <Header />
+
+    <main>
+
+      <!-- HERO -->
+      <section class="hero">
+        <img
+          class="project-logo"
+          src="/projects/odysseia/logo.png"
+          alt="Odysseia logo"
+        />
+
+        <p class="eyebrow">
+          GAME DEVELOPMENT · PUZZLE DESIGN · UNITY · C#
+        </p>
+
+        <h1>Odysseia</h1>
+
+        <p class="lead">
+          A myth-inspired 3D adventure game developed by Gaucho Game Lab.
+          As <strong>Puzzle Lead</strong>, I designed, prototyped, and
+          implemented systemic puzzle mechanics and mechanic-driven levels.
+        </p>
+
+        <div class="metadata">
+          <div>
+            <span>ROLE</span>
+            <strong>Puzzle Lead</strong>
+          </div>
+
+          <div>
+            <span>TEAM</span>
+            <strong>15–20 Developers</strong>
+          </div>
+
+          <div>
+            <span>DURATION</span>
+            <strong>Sep 2024 – Mar 2025</strong>
+          </div>
+
+          <div>
+            <span>TOOLS</span>
+            <strong>Unity · C#</strong>
+          </div>
+        </div>
+      </section>
+
+      <!-- OVERVIEW -->
+      <section class="content-section">
+        <div class="section-heading">
+          <p class="section-number">01</p>
+          <h2>Overview</h2>
+        </div>
+
+        <div class="prose">
+          <p class="intro">
+            My work on <em>Odysseia</em> focused on building puzzle systems
+            that could grow in complexity while remaining understandable to
+            the player.
+          </p>
+
+          <p>
+            Rather than designing isolated puzzle rooms, I developed reusable
+            mechanics that could support multiple interactions, combinations,
+            and level structures.
+          </p>
+
+          <p>
+            I then designed levels around those systems and collaborated with
+            other disciplines, particularly art, to improve visual
+            communication, mechanic readability, and overall level polish.
+          </p>
+        </div>
+
+        <div class="contributions">
+          <h3>My Contributions</h3>
+
+          <ul>
+            <li>
+              Designed and implemented a
+              <strong>dynamic tidal system</strong> driven by the game's
+              day–night cycle.
+            </li>
+
+            <li>
+              Created a <strong>time acceleration mechanic</strong> that gives
+              players direct control over tidal states.
+            </li>
+
+            <li>
+              Designed a modular
+              <strong>progressive light puzzle system</strong> supporting
+              emission, redirection, dispersion, color fusion, and filtering.
+            </li>
+
+            <li>
+              Designed multiple mechanic-driven levels using both the tidal and
+              light systems.
+            </li>
+
+            <li>
+              Conceptualized and prototyped the
+              <strong>Minotaur's Labyrinth</strong>, using light dispersion to
+              structure exploration and puzzle progression.
+            </li>
+
+            <li>
+              Collaborated with the art team to improve mechanic readability,
+              environmental communication, and level polish.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- TIDAL SYSTEM -->
+      <section class="content-section">
+        <div class="section-heading">
+          <p class="section-number">02</p>
+          <h2>Dynamic Tidal System</h2>
+        </div>
+
+        <div class="prose">
+          <p class="intro">
+            The tidal system turns the environment itself into part of the
+            puzzle.
+          </p>
+
+          <p>
+            Water levels rise and fall with the game's day–night cycle,
+            dynamically changing which parts of the environment are
+            traversable.
+          </p>
+        </div>
+
+        <div class="two-image-grid">
+          <figure>
+            <img
+              src="/projects/odysseia/tide-high.png"
+              alt="Odysseia environment during a higher tidal state"
+            />
+
+            <figcaption>
+              Higher water levels cover obstacles and alter which routes are
+              available to the player.
+            </figcaption>
+          </figure>
+
+          <figure>
+            <img
+              src="/projects/odysseia/tide-low.png"
+              alt="Odysseia environment during a lower tidal state"
+            />
+
+            <figcaption>
+              Lower tides expose terrain, passages, and interactable areas.
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="prose after-media">
+          <p>
+            During ebb tide, hidden spaces, objects, or routes can become
+            accessible. During flood tide, rocks and reefs may become
+            submerged, opening routes that would otherwise be blocked.
+          </p>
+
+          <p>
+            The design goal was to move the player's reasoning beyond simply
+            asking
+            <strong>“Where should I go?”</strong>
+            and introduce a second question:
+            <strong>“When should I act?”</strong>
+          </p>
+        </div>
+      </section>
+
+      <!-- TIME ACCELERATION -->
+      <section class="content-section">
+        <div class="section-heading">
+          <p class="section-number">03</p>
+          <h2>Giving the Player Control Over Time</h2>
+        </div>
+
+        <div class="media-text">
+          <figure>
+            <img
+              src="/projects/odysseia/time-speed.gif"
+              alt="Time acceleration mechanic changing the environment and tidal state"
+            />
+
+            <figcaption>
+              The player accelerates the day–night cycle to manipulate tidal
+              states directly.
+            </figcaption>
+          </figure>
+
+          <div class="prose">
+            <p>
+              A purely time-driven system introduces an obvious problem:
+              waiting is not an interesting puzzle interaction.
+            </p>
+
+            <p>
+              To address this, I implemented a
+              <strong>Time Acceleration System</strong> that allows players to
+              deliberately advance the day–night cycle.
+            </p>
+
+            <p>
+              This gives the player meaningful agency over environmental state.
+              Tides become something the player can plan around and manipulate
+              rather than something they passively wait for.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- LIGHT SYSTEM -->
+      <section class="content-section">
+        <div class="section-heading">
+          <p class="section-number">04</p>
+          <h2>Progressive Light Puzzle System</h2>
+        </div>
+
+        <div class="prose">
+          <p class="intro">
+            I designed the light system around progressive complexity:
+            introduce one understandable rule, then repeatedly expand what that
+            rule can do.
+          </p>
+
+          <p>
+            At its foundation, light travels from an emitter to a receiver.
+            From that simple relationship, the mechanic expands into a larger
+            system:
+          </p>
+        </div>
+
+        <div class="mechanic-flow">
+          <span>Emission</span>
+          <b>→</b>
+          <span>Redirection</span>
+          <b>→</b>
+          <span>Dispersion</span>
+          <b>→</b>
+          <span>Fusion</span>
+          <b>→</b>
+          <span>Filtering</span>
+        </div>
+
+        <figure class="wide-image">
+          <img
+            src="/projects/odysseia/light-relay.png"
+            alt="Light beam redirected between puzzle nodes"
+          />
+
+          <figcaption>
+            Relay nodes expand the basic emitter–receiver interaction into a
+            path-building puzzle.
+          </figcaption>
+        </figure>
+
+        <div class="prose after-media">
+          <h3>From a Single Beam to a System</h3>
+
+          <p>
+            Relay nodes allow beams to be redirected across the environment.
+            This transforms a simple activation mechanic into a routing problem
+            in which players construct a path between multiple objects.
+          </p>
+
+          <p>
+            Prisms then split white light into red, green, and blue channels.
+            This introduces branching logic, simultaneous signals, and
+            dependencies between multiple parts of the puzzle.
+          </p>
+
+          <p>
+            At higher levels of complexity, beams can be filtered or
+            recombined. The system can therefore introduce new challenges
+            without replacing the rules the player has already learned.
+          </p>
+        </div>
+
+        <div class="two-image-grid">
+          <figure>
+            <img
+              src="/projects/odysseia/light-filter.png"
+              alt="Light puzzle using a colored filtering surface"
+            />
+
+            <figcaption>
+              Colored surfaces selectively filter channels, introducing
+              constraint-based routing.
+            </figcaption>
+          </figure>
+
+          <figure>
+            <img
+              src="/projects/odysseia/light-complex.png"
+              alt="Complex multi-room light routing puzzle"
+            />
+
+            <figcaption>
+              Multiple beams, receivers, and filters allow puzzle logic to span
+              larger environments.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- LABYRINTH -->
+      <section class="content-section">
+        <div class="section-heading">
+          <p class="section-number">05</p>
+          <h2>Minotaur's Labyrinth</h2>
+        </div>
+
+        <div class="prose">
+          <p class="intro">
+            The Minotaur's Labyrinth explores how a single puzzle system can
+            shape the structure of an entire level rather than just an
+            individual room.
+          </p>
+
+          <p>
+            Traditional maze design creates a tension between exploration and
+            guidance. A short solution path can cause players to skip large
+            portions of the environment, while a long forced route can make the
+            space feel overly linear.
+          </p>
+        </div>
+
+        <figure class="wide-image concept-image">
+          <img
+            src="/projects/odysseia/labyrinth-concept.jpg"
+            alt="Early concept sketch of the Minotaur's Labyrinth showing red green and blue light routes"
+          />
+
+          <figcaption>
+            Early concept sketch for the Minotaur's Labyrinth. RGB light paths
+            were used to divide the maze into interconnected puzzle regions and
+            structure player traversal.
+          </figcaption>
+        </figure>
+
+        <div class="prose after-media">
+          <p>
+            I used <strong>light dispersion</strong> as the structural backbone
+            of the labyrinth.
+          </p>
+
+          <p>
+            White light is divided into red, green, and blue routes, naturally
+            separating the maze into three major regions. Each region contains
+            a focused set of puzzles with enough depth to reward exploration
+            without forcing the player into an excessively long linear path.
+          </p>
+
+          <p>
+            Cross-region interactions then reconnect these spaces. For example,
+            a beam originating in one region can be required to activate or
+            combine with a system in another.
+          </p>
+
+          <p>
+            Persistent beams also become a form of environmental communication.
+            Solved routes remain visible in the space, allowing the world
+            itself to record player progress and hint at unexplored
+            possibilities.
+          </p>
+        </div>
+      </section>
+
+      <!-- TECHNICAL IMPLEMENTATION -->
+      <section class="content-section technical-section">
+        <div class="section-heading">
+          <p class="section-number">06</p>
+          <h2>Technical Implementation</h2>
+        </div>
+
+        <div class="prose">
+          <p class="intro">
+            The light puzzle system was implemented in Unity using C# with a
+            modular, event-driven architecture.
+          </p>
+
+          <p>
+            One of my main implementation goals was to separate
+            <strong>light propagation</strong> from
+            <strong>puzzle reactions</strong>.
+          </p>
+        </div>
+
+        <figure class="wide-image architecture-diagram">
+          <img
+            src="/projects/odysseia/light-architecture.png"
+            alt="Architecture diagram of the Odysseia light puzzle system"
+          />
+
+          <figcaption>
+            System architecture showing how emitters, beams, receivers, and
+            independent gameplay events communicate.
+          </figcaption>
+        </figure>
+
+        <div class="technical-grid">
+          <article>
+            <p class="card-label">ARCHITECTURE</p>
+
+            <h3>Event-Driven Modularity</h3>
+
+            <p>
+              Light receivers emit activation and deactivation events rather
+              than directly controlling gameplay objects.
+            </p>
+
+            <p>
+              Independent components can then respond to those events by
+              opening doors, activating secondary beams, rotating objects, or
+              triggering other gameplay behavior.
+            </p>
+
+            <p>
+              This keeps the core light system independent from the specific
+              objects that react to it.
+            </p>
+          </article>
+
+          <article>
+            <p class="card-label">EXTENSIBILITY</p>
+
+            <h3>Specialized Receivers</h3>
+
+            <p>
+              A shared <code>LightReceiver</code> implementation handles common
+              behavior such as light dependencies, color aggregation,
+              activation state, and downstream propagation.
+            </p>
+
+            <p>
+              Specialized receiver types extend that behavior only where
+              necessary.
+            </p>
+          </article>
+        </div>
+
+        <div class="code-concepts">
+          <div>
+            <code>LightReceiver</code>
+            <p>
+              Shared receiver logic for activation, incoming light, and
+              propagation.
+            </p>
+          </div>
+
+          <div>
+            <code>FilterLightReceiver</code>
+            <p>
+              Filters incoming color channels to support wavelength-based
+              puzzle constraints.
+            </p>
+          </div>
+
+          <div>
+            <code>SpecificLightReceiver</code>
+            <p>
+              Activates only when incoming light matches the required target
+              color.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- DESIGN PHILOSOPHY -->
+      <section class="content-section">
+        <div class="section-heading">
+          <p class="section-number">07</p>
+          <h2>Design Philosophy</h2>
+        </div>
+
+        <div class="prose">
+          <p class="intro">
+            Across both the tidal and light systems, my goal was to balance
+            mechanic depth with mechanic variety.
+          </p>
+
+          <p>
+            A useful core mechanic should be simple enough for the player to
+            understand, but flexible enough to support many different
+            situations.
+          </p>
+
+          <p>
+            The light system follows this principle by introducing complexity
+            through combinations of familiar rules rather than continually
+            replacing them with unrelated mechanics.
+          </p>
+
+          <p>
+            The tidal system approaches the same idea differently: instead of
+            increasing the number of objects, it changes the state of the
+            environment itself and asks the player to reason about time.
+          </p>
+        </div>
+      </section>
+
+      <!-- TAKEAWAYS -->
+      <section class="content-section final-section">
+        <div class="section-heading">
+          <p class="section-number">08</p>
+          <h2>What I Learned</h2>
+        </div>
+
+        <div class="prose">
+          <p>
+            <em>Odysseia</em> changed how I think about puzzle mechanics.
+            Systems become more useful when a small set of understandable rules
+            can produce a wide range of interactions.
+          </p>
+
+          <p>
+            The project also pushed me to think about game systems at multiple
+            scales—from individual C# components, to puzzle rooms, to the
+            navigation and structure of an entire level.
+          </p>
+
+          <p>
+            Working as part of a larger development team also required me to
+            communicate system behavior clearly and collaborate across
+            disciplines so that gameplay logic, level design, and visual
+            presentation supported the same player experience.
+          </p>
+        </div>
+      </section>
+
+    </main>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  main {
+    width: min(1180px, calc(100% - 2rem));
+    margin: 0 auto;
+  }
+
+  /* ---------- HERO ---------- */
+
+  .hero {
+    max-width: 960px;
+    padding: 7rem 0 6rem;
+  }
+
+  .project-logo {
+    width: min(680px, 100%);
+    height: auto;
+    display: block;
+    margin-bottom: 3rem;
+  }
+
+  .eyebrow,
+  .section-number,
+  .card-label {
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.55;
+  }
+
+  h1 {
+    font-size: clamp(3.5rem, 8vw, 6.8rem);
+    line-height: 0.95;
+    margin: 0 0 1.5rem;
+    letter-spacing: -0.04em;
+  }
+
+  .lead {
+    max-width: 800px;
+    font-size: clamp(1.2rem, 2.2vw, 1.55rem);
+    line-height: 1.6;
+    opacity: 0.82;
+  }
+
+  .metadata {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(128, 128, 128, 0.3);
+  }
+
+  .metadata div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .metadata span {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    opacity: 0.5;
+  }
+
+  .metadata strong {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  /* ---------- SECTIONS ---------- */
+
+  .content-section {
+    padding: 6.5rem 0;
+    border-top: 1px solid rgba(128, 128, 128, 0.25);
+  }
+
+  .section-heading {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    align-items: baseline;
+    margin-bottom: 3rem;
+  }
+
+  .section-heading h2 {
+    margin: 0;
+    font-size: clamp(2.1rem, 4vw, 3.6rem);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+  }
+
+  /* ---------- TEXT ---------- */
+
+  .prose {
+    max-width: 760px;
+    margin-left: 72px;
+  }
+
+  .prose p {
+    font-size: 1.08rem;
+    line-height: 1.8;
+  }
+
+  .prose .intro {
+    font-size: 1.34rem;
+    line-height: 1.65;
+  }
+
+  .prose h3 {
+    margin-top: 0;
+    font-size: 1.5rem;
+  }
+
+  .after-media {
+    margin-top: 3.5rem;
+  }
+
+  /* ---------- CONTRIBUTIONS ---------- */
+
+  .contributions {
+    max-width: 900px;
+    margin: 4rem 0 0 72px;
+    padding: 2.3rem;
+    background: rgba(128, 128, 128, 0.075);
+    border-radius: 14px;
+  }
+
+  .contributions h3 {
+    margin: 0 0 1.4rem;
+    font-size: 1.35rem;
+  }
+
+  .contributions ul {
+    margin: 0;
+    padding-left: 1.2rem;
+  }
+
+  .contributions li {
+    margin: 0.85rem 0;
+    line-height: 1.65;
+  }
+
+  /* ---------- MEDIA ---------- */
+
+  figure {
+    margin: 0;
+  }
+
+  figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+  }
+
+  figcaption {
+    max-width: 850px;
+    margin-top: 0.8rem;
+    font-size: 0.87rem;
+    line-height: 1.5;
+    opacity: 0.58;
+  }
+
+  .wide-image {
+    margin-top: 3.5rem;
+  }
+
+  .two-image-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.3rem;
+    margin-top: 3.5rem;
+  }
+
+  .two-image-grid img {
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .media-text {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.9fr);
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .media-text .prose {
+    margin: 0;
+  }
+
+  .concept-image img {
+    background: white;
+  }
+
+  .architecture-diagram img {
+    background: white;
+  }
+
+  /* ---------- MECHANIC FLOW ---------- */
+
+  .mechanic-flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.9rem;
+    margin: 3rem 0 0 72px;
+  }
+
+  .mechanic-flow span {
+    padding: 0.7rem 1.05rem;
+    border: 1px solid rgba(128, 128, 128, 0.32);
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 650;
+  }
+
+  .mechanic-flow b {
+    opacity: 0.4;
+  }
+
+  /* ---------- TECH ---------- */
+
+  .technical-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem;
+    margin: 4rem 0 0 72px;
+  }
+
+  .technical-grid article {
+    padding: 2.2rem;
+    border: 1px solid rgba(128, 128, 128, 0.25);
+    border-radius: 14px;
+  }
+
+  .technical-grid h3 {
+    margin: 0.7rem 0 1rem;
+    font-size: 1.4rem;
+  }
+
+  .technical-grid p {
+    line-height: 1.7;
+  }
+
+  .code-concepts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1.2rem 0 0 72px;
+  }
+
+  .code-concepts > div {
+    padding: 1.5rem;
+    background: rgba(128, 128, 128, 0.075);
+    border-radius: 12px;
+  }
+
+  .code-concepts code {
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  .code-concepts p {
+    margin: 0.75rem 0 0;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    opacity: 0.68;
+  }
+
+  /* ---------- END ---------- */
+
+  .final-section {
+    padding-bottom: 10rem;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+
+  @media (max-width: 850px) {
+    .hero {
+      padding: 4.5rem 0;
+    }
+
+    .metadata {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .section-heading {
+      grid-template-columns: 1fr;
+      gap: 0.55rem;
+    }
+
+    .prose,
+    .contributions,
+    .mechanic-flow,
+    .technical-grid,
+    .code-concepts {
+      margin-left: 0;
+    }
+
+    .two-image-grid,
+    .media-text,
+    .technical-grid,
+    .code-concepts {
+      grid-template-columns: 1fr;
+    }
+
+    .media-text {
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 520px) {
+    main {
+      width: min(100% - 1.2rem, 1180px);
+    }
+
+    .metadata {
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+    }
+
+    .content-section {
+      padding: 4.5rem 0;
+    }
+
+    .contributions,
+    .technical-grid article,
+    .code-concepts > div {
+      padding: 1.4rem;
+    }
+  }
+</style>
