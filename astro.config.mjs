@@ -6,8 +6,8 @@ import { defineConfig, fontProviders } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://Jie-Tiao.github.io',
-	base: '/my-website',
+	site: 'https://chaobian.dev',
+	// base: '/my-website',
 	integrations: [mdx(), sitemap()],
 	fonts: [
 		{
