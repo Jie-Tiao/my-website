@@ -1,49 +1,494 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import Footer from '../components/Footer.astro';
+
+const title = 'Chao Bian';
+const description =
+  'Portfolio focused on computer graphics, rendering, and game development.';
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your{' '}
-				<code>astro.config.mjs</code> file. You can customize your setup with{' '}
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to{' '}
-				<a href="https://docs.astro.build/">read the docs</a>{' '}
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out{' '}
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>{' '}
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+
+  <body>
+    <Header />
+
+    <main>
+      <!-- HERO -->
+      <section class="hero">
+        <p class="eyebrow">COMPUTER GRAPHICS · GAME DEVELOPMENT</p>
+
+        <h1>Chao Bian</h1>
+
+        <p class="hero-text">
+          I build interactive systems, rendering projects, and games.
+          My interests lie at the intersection of
+          <strong>computer graphics</strong>,
+          <strong>game development</strong>, and
+          <strong>real-time interactive experiences</strong>.
+        </p>
+
+        <div class="hero-links">
+          <a href="#projects">View Projects</a>
+          <a href="/about">About</a>
+          <a href="/resume.pdf">Resume</a>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects" class="projects-section">
+        <div class="section-heading">
+          <p class="section-number">01</p>
+          <h2>Selected Projects</h2>
+        </div>
+
+        <div class="project-list">
+          <!-- ODYSSEIA -->
+          <a class="project-card featured" href="/projects/odysseia">
+            <div class="project-image">
+              <img
+                src="/projects/odysseia/tide-high.png"
+                alt="Odysseia gameplay"
+              />
+            </div>
+
+            <div class="project-content">
+              <div class="project-meta">
+                <span>GAME DEVELOPMENT</span>
+                <span>2024 - 2025</span>
+              </div>
+
+              <h3>Odysseia</h3>
+
+              <p>
+                A myth-inspired 3D adventure game developed by Gaucho Game Lab.
+                As Puzzle Lead, I designed and implemented tidal mechanics,
+                a progressive light puzzle system, and mechanic-driven levels
+                in Unity.
+              </p>
+
+              <span class="project-link">View Project →</span>
+            </div>
+          </a>
+
+          <!-- PATH TRACER -->
+          <a class="project-card" href="/projects/path-tracer">
+            <div class="project-image placeholder">
+              <span>Path Tracer Render</span>
+            </div>
+
+            <div class="project-content">
+              <div class="project-meta">
+                <span>COMPUTER GRAPHICS</span>
+                <span>C++</span>
+              </div>
+
+              <h3>CPU Path Tracer</h3>
+
+              <p>
+                A physically based CPU renderer built in C++, exploring Monte
+                Carlo integration, importance sampling, acceleration structures,
+                and multithreaded rendering.
+              </p>
+
+              <span class="project-link">View Project →</span>
+            </div>
+          </a>
+
+          <!-- GAME JAM -->
+          <a class="project-card" href="/projects/game-jam">
+            <div class="project-image placeholder">
+              <span>Game Jam Project</span>
+            </div>
+
+            <div class="project-content">
+              <div class="project-meta">
+                <span>GAME JAM</span>
+                <span>UNITY</span>
+              </div>
+
+              <h3>Game Jam Project</h3>
+
+              <p>
+                A short-form game project focused on rapid prototyping,
+                gameplay implementation, and delivering a complete playable
+                experience under tight time constraints.
+              </p>
+
+              <span class="project-link">View Project →</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section class="about-section">
+        <div class="section-heading">
+          <p class="section-number">02</p>
+          <h2>About</h2>
+        </div>
+
+        <div class="about-grid">
+          <p class="about-lead">
+            I am interested in how interactive 3D worlds are built —
+            from rendering and graphics systems to game mechanics and player
+            experience.
+          </p>
+
+          <div class="about-text">
+            <p>
+              My work spans computer graphics and game development, including
+              rendering projects, gameplay systems, puzzle design, and
+              mechanic-driven level design.
+            </p>
+
+            <p>
+              I am currently preparing for graduate study in
+              computer graphics and game development.
+            </p>
+
+            <a href="/about">More about me →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOT CTA -->
+      <section class="contact-section">
+        <p class="eyebrow">GET IN TOUCH</p>
+
+        <h2>
+          Interested in graphics,<br />
+          games, and interactive systems.
+        </h2>
+
+        <div class="contact-links">
+          <a href="mailto:YOUR_EMAIL_HERE">Email</a>
+          <a href="YOUR_GITHUB_URL">GitHub</a>
+          <a href="/resume.pdf">Resume</a>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+  </body>
 </html>
+
+<style>
+  main {
+    width: min(1280px, calc(100% - 2.5rem));
+    margin: 0 auto;
+  }
+
+  .eyebrow,
+  .section-number,
+  .project-meta {
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow,
+  .section-number {
+    opacity: 0.55;
+  }
+
+  /* HERO */
+
+  .hero {
+    min-height: 78vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 7rem 0;
+  }
+
+  .hero h1 {
+    margin: 0.4rem 0 1.4rem;
+
+    font-size: clamp(4.5rem, 11vw, 9rem);
+    line-height: 0.88;
+    letter-spacing: -0.055em;
+  }
+
+  .hero-text {
+    max-width: 800px;
+
+    margin: 0;
+
+    font-size: clamp(1.3rem, 2.4vw, 1.75rem);
+    line-height: 1.55;
+
+    opacity: 0.82;
+  }
+
+  .hero-links {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 1.5rem;
+
+    margin-top: 2.7rem;
+  }
+
+  .hero-links a,
+  .contact-links a,
+  .about-text a {
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  /* SECTION */
+
+  .projects-section,
+  .about-section {
+    padding: 7rem 0;
+
+    border-top: 1px solid rgba(128, 128, 128, 0.22);
+  }
+
+  .section-heading {
+    display: grid;
+    grid-template-columns: 74px 1fr;
+
+    align-items: baseline;
+
+    margin-bottom: 3rem;
+  }
+
+  .section-heading h2 {
+    margin: 0;
+
+    font-size: clamp(2.5rem, 5vw, 4.2rem);
+    line-height: 1;
+    letter-spacing: -0.035em;
+  }
+
+  /* PROJECTS */
+
+  .project-list {
+    display: grid;
+    gap: 5rem;
+  }
+
+  .project-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(300px, 0.85fr);
+
+    gap: 3rem;
+
+    align-items: center;
+
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .project-card:nth-child(even) .project-image {
+    order: 2;
+  }
+
+  .project-card:nth-child(even) .project-content {
+    order: 1;
+  }
+
+  .project-image {
+    overflow: hidden;
+
+    border-radius: 14px;
+
+    background: rgba(128, 128, 128, 0.08);
+  }
+
+  .project-image img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+
+    display: block;
+
+    transition: transform 220ms ease;
+  }
+
+  .project-card:hover .project-image img {
+    transform: scale(1.015);
+  }
+
+  .placeholder {
+    aspect-ratio: 16 / 9;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(128, 128, 128, 0.16);
+  }
+
+  .placeholder span {
+    opacity: 0.4;
+  }
+
+  .project-meta {
+    display: flex;
+    gap: 1rem;
+
+    margin-bottom: 1rem;
+
+    opacity: 0.48;
+  }
+
+  .project-content h3 {
+    margin: 0 0 1.2rem;
+
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    letter-spacing: -0.03em;
+  }
+
+  .project-content p {
+    max-width: 500px;
+
+    font-size: 1.05rem;
+    line-height: 1.7;
+
+    opacity: 0.75;
+  }
+
+  .project-link {
+    display: inline-block;
+
+    margin-top: 1rem;
+
+    font-weight: 700;
+  }
+
+  /* ABOUT */
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+
+    gap: 5rem;
+
+    margin-left: 74px;
+  }
+
+  .about-lead {
+    margin: 0;
+
+    max-width: 700px;
+
+    font-size: clamp(1.6rem, 3vw, 2.5rem);
+    line-height: 1.45;
+
+    letter-spacing: -0.02em;
+  }
+
+  .about-text {
+    max-width: 480px;
+  }
+
+  .about-text p {
+    font-size: 1.02rem;
+    line-height: 1.75;
+
+    opacity: 0.76;
+  }
+
+  .about-text a {
+    display: inline-block;
+    margin-top: 1rem;
+  }
+
+  /* CONTACT */
+
+  .contact-section {
+    padding: 9rem 0;
+
+    border-top: 1px solid rgba(128, 128, 128, 0.22);
+  }
+
+  .contact-section h2 {
+    max-width: 900px;
+
+    margin: 0.6rem 0 2.5rem;
+
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    line-height: 1;
+    letter-spacing: -0.045em;
+  }
+
+  .contact-links {
+    display: flex;
+    gap: 1.8rem;
+  }
+
+  /* RESPONSIVE */
+
+  @media (max-width: 900px) {
+    .hero {
+      min-height: auto;
+    }
+
+    .section-heading {
+      grid-template-columns: 1fr;
+
+      gap: 0.5rem;
+    }
+
+    .project-card {
+      grid-template-columns: 1fr;
+
+      gap: 1.8rem;
+    }
+
+    .project-card:nth-child(even) .project-image,
+    .project-card:nth-child(even) .project-content {
+      order: initial;
+    }
+
+    .about-grid {
+      grid-template-columns: 1fr;
+
+      gap: 2rem;
+
+      margin-left: 0;
+    }
+  }
+
+  @media (max-width: 600px) {
+    main {
+      width: min(100% - 1.4rem, 1280px);
+    }
+
+    .hero {
+      padding: 5rem 0;
+    }
+
+    .projects-section,
+    .about-section {
+      padding: 5rem 0;
+    }
+
+    .project-list {
+      gap: 4rem;
+    }
+
+    .project-content h3 {
+      font-size: 2.3rem;
+    }
+
+    .contact-section {
+      padding: 6rem 0;
+    }
+
+    .contact-links,
+    .hero-links {
+      gap: 1rem;
+    }
+  }
+</style>
