@@ -99,6 +99,27 @@ const description =
             </div>
           </a>
 
+          <!-- CS162 -->
+          <a class="project-card" href="/projects/cs162">
+            <div class="project-image language-preview" aria-hidden="true">
+              <span class="lambda-symbol">λ⁺</span>
+              <span class="type-signature">α → α</span>
+            </div>
+            <div class="project-content">
+              <div class="project-meta">
+                <span>PROGRAMMING LANGUAGES</span>
+                <span>OCaml · CS162</span>
+              </div>
+              <h3>λ⁺ Interpreter &amp; Type Inference</h3>
+              <p>
+                Core algorithms for a small functional language: substitution-based
+                evaluation, static type checking, and constraint-based type inference
+                with unification. Developed within the UCSB CS162 course framework.
+              </p>
+              <span class="project-link">View Project →</span>
+            </div>
+          </a>
+
           <!-- GAME JAM -->
           <a class="project-card" href="/projects/game-jam">
             <div class="project-image placeholder">
@@ -178,6 +199,19 @@ const description =
 </html>
 
 <style>
+  .language-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: #e9eddf;
+    color: #25382a;
+    min-height: 260px;
+  }
+  .lambda-symbol { font-size: clamp(5rem, 9vw, 8rem); line-height: 1; }
+  .type-signature { font-family: ui-monospace, monospace; font-size: 1.5rem; }
+
   main {
     width: min(1280px, calc(100% - 2.5rem));
     margin: 0 auto;

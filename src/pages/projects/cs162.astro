@@ -1,0 +1,81 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+const title = 'λ⁺ Interpreter & Type Inference';
+const contributions = [
+  ['01', 'Evaluation', 'Free-variable analysis, substitution, and call-by-value function application.'],
+  ['02', 'Language extensions', 'Arithmetic, conditionals, lists, pattern matching, and recursive definitions.'],
+  ['03', 'Static analysis', 'Environment-based type checking and constraint-based type inference.'],
+  ['04', 'Constraint solving', 'Type substitution and unification with an occurs check.'],
+];
+const steps = [
+  ['Introduce an unknown', 'Assign the parameter x a fresh type variable α.'],
+  ['Analyze the body', 'The body refers to x, so its type is also α.'],
+  ['Construct the function type', 'Combine the parameter and result types: α → α.'],
+];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={`${title} — Chao Bian`} description="An OCaml course project implementing a functional language interpreter, static type checker, and constraint-based type inference engine." />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <a class="back-link" href="/#projects">← All projects</a>
+      <header class="hero">
+        <p class="eyebrow">UCSB CS162 · Programming Languages · Course Project</p>
+        <h1>Small language.<br /><span>Deep foundations.</span></h1>
+        <p class="project-title">{title}</p>
+        <p class="intro">From evaluating expressions to reasoning about their types: implementing the core algorithms of a small functional language in OCaml.</p>
+        <ul class="tags" aria-label="Project topics">
+          {['OCaml', 'Operational semantics', 'Type systems', 'Unification'].map(tag => <li>{tag}</li>)}
+        </ul>
+        <nav aria-label="Page sections">
+          <a href="#contribution">My contribution <span aria-hidden="true">↗</span></a>
+          <a href="#inference">Explore type inference <span aria-hidden="true">↓</span></a>
+        </nav>
+      </header>
+
+      <section class="overview" aria-labelledby="overview-title">
+        <div><p class="eyebrow">The project</p><h2 id="overview-title">Turning language rules<br />into working algorithms.</h2></div>
+        <div><p>Across a sequence of assignments, I implemented the core evaluation and type-analysis algorithms for λ⁺. The work progressed from substitution-based evaluation to checking annotated programs and inferring types through constraints.</p></div>
+      </section>
+
+      <section id="contribution" aria-labelledby="contribution-title">
+        <p class="eyebrow">Implementation scope</p><h2 id="contribution-title">My contribution</h2>
+        <p class="section-intro">The course supplied the AST, parser, supporting utilities, and interactive interface. Within that framework, I implemented the following core algorithms.</p>
+        <div class="cards">{contributions.map(([number, heading, description]) => <article class="card"><span class="number">{number}</span><h3>{heading}</h3><p>{description}</p></article>)}</div>
+        <p class="aside">Additional work: simultaneous substitution, alpha-equivalence checking, lazy internal choices, and type cardinality calculations.</p>
+      </section>
+
+      <section class="interpreter" aria-labelledby="interpreter-title">
+        <p class="eyebrow">01 / Runtime</p><h2 id="interpreter-title">Building the interpreter</h2>
+        <p>The interpreter recursively evaluates the abstract syntax tree. For function application, it evaluates the function and argument, substitutes the resulting argument value into the function body, and evaluates that body.</p>
+        <div class="flow" aria-label="Function application evaluation sequence"><span>Evaluate function</span><b aria-hidden="true">→</b><span>Evaluate argument</span><b aria-hidden="true">→</b><span>Substitute value</span><b aria-hidden="true">→</b><span>Evaluate body</span></div>
+        <div class="columns"><div><h3>Respecting variable scope</h3><p>Free-variable analysis distinguishes references from names introduced by functions, let expressions, and pattern matching. Substitution stops beneath a binding that shadows the variable being replaced.</p></div><div><h3>Extending the language</h3><p>Lists, conditional execution, and recursion through a fixed-point operator enable recursive computations within the same evaluation model.</p></div></div>
+        
+      </section>
+
+      <section id="inference" aria-labelledby="inference-title">
+        <p class="eyebrow">02 / Static analysis</p><h2 id="inference-title">From type checking<br />to type inference.</h2>
+        <p class="section-intro">The type checker translates typing rules into recursive checks. The inference engine introduces fresh type variables for missing annotations, generates equality constraints, and solves them through unification.</p>
+        <div class="example"><div class="expression"><p class="eyebrow">A minimal example</p><pre><code>lambda x. x</code></pre><div class="result"><span>Inferred type</span><strong>α → α</strong></div></div><ol>{steps.map(([heading, description]) => <li><h3>{heading}</h3><p>{description}</p></li>)}</ol></div>
+        <div class="columns"><div><h3>Connecting types through constraints</h3><p>For function application, the function’s type is constrained to an arrow from the argument type to a fresh result type. Unification propagates these relationships across the expression.</p></div><div><h3>Rejecting infinite types</h3><p>The occurs check rejects equations such as <code>α = α → β</code>, which would require an infinite type.</p></div></div>
+      </section>
+
+      <section class="reflection" aria-labelledby="reflection-title"><p class="eyebrow">Reflection</p><h2 id="reflection-title">Formal ideas, executable systems.</h2><p>Evaluation rules became recursive interpreter cases; typing judgments became environment-based checks; and unknown types became constraints that could be solved systematically.</p><p>The project strengthened my understanding of variable scope, recursive data structures, and the distinction between runtime evaluation and static analysis—foundations relevant to scripting systems and language tools in graphics and game development.</p></section>
+      <footer><span>λ⁺ · OCaml · UCSB CS162</span><a href="#">Back to top ↑</a></footer>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  :global(*){box-sizing:border-box} :global(html){scroll-behavior:smooth;scroll-padding-top:32px} :global(body){background:#fff;line-height:1.7} main a{color:inherit;text-underline-offset:5px} :global(a:focus-visible){outline:3px solid #527b41;outline-offset:6px} :global(code){font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+  main{width:min(1120px,calc(100% - 2.5rem));max-width:100%;margin:auto;padding:32px 40px 0;font-size:18px}.back-link{font-size:14px;text-decoration:none}.expression pre{padding:0;background:transparent}.expression code{background:transparent;color:inherit;padding:0} .hero{padding:100px 0 70px;border-bottom:1px solid #d4d9ce}.eyebrow{text-transform:uppercase;font-size:11px;font-weight:700;letter-spacing:.16em;color:#58684f;margin:0 0 20px}h1{font-size:clamp(48px,7.6vw,88px);line-height:1.06;letter-spacing:-.065em;font-weight:600;margin:0 0 30px}h1 span{color:#65834c}.project-title{font-size:24px;letter-spacing:-.025em;margin:0 0 12px}.intro{max-width:630px;font-size:18px;color:#556052}.tags{display:flex;flex-wrap:wrap;gap:9px;list-style:none;padding:0;margin:27px 0 32px}.tags li{border:1px solid #cbd3c3;border-radius:30px;padding:5px 13px;font-size:12px}nav{display:flex;flex-wrap:wrap;gap:25px;font-size:13px;font-weight:600}nav a{text-decoration:none}nav span{margin-left:8px}section{padding:65px 0;border-bottom:1px solid #d4d9ce}h2{font-size:clamp(28px,3.6vw,40px);line-height:1.2;letter-spacing:-.045em;font-weight:600;margin:0 0 24px}h3{font-size:17px;line-height:1.4;font-weight:600;margin:0 0 12px}p{margin:0 0 18px}section p{color:#52604f}.section-intro{max-width:740px}.overview{display:grid;grid-template-columns:1fr 1fr;gap:48px}.overview .validation{font-size:13px;color:#35572c;padding-left:15px;border-left:3px solid #86a365}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:32px 0 22px}.card{border:1px solid #d4d9ce;border-radius:12px;padding:24px 20px;background:#faf9f5}.number{display:block;color:#6b8458;font-size:12px;margin-bottom:30px}.card p{font-size:14px;margin:0}.aside{font-size:12px;color:#64715e;margin-top:24px;max-width:850px}.columns{display:grid;grid-template-columns:1fr 1fr;gap:45px;margin-top:32px}.columns p{font-size:15px;margin:0}.flow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:26px 22px;background:#e9eddf;border-radius:12px;margin:30px 0;font-size:13px}.flow b{color:#7c9364;font-weight:400}.example{display:grid;grid-template-columns:1fr 1.1fr;border:1px solid #cbd3c3;border-radius:14px;overflow:hidden;margin:35px 0}.expression{padding:35px;background:#25382a;color:#f0f3e8}.expression .eyebrow{color:#b7cca2}pre{font-size:clamp(18px,2.5vw,26px);white-space:pre-wrap;overflow-wrap:anywhere;margin:35px 0 45px}.result{border-top:1px solid #52654f;padding-top:20px;display:flex;justify-content:space-between;align-items:center}.result span{font-size:12px;color:#c0cdb7}.result strong{font-size:28px;font-weight:500}.example ol{margin:0;padding:30px 30px 20px 55px}.example li{padding-left:7px;margin-bottom:22px}.example li::marker{color:#63824a;font-size:13px}.example h3{font-size:15px;margin-bottom:6px}.example li p{font-size:14px;margin:0}.reflection{max-width:800px;border:0;padding-bottom:55px}.reflection p{font-size:16px}footer{display:flex;justify-content:space-between;gap:20px;padding:24px 0 40px;border-top:1px solid #d4d9ce;font-size:12px;color:#64715e}
+  @media(max-width:800px){main{padding:0 24px}.hero{padding-top:65px}.cards{grid-template-columns:repeat(2,1fr)}.overview,.example{grid-template-columns:1fr}.overview{gap:15px}.flow{flex-wrap:wrap;justify-content:flex-start}.columns{gap:25px}section{padding:45px 0}}
+  @media(max-width:480px){main{padding:0 20px}.cards,.columns{grid-template-columns:1fr}.number{margin-bottom:15px}.project-title{font-size:21px}.flow{flex-direction:column;align-items:flex-start}.flow b{transform:rotate(90deg);margin-left:45px}.expression{padding:25px}footer{flex-direction:column;gap:8px}}
+  @media(prefers-reduced-motion:reduce){:global(html){scroll-behavior:auto}}
+</style>
