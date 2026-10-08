@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <title>Lambda plus interpreter and type inference</title>
+  <desc>A lambda symbol alongside a syntax tree for the identity function, followed by its inferred type, alpha to alpha.</desc>
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#b7cca2" stroke-opacity=".07"/></pattern>
+  </defs>
+  <rect width="1200" height="675" fill="#25382a"/>
+  <rect width="1200" height="675" fill="url(#grid)"/>
+  <circle cx="190" cy="330" r="190" fill="#b7cca2" fill-opacity=".035"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="65" y="67" fill="#b7cca2" font-size="18" letter-spacing="4">LANGUAGE / LOGIC / TYPES</text>
+    <text x="65" y="378" fill="#f5f3ed" font-family="Georgia, serif" font-size="250">λ<tspan font-size="92" baseline-shift="super">+</tspan></text>
+    <text x="80" y="442" fill="#b7cca2" font-size="19" letter-spacing="3">INTERPRETER</text>
+    <path d="M435 160V490" stroke="#b7cca2" stroke-opacity=".25"/>
+    <text x="505" y="135" fill="#b7cca2" font-size="16" letter-spacing="3">01 / SYNTAX</text>
+    <g stroke="#a5bc91" stroke-width="2" fill="none">
+      <path d="M800 223L670 298M800 223L930 298"/>
+      <path d="M800 365V403M792 395L800 403L808 395"/>
+    </g>
+    <g fill="#304735" stroke="#6d8960" stroke-width="1.5">
+      <rect x="727" y="170" width="146" height="64" rx="12"/>
+      <rect x="605" y="286" width="130" height="64" rx="12"/>
+      <rect x="865" y="286" width="130" height="64" rx="12"/>
+    </g>
+    <g fill="#f5f3ed" font-family="monospace" font-size="26" text-anchor="middle">
+      <text x="800" y="212">lambda</text>
+      <text x="670" y="328">x : α</text>
+      <text x="930" y="328">x : α</text>
+    </g>
+    <text x="505" y="445" fill="#b7cca2" font-size="16" letter-spacing="3">02 / INFERRED TYPE</text>
+    <text x="800" y="514" fill="#f5f3ed" font-family="Georgia, serif" font-size="66" text-anchor="middle">α → α</text>
+    <path d="M65 565H1135" stroke="#b7cca2" stroke-opacity=".25"/>
+    <text x="65" y="617" fill="#f5f3ed" font-size="23">From expressions to understanding.</text>
+    <text x="1135" y="617" fill="#b7cca2" font-size="17" text-anchor="end" letter-spacing="2">OCAML · CS162</text>
+  </g>
+</svg>

@@ -101,9 +101,14 @@ const description =
 
           <!-- CS162 -->
           <a class="project-card" href="/projects/cs162">
-            <div class="project-image language-preview" aria-hidden="true">
-              <span class="lambda-symbol">λ⁺</span>
-              <span class="type-signature">α → α</span>
+            <div class="project-image">
+              <img
+                src="/projects/cs162/cover.svg"
+                alt="λ⁺ interpreter: syntax tree of the identity function and its inferred type α → α"
+                width="1200"
+                height="675"
+                loading="lazy"
+              />
             </div>
             <div class="project-content">
               <div class="project-meta">
@@ -199,19 +204,6 @@ const description =
 </html>
 
 <style>
-  .language-preview {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    background: #e9eddf;
-    color: #25382a;
-    min-height: 260px;
-  }
-  .lambda-symbol { font-size: clamp(5rem, 9vw, 8rem); line-height: 1; }
-  .type-signature { font-family: ui-monospace, monospace; font-size: 1.5rem; }
-
   main {
     width: min(1280px, calc(100% - 2.5rem));
     margin: 0 auto;
