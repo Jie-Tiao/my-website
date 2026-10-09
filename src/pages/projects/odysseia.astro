@@ -51,12 +51,12 @@ const description =
 
           <div>
             <span>TEAM</span>
-            <strong> 15–20 Developers</strong>
+            <strong> 15-20 Developers</strong>
           </div>
 
           <div>
             <span>DURATION</span>
-            <strong> Sep 2024 – Mar 2025</strong>
+            <strong> Sep 2024 - Mar 2025</strong>
           </div>
 
           <div>
@@ -116,8 +116,10 @@ const description =
             </li>
 
             <li>
-              Designed mechanic-driven levels and conceptualized the
-              <strong> Minotaur's Labyrinth</strong>.
+              Designed <strong> two tidal levels</strong> and multiple
+              <strong> light puzzle levels</strong>, including the structure
+              and traversal flow of the <strong> Minotaur's Labyrinth</strong>,
+              which was integrated into the game.
             </li>
 
             <li>
@@ -144,7 +146,7 @@ const description =
           </p>
 
           <p>
-            Water levels rise and fall with the game's day–night cycle,
+            Water levels rise and fall with the game's day-night cycle,
             dynamically changing which routes are available to the player.
           </p>
         </div>
@@ -182,10 +184,33 @@ const description =
           </p>
 
           <p>
+            For example, low tide allows a ship and its mast to pass through a
+            low-clearance channel, while high tide lets the ship travel over
+            submerged rocks and reefs. Different obstacles therefore require
+            different tidal states, making water level a condition the player
+            must reason about when planning a route.
+          </p>
+
+          <p>
             The design shifts the player's reasoning from simply asking
-            <strong> “Where should I go?”</strong>
+            <strong> “Where should I go?” </strong>
             to also asking
-            <strong> “When should I act?”</strong>
+            <strong> “When should I act?” </strong>
+          </p>
+
+          <h3>Iteration: Making Tidal State Readable</h3>
+
+          <p>
+            The initial tidal levels had no water-level indicator. Players had
+            to judge by feel whether the water had reached its highest point,
+            making it difficult to tell whether they should act or keep waiting.
+          </p>
+
+          <p>
+            We later added a tidal indicator to make the water-level state
+            explicit. This gave players a clearer reference for timing their
+            actions and supported the mechanic's emphasis on planning around
+            changing environmental conditions.
           </p>
         </div>
       </section>
@@ -210,7 +235,7 @@ const description =
             </video>
 
             <figcaption>
-              The player accelerates the day–night cycle to manipulate tidal
+              The player accelerates the day-night cycle to manipulate tidal
               states directly.
             </figcaption>
           </figure>
@@ -224,7 +249,7 @@ const description =
             <p>
               To solve this, I implemented a
               <strong> Time Acceleration System</strong> that allows players to
-              deliberately advance the day–night cycle.
+              deliberately advance the day-night cycle.
             </p>
 
             <p>
@@ -298,7 +323,7 @@ const description =
           />
 
           <figcaption>
-            Relay nodes expand the basic emitter–receiver interaction into a
+            Relay nodes expand the basic emitter-receiver interaction into a
             path-building puzzle.
           </figcaption>
         </figure>
@@ -368,6 +393,12 @@ const description =
             individual room.
           </p>
 
+          <!-- <p>
+            The labyrinth was integrated into the game. Several of the light
+            system screenshots above show puzzles within this level, connecting
+            the early layout concept below to its in-game implementation.
+          </p> -->
+
           <p>
             Maze design creates a tension between exploration and guidance.
             A short solution path may cause players to skip much of the space,
@@ -406,6 +437,13 @@ const description =
             in one region can become necessary for solving a puzzle in another,
             encouraging players to understand the labyrinth as one connected
             system rather than several isolated rooms.
+          </p>
+
+          <p>
+            For example, a green beam from the Green Zone can be routed into
+            the Red Zone and combined with red light to produce yellow. That
+            combined beam can unlock a pathway that neither color could open
+            alone, making progress in one region depend on another.
           </p>
 
           <p>
@@ -626,6 +664,13 @@ const description =
             combinations and extensions, while the tidal system explored how
             changing environmental state can create another dimension of
             reasoning.
+          </p>
+
+          <p>
+            Adding an indicator to the tidal levels reinforced the importance
+            of communicating system state. Players need a clear basis for
+            deciding when to act, alongside mechanics that give them control
+            over the environment.
           </p>
 
           <p>
