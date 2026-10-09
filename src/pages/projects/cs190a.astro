@@ -1,0 +1,83 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+const experiments = [
+  ['01', 'Discrete rewards', 'Checkpoint rewards and a time penalty encouraged straight-line progress, but the car failed at the first turn.'],
+  ['02', 'Curve bonuses', 'Increasing rewards around turns improved cornering, but the agent still could not complete the track.'],
+  ['03', 'Continuous progress', 'A dense progress reward and distance-to-boundary observation improved completion, with slow learning and no full finish.'],
+  ['04', 'Cumulative rewards', 'The most successful configuration in our experiments: with continuous controls, the agent learned to complete the full track.'],
+  ['05', 'Vision only', 'A CNN received 64 × 64 overhead images. This configuration did not learn to finish the track.'],
+];
+---
+<!doctype html>
+<html lang="en">
+  <head><BaseHead title="PPO Autonomous Racing — Chao Bian" description="A Unity racing environment for a UCSB CS190A reinforcement learning project, exploring PPO, progress rewards, and continuous control." /></head>
+  <body>
+    <Header />
+    <main>
+      <a class="back-link" href="/#projects">← All projects</a>
+      <header class="hero">
+        <p class="eyebrow">UCSB CS190A · Reinforcement Learning · Team Project</p>
+        <h1>Learning to drive.<br /><span>One turn at a time.</span></h1>
+        <p class="project-title">PPO for Autonomous Car Racing</p>
+        <p class="lead">A custom Unity racing environment for studying how actions, observations, and rewards shape an agent’s ability to navigate a challenging track.</p>
+        <div class="metadata"><div><span>MY ROLE</span><strong>Unity environment &amp; rewards</strong></div><div><span>STACK</span><strong>Unity · Python · gRPC</strong></div><div><span>LEARNING</span><strong>PPO · Stable-Baselines3</strong></div><div><span>CONTEXT</span><strong>UCSB · Five-person team</strong></div></div>
+        <nav aria-label="Project links"><a href="#contribution">My contribution ↓</a><a href="#experiments">Experiments ↓</a><a href="https://github.com/TantaiYanhen/CS190A">Source code ↗</a><a href="/projects/cs190a/report.pdf">Read the report ↗</a></nav>
+      </header>
+      <figure class="cover"><img src="/projects/cs190a/track.webp" alt="Unity editor overview of the racing track, with long straights, tight corners, and looping curves" width="1246" height="860" /><figcaption>The Unity training environment I constructed. Straights and varied corners challenge both acceleration and steering.</figcaption></figure>
+      <section id="contribution">
+        <p class="eyebrow">01 / My contribution</p><h2>Building the world<br />the agent learns from.</h2>
+        <p class="intro">I constructed the Unity race track environment and implemented progress-based rewards and collision penalties. These systems connect the simulated driving task to the feedback used during training.</p>
+        <div class="cards"><article><h3>Race track environment</h3><p>Built the Unity track used throughout the experiments, combining straight segments and different turning geometries in one driving task.</p></article><article><h3>Progress-based rewards</h3><p>Implemented reward feedback based on advancement along the track, providing a denser learning signal than isolated reward checkpoints.</p></article><article><h3>Collision penalties</h3><p>Implemented negative feedback for hitting track boundaries, helping define the cost of unsafe driving within the training environment.</p></article></div>
+        <p class="note">Team scope: Gymnasium integration, the Python–Unity communication layer, PPO training and evaluation, continuous controls, visual observations, and physics timing were collaborative work or handled by teammates. Progress rewards and collision penalties were also shared implementation work.</p>
+      </section>
+      <section>
+        <p class="eyebrow">02 / Environment design</p><h2>Turning geometry<br />into a learning signal.</h2>
+        <div class="split"><div><p>The team used a spline along the left boundary as a reference for the car’s position. Projecting the car onto that spline provides normalized track progress and distance to the boundary.</p><p>The continuous progress reward scales the change in progress: <code>r = 100 × Δt</code>. Boundary collisions reset the car; episodes also end after two minutes.</p><p>Numerical observations include position, heading, track progress, and distance to the left boundary. The continuous action space uses two values for thrust and steering.</p></div><figure><img src="/projects/cs190a/spline.webp" alt="Unity track with a cyan reference spline following the left boundary" width="1139" height="847" loading="lazy" /><figcaption>The boundary spline used to derive progress and boundary-distance features.</figcaption></figure></div>
+        <div class="flow" aria-label="Training communication loop"><span>Unity simulation</span><b aria-hidden="true">↔</b><span>gRPC</span><b aria-hidden="true">↔</b><span>Python / Gymnasium</span><b aria-hidden="true">↔</b><span>PPO policy</span></div>
+        <p class="note">Unity acts as the client and Python as the server, exchanging observations and actions through gRPC.</p>
+      </section>
+      <section id="experiments">
+        <p class="eyebrow">03 / Team experiments</p><h2>From checkpoints<br />to full-track completion.</h2>
+        <p class="intro">We compared five configurations, varying reward design, action space, and observations. The outcomes below summarize the course report; the configurations change multiple factors, so they do not isolate the effect of reward design alone.</p>
+        <div class="experiments">{experiments.map(([number, title, description]) => <article class:list={{success: number === '04'}}><span class="number">{number}</span><div><h3>{title}</h3><p>{description}</p></div>{number === '04' && <span class="badge">Full track completed</span>}</article>)}</div>
+        <div class="split vision"><figure><img src="/projects/cs190a/vision.webp" alt="Simplified overhead visual observation with distinct colors for the car, road, and background" loading="lazy" /><figcaption>For the vision experiment, the scene used flat colors and an orientation marker above the car.</figcaption></figure><div><h3>A harder observation problem</h3><p>The vision-only experiment replaced numerical features with a 64 × 64 image centered on the car. Even with simplified scene colors, the CNN policy did not complete the track within the reported experiments.</p></div></div>
+      </section>
+      <section class="reflection"><p class="eyebrow">04 / Takeaway</p><h2>The environment is part<br />of the learning system.</h2><p class="intro">This project connected my experience building interactive 3D environments with reinforcement learning. Track geometry, progress measurements, and collision feedback all influence the behavior an agent can learn.</p><p>Our strongest reported configuration combined continuous controls with cumulative rewards and completed the track. The result offers a useful direction for further experiments with more controlled comparisons across reward schemes and observations.</p></section>
+      <footer class="page-footer"><span>Unity · Reinforcement Learning · UCSB CS190A</span><a href="#">Back to top ↑</a></footer>
+    </main>
+    <Footer />
+  </body>
+</html>
+<style>
+  :global(*) { box-sizing: border-box; }
+  main { width: min(1120px, 100%); max-width: 100%; padding: 32px 40px 0; margin: auto; }
+  a { text-underline-offset: 5px; } a:focus-visible { outline: 3px solid #287e92; outline-offset: 6px; }
+  .back-link { font-size: 14px; text-decoration: none; }
+  .hero { padding: 70px 0 48px; }
+  .eyebrow, .metadata span, .number { font-size: 11px; font-weight: 700; letter-spacing: .14em; color: #416d79; text-transform: uppercase; }
+  h1 { font-size: clamp(46px, 7.5vw, 88px); line-height: 1.06; letter-spacing: -.06em; margin: 0 0 28px; } h1 span { color: #416d79; }
+  h2 { font-size: clamp(30px, 4.5vw, 48px); line-height: 1.15; letter-spacing: -.04em; margin: 0 0 28px; }
+  h3 { font-size: 20px; margin: 0 0 12px; }
+  p { color: #52636b; font-size: 16px; line-height: 1.8; }
+  .project-title { font-size: 22px; color: #253f49; margin-bottom: 12px; }
+  .lead, .intro { max-width: 800px; font-size: 20px; line-height: 1.7; }
+  .metadata { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; padding: 24px 0; margin-top: 32px; border-block: 1px solid #d4e0e4; }
+  .metadata div { display: flex; flex-direction: column; gap: 8px; } .metadata strong { font-size: 14px; font-weight: 500; }
+  nav { display: flex; flex-wrap: wrap; gap: 20px 28px; margin-top: 28px; font-size: 14px; font-weight: 700; } nav a { text-decoration: none; }
+  figure { margin: 0; min-width: 0; } figure img { display: block; width: 100%; height: auto; border-radius: 12px; }
+  .cover { margin-bottom: 60px; } .cover img { max-height: 680px; object-fit: contain; background: #193b29; }
+  figcaption { font-size: 12px; color: #647881; line-height: 1.6; margin-top: 12px; }
+  section { padding: 64px 0; border-top: 1px solid #d4e0e4; scroll-margin-top: 24px; }
+  .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 32px 0; }
+  .cards article { padding: 26px; border: 1px solid #d4e0e4; border-radius: 12px; background: #f7fafb; } .cards p { margin-bottom: 0; font-size: 15px; }
+  .note { font-size: 13px; color: #647881; } .split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+  code { font-size: 14px; background: #e8f2f5; color: #254a58; }
+  .flow { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: center; padding: 28px; margin-top: 32px; background: #e8f2f5; border-radius: 12px; font-size: 15px; }
+  .experiments { margin: 32px 0 48px; } .experiments article { display: grid; grid-template-columns: 40px 1fr auto; gap: 20px; padding: 26px 20px; border-top: 1px solid #d4e0e4; } .experiments p { margin: 0; }
+  .success { background: #e8f2f5; border-radius: 12px; } .badge { font-size: 11px; font-weight: 700; color: #255e52; align-self: start; padding: 6px 12px; background: #d2e8e0; border-radius: 20px; }
+  .vision img { background: #193b29; } .page-footer { display: flex; justify-content: space-between; gap: 20px; padding: 24px 0 40px; border-top: 1px solid #d4e0e4; font-size: 12px; }
+  @media (max-width: 800px) { main { padding: 24px 24px 0; } .metadata { grid-template-columns: 1fr 1fr; } .cards, .split { grid-template-columns: 1fr; } .experiments article { grid-template-columns: 30px 1fr; } .badge { grid-column: 2; } section { padding: 44px 0; } .hero { padding: 48px 0 36px; } }
+  @media (max-width: 480px) { main { padding-inline: 20px; } .lead, .intro { font-size: 18px; } .page-footer { flex-direction: column; } .flow { gap: 10px; padding: 20px; } }
+</style>
