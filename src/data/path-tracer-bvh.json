@@ -1,0 +1,52 @@
+[
+  {
+    "scene": "spot",
+    "triangles": 5856,
+    "resolution": "320\u00d7320",
+    "median": {
+      "mesh_build_ms": 3.41779,
+      "render_s": 5.14443,
+      "scene_build_ms": 0.000709,
+      "render_range_s": [
+        5.11434,
+        5.1655
+      ]
+    },
+    "sah": {
+      "mesh_build_ms": 3.77929,
+      "render_s": 4.46617,
+      "scene_build_ms": 0.001125,
+      "render_range_s": [
+        4.41418,
+        4.70477
+      ]
+    },
+    "speedup": 1.1518661403394854,
+    "render_reduction_percent": 13.184356673139686
+  },
+  {
+    "scene": "dragon",
+    "triangles": 871306,
+    "resolution": "320\u00d7256",
+    "median": {
+      "mesh_build_ms": 1467.17,
+      "render_s": 8.22075,
+      "scene_build_ms": 0.001916,
+      "render_range_s": [
+        7.57439,
+        9.69577
+      ]
+    },
+    "sah": {
+      "mesh_build_ms": 1376.1,
+      "render_s": 6.43147,
+      "scene_build_ms": 0.002042,
+      "render_range_s": [
+        6.23671,
+        9.11335
+      ]
+    },
+    "speedup": 1.278207003997531,
+    "render_reduction_percent": 21.765410698537245
+  }
+]

@@ -1,0 +1,113 @@
+{
+  "manifest": {
+    "scene": "cornell",
+    "width": 240,
+    "height": 240,
+    "spp": 64,
+    "max_depth": 50,
+    "bvh": "sah",
+    "seed": 1,
+    "threads": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "scheduler": "row; plus tile32 at 4 threads",
+    "runs": 5,
+    "legacy_runs": 3,
+    "rng": "pixel-seeded xorshift64*; optional --deterministic (production default retains rand)",
+    "timing": "render wall time includes initialization, worker start/join, sampling, accumulation and PPM output; excludes scene/BVH build",
+    "ordering": "one warmup per configuration; rotate configurations each round; never run trials concurrently",
+    "platform": "macOS-14.5-arm64-arm-64bit",
+    "started_utc": "2026-10-15T08:42:41.675960+00:00",
+    "binary_sha256": "0cb9a6573e530c82e0eed9e1acc5ec042bd6093c7ec2c47a6981cc7d1e9b6fbb"
+  },
+  "summary": [
+    {
+      "rng": "pixel",
+      "scheduler": "row",
+      "threads": 1,
+      "runs": 5,
+      "median_s": 4.67028,
+      "min_s": 4.65546,
+      "max_s": 4.98669,
+      "mean_s": 4.73817,
+      "sd_s": 0.14053710773315364,
+      "speedup": 1.0
+    },
+    {
+      "rng": "pixel",
+      "scheduler": "row",
+      "threads": 2,
+      "runs": 5,
+      "median_s": 2.6485,
+      "min_s": 2.60453,
+      "max_s": 2.69036,
+      "mean_s": 2.646418,
+      "sd_s": 0.03646345800935514,
+      "speedup": 1.7633679441193129
+    },
+    {
+      "rng": "pixel",
+      "scheduler": "row",
+      "threads": 4,
+      "runs": 5,
+      "median_s": 1.60036,
+      "min_s": 1.57547,
+      "max_s": 1.68565,
+      "mean_s": 1.61977,
+      "sd_s": 0.043076986315200905,
+      "speedup": 2.9182683896123374
+    },
+    {
+      "rng": "pixel",
+      "scheduler": "row",
+      "threads": 8,
+      "runs": 5,
+      "median_s": 1.76727,
+      "min_s": 1.75241,
+      "max_s": 2.00789,
+      "mean_s": 1.8100720000000001,
+      "sd_s": 0.11084471714971361,
+      "speedup": 2.6426522263151644
+    },
+    {
+      "rng": "pixel",
+      "scheduler": "tile",
+      "threads": 4,
+      "runs": 5,
+      "median_s": 1.59568,
+      "min_s": 1.57824,
+      "max_s": 1.66712,
+      "mean_s": 1.60658,
+      "sd_s": 0.03668249378109396,
+      "speedup": 2.926827434071994
+    },
+    {
+      "rng": "legacy",
+      "scheduler": "row",
+      "threads": 1,
+      "runs": 3,
+      "median_s": 4.73424,
+      "min_s": 4.7127,
+      "max_s": 4.79496,
+      "mean_s": 4.7473,
+      "sd_s": 0.04265676499689106,
+      "speedup": 1.0
+    },
+    {
+      "rng": "legacy",
+      "scheduler": "row",
+      "threads": 4,
+      "runs": 3,
+      "median_s": 1.67301,
+      "min_s": 1.65008,
+      "max_s": 1.68116,
+      "mean_s": 1.6680833333333334,
+      "sd_s": 0.016115074723169417,
+      "speedup": 2.8297738806103965
+    }
+  ],
+  "pixel_sha256": "27f395bf2f914f887d55b6e052b41b71fcfab32e983f3c92bed99befac87ce66"
+}

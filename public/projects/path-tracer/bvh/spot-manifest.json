@@ -1,0 +1,15 @@
+{
+  "scene": "model",
+  "width": 320,
+  "requested_samples": 64,
+  "actual_spp": 64,
+  "runs": 5,
+  "warmup": 1,
+  "threads": 1,
+  "seed": 1,
+  "platform": "macOS-14.5-arm64-arm-64bit",
+  "binary_sha256": "58be4bbfb1dd5aa20a598aa1d3ada743148f1e040a68c3ddd09f3595ffc711de",
+  "started_utc": "2026-10-15T08:35:32.440923+00:00",
+  "timing": "Render wall time includes PPM output; excludes loading and BVH construction",
+  "ordering": "Alternate method order each round; all trials run sequentially"
+}

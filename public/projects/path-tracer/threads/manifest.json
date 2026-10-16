@@ -1,0 +1,24 @@
+{
+  "scene": "cornell",
+  "width": 240,
+  "height": 240,
+  "spp": 64,
+  "max_depth": 50,
+  "bvh": "sah",
+  "seed": 1,
+  "threads": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "scheduler": "row; plus tile32 at 4 threads",
+  "runs": 5,
+  "legacy_runs": 3,
+  "rng": "pixel-seeded xorshift64*; optional --deterministic (production default retains rand)",
+  "timing": "render wall time includes initialization, worker start/join, sampling, accumulation and PPM output; excludes scene/BVH build",
+  "ordering": "one warmup per configuration; rotate configurations each round; never run trials concurrently",
+  "platform": "macOS-14.5-arm64-arm-64bit",
+  "started_utc": "2026-10-15T08:42:41.675960+00:00",
+  "binary_sha256": "0cb9a6573e530c82e0eed9e1acc5ec042bd6093c7ec2c47a6981cc7d1e9b6fbb"
+}
