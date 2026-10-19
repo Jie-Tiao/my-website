@@ -1,7 +1,7 @@
 ---
 import BaseHead from '../../components/BaseHead.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
+import ProjectHeader from '../../components/ProjectHeader.astro';
+import ProjectFooter from '../../components/ProjectFooter.astro';
 
 const title = 'Odysseia';
 const description =
@@ -15,10 +15,9 @@ const description =
   </head>
 
   <body>
-    <Header />
+    <ProjectHeader />
 
     <main>
-      <a class="back-link" href="/#projects">← All projects</a>
       <!-- =========================================================
            HERO
       ========================================================== -->
@@ -722,7 +721,7 @@ const description =
       </section>
     </main>
 
-    <Footer />
+    <ProjectFooter />
   </body>
 </html>
 

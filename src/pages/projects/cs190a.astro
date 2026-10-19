@@ -1,7 +1,7 @@
 ---
 import BaseHead from '../../components/BaseHead.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
+import ProjectHeader from '../../components/ProjectHeader.astro';
+import ProjectFooter from '../../components/ProjectFooter.astro';
 const experiments = [
   ['01', 'Discrete rewards', 'Checkpoint rewards and a time penalty encouraged straight-line progress, but the car failed at the first turn.'],
   ['02', 'Curve bonuses', 'Increasing rewards around turns improved cornering, but the agent still could not complete the track.'],
@@ -14,9 +14,8 @@ const experiments = [
 <html lang="en">
   <head><BaseHead title="PPO Autonomous Racing — Chao Bian" description="A Unity racing environment for a UCSB CS190A reinforcement learning project, exploring PPO, progress rewards, and continuous control." /></head>
   <body>
-    <Header />
+    <ProjectHeader />
     <main>
-      <a class="back-link" href="/#projects">← All projects</a>
       <header class="hero">
         <p class="eyebrow">UCSB CS190A · Reinforcement Learning · Team Project</p>
         <h1>Learning to drive.<br /><span>One turn at a time.</span></h1>
@@ -45,9 +44,8 @@ const experiments = [
         <div class="split vision"><figure><img src="/projects/cs190a/vision.webp" alt="Simplified overhead visual observation with distinct colors for the car, road, and background" loading="lazy" /><figcaption>For the vision experiment, the scene used flat colors and an orientation marker above the car.</figcaption></figure><div><h3>A harder observation problem</h3><p>The vision-only experiment replaced numerical features with a 64 × 64 image centered on the car. Even with simplified scene colors, the CNN policy did not complete the track within the reported experiments.</p></div></div>
       </section>
       <section class="reflection"><p class="eyebrow">04 / Takeaway</p><h2>The environment is part<br />of the learning system.</h2><p class="intro">This project connected my experience building interactive 3D environments with reinforcement learning. Track geometry, progress measurements, and collision feedback all influence the behavior an agent can learn.</p><p>Our strongest reported configuration combined continuous controls with cumulative rewards and completed the track. The result offers a useful direction for further experiments with more controlled comparisons across reward schemes and observations.</p></section>
-      <footer class="page-footer"><span>Unity · Reinforcement Learning · UCSB CS190A</span><a href="#">Back to top ↑</a></footer>
     </main>
-    <Footer />
+    <ProjectFooter />
   </body>
 </html>
 <style>

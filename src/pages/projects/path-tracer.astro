@@ -1,5 +1,7 @@
 ---
 import BaseHead from '../../components/BaseHead.astro';
+import ProjectHeader from '../../components/ProjectHeader.astro';
+import ProjectFooter from '../../components/ProjectFooter.astro';
 import bvh from '../../data/path-tracer-bvh.json';
 import sampling from '../../data/path-tracer-sampling.json';
 import threads from '../../data/path-tracer-threads.json';
@@ -15,7 +17,7 @@ const chapters = [['01', 'Geometry', 'geometry'], ['02', 'Acceleration', 'accele
 <head><BaseHead title="CPU Path Tracer — Chao Bian" description="Extending RTIOW into a C++ CPU renderer: SAH BVH, GGX microfacet reflection, triangle meshes, and measured parallel performance." /></head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-  <header class="site-nav"><a class="wordmark" href="/">CHAO BIAN<span> / SELECTED WORK</span></a><a href="/#projects">All projects ↗</a></header>
+  <ProjectHeader />
   <main id="main">
     <header class="hero wrap">
       <div class="kicker"><span>RENDERING / ENGINEERING STUDY</span><span>C++ · CPU</span></div>
@@ -68,7 +70,7 @@ const chapters = [['01', 'Geometry', 'geometry'], ['02', 'Acceleration', 'accele
     </section>
     <section id="architecture" class="chapter wrap"><header class="chapter-heading"><p class="eyebrow">05 / RENDERER ARCHITECTURE</p><h2>One renderer.<br />Connected extensions.</h2><p>Each extension changes a part of the path from camera sample to accumulated radiance.</p></header><ol class="architecture">{[['Camera rays','Parallel workers claim rows from an atomic counter.','MULTITHREADING'],['Traversal & intersection','SAH partitions imported triangles into a mesh hierarchy.','MESHES + SAH'],['BSDF & light sampling','Evaluate reflection and sample the next path direction.','GGX + NDF / VNDF'],['Integration & film','Accumulate weighted radiance and write the final image.','PATH TRACING']].map(([title,text,tag],i) => <li><span class="stage">0{i+1} →</span><h3>{title}</h3><p>{text}</p><span class="stage-tag">{tag}</span></li>)}</ol><div class="closing"><p class="eyebrow">WHAT THIS PROJECT TAUGHT ME</p><p>Implementing a feature is the beginning. Understanding it means checking the image, isolating the workload, measuring the tradeoff, and being precise about what the result proves.</p></div></section>
   </main>
-  <footer class="wrap"><div><a class="wordmark" href="/">CHAO BIAN</a><a href="/#projects">Back to all projects ↑</a></div><p class="eyebrow">REFERENCES & ASSET CREDITS</p><p>Eric Heitz. <a href="https://jcgt.org/published/0007/04/01/">Sampling the GGX Distribution of Visible Normals</a>. Journal of Computer Graphics Techniques, 7(4), 2018.</p><p>Foundation: <a href="https://raytracing.github.io/">Ray Tracing in One Weekend</a>, Peter Shirley and contributors. Technical reference: <a href="https://pbr-book.org/4ed/">Physically Based Rendering</a>.<br />Models: <a href="https://www.cs.cmu.edu/~kmcrane/Projects/ModelRepository/">Spot — Keenan Crane (CC0)</a>; <a href="https://graphics.stanford.edu/data/3Dscanrep/">Dragon — Stanford Computer Graphics Laboratory</a>. All renders produced with this project.</p></footer>
+  <footer class="wrap"><ProjectFooter embedded /><p class="eyebrow">REFERENCES & ASSET CREDITS</p><p>Eric Heitz. <a href="https://jcgt.org/published/0007/04/01/">Sampling the GGX Distribution of Visible Normals</a>. Journal of Computer Graphics Techniques, 7(4), 2018.</p><p>Foundation: <a href="https://raytracing.github.io/">Ray Tracing in One Weekend</a>, Peter Shirley and contributors. Technical reference: <a href="https://pbr-book.org/4ed/">Physically Based Rendering</a>.<br />Models: <a href="https://www.cs.cmu.edu/~kmcrane/Projects/ModelRepository/">Spot — Keenan Crane (CC0)</a>; <a href="https://graphics.stanford.edu/data/3Dscanrep/">Dragon — Stanford Computer Graphics Laboratory</a>. All renders produced with this project.</p></footer>
 </body>
 </html>
 <style>

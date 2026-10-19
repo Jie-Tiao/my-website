@@ -1,7 +1,7 @@
 ---
 import BaseHead from '../../components/BaseHead.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
+import ProjectHeader from '../../components/ProjectHeader.astro';
+import ProjectFooter from '../../components/ProjectFooter.astro';
 const title = 'λ⁺ Interpreter & Type Inference';
 const contributions = [
   ['01', 'Evaluation', 'Free-variable analysis, substitution, and call-by-value function application.'],
@@ -21,9 +21,8 @@ const steps = [
     <BaseHead title={`${title} — Chao Bian`} description="An OCaml course project implementing a functional language interpreter, static type checker, and constraint-based type inference engine." />
   </head>
   <body>
-    <Header />
+    <ProjectHeader />
     <main>
-      <a class="back-link" href="/#projects">← All projects</a>
       <header class="hero">
         <p class="eyebrow">UCSB CS162 · Programming Languages · Course Project</p>
         <h1>Small language.<br /><span>Deep foundations.</span></h1>
@@ -66,9 +65,8 @@ const steps = [
       </section>
 
       <section class="reflection" aria-labelledby="reflection-title"><p class="eyebrow">Reflection</p><h2 id="reflection-title">Formal ideas, executable systems.</h2><p>Evaluation rules became recursive interpreter cases; typing judgments became environment-based checks; and unknown types became constraints that could be solved systematically.</p><p>The project strengthened my understanding of variable scope, recursive data structures, and the distinction between runtime evaluation and static analysis—foundations relevant to scripting systems and language tools in graphics and game development.</p></section>
-      <footer><span>λ⁺ · OCaml · UCSB CS162</span><a href="#">Back to top ↑</a></footer>
     </main>
-    <Footer />
+    <ProjectFooter />
   </body>
 </html>
 
