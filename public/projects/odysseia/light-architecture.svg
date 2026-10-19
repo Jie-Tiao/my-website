@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 780" role="img" aria-labelledby="title desc">
-  <title id="title">Light system architecture: component and event flow</title>
-  <desc id="desc">An incoming LightBeam activates LightReceiver, which invokes DoorEvent or LightEvent. LightEvent turns a downstream LightBeam on or off, and LightEmitter initializes the first beam. The beam activates or deactivates a receiver on another GameObject. RotationTrigger controls whether LightRelay can rotate and whether Prompt appears. Dashed boxes group components by role; overlapping boxes show shared components.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 840" role="img" aria-labelledby="title desc">
+  <title id="title">Light system architecture: component references and event flow</title>
+  <desc id="desc">An incoming LightBeam activates LightReceiver, which invokes DoorEvent or LightEvent. LightEvent turns a downstream LightBeam on or off, and LightEmitter initializes the first beam. The beam activates or deactivates a receiver on another GameObject. RotationTrigger controls whether LightRelay can rotate and whether Prompt appears. Dashed boxes represent GameObjects. Nodes inside each box represent component references, which may point to components on other GameObjects. Nodes in overlapping areas represent component references shared by the corresponding GameObjects.</desc>
   <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#506044"/></marker></defs>
   <style>
     text{font-family:Arial,Helvetica,sans-serif;fill:#293027;font-size:21px}
@@ -12,8 +12,8 @@
     .component{text-anchor:middle;dominant-baseline:middle;font-size:20px}
     .legend{font-size:17px;fill:#6a745f}
   </style>
-  <rect width="1600" height="780" fill="#fafbf7"/>
-  <!-- These role groups intentionally overlap, as in the original diagram. -->
+  <rect width="1600" height="840" fill="#fafbf7"/>
+  <!-- GameObject boxes overlap where their component references are shared. -->
   <rect class="group" x="275" y="30" width="310" height="260"/>
   <rect class="group" x="30" y="180" width="1170" height="400"/>
   <rect class="group" x="670" y="470" width="530" height="235"/>
@@ -48,5 +48,8 @@
   <ellipse class="node" cx="785" cy="635" rx="90" ry="38"/><text class="component" x="785" y="635">LightEmitter</text>
   <ellipse class="node" cx="1087" cy="510" rx="87" ry="38"/><text class="component" x="1087" y="510">LightBeam</text>
   <ellipse class="node" cx="1440" cy="510" rx="100" ry="38"/><text class="component" x="1440" y="510">LightReceiver</text>
-  <path class="group" d="M30 750H95"/><text class="legend" x="110" y="756">Component groups by role; overlapping groups share components.</text>
+  <path class="group" d="M30 750H95"/>
+  <text class="legend" x="110" y="750">Dashed boxes represent GameObjects. Nodes inside each box represent component references,</text>
+  <text class="legend" x="110" y="778">which may point to components on other GameObjects.</text>
+  <text class="legend" x="110" y="812">Nodes in overlapping areas represent component references shared by the corresponding GameObjects.</text>
 </svg>
