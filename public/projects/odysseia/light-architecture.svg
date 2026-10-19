@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 780" role="img" aria-labelledby="title desc">
+  <title id="title">Light system architecture: component and event flow</title>
+  <desc id="desc">An incoming LightBeam activates LightReceiver, which invokes DoorEvent or LightEvent. LightEvent turns a downstream LightBeam on or off, and LightEmitter initializes the first beam. The beam activates or deactivates a receiver on another GameObject. RotationTrigger controls whether LightRelay can rotate and whether Prompt appears. Dashed boxes group components by role; overlapping boxes show shared components.</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#506044"/></marker></defs>
+  <style>
+    text{font-family:Arial,Helvetica,sans-serif;fill:#293027;font-size:21px}
+    .group{fill:none;stroke:#929b85;stroke-width:1.7;stroke-dasharray:7 5}
+    .role{font-size:22px;font-weight:600;fill:#5e704c}
+    .node{fill:#fff;stroke:#394a30;stroke-width:2}
+    .link{fill:none;stroke:#506044;stroke-width:2;marker-end:url(#arrow)}
+    .label{font-size:18px;paint-order:stroke;stroke:#fafbf7;stroke-width:9px;stroke-linejoin:round}
+    .component{text-anchor:middle;dominant-baseline:middle;font-size:20px}
+    .legend{font-size:17px;fill:#6a745f}
+  </style>
+  <rect width="1600" height="780" fill="#fafbf7"/>
+  <!-- These role groups intentionally overlap, as in the original diagram. -->
+  <rect class="group" x="275" y="30" width="310" height="260"/>
+  <rect class="group" x="30" y="180" width="1170" height="400"/>
+  <rect class="group" x="670" y="470" width="530" height="235"/>
+  <rect class="group" x="1305" y="440" width="270" height="240"/>
+  <text class="role" x="300" y="72">LightDestination</text>
+  <text class="role" x="950" y="220">LightRelay</text>
+  <text class="role" x="945" y="675">LightEmitter</text>
+  <text class="role" x="1330" y="640">Another GameObject</text>
+  <!-- Receiver events and downstream beam propagation. -->
+  <path class="link" d="M15 245H335"/><text class="label" x="36" y="227">Incoming LightBeam</text>
+  <path class="link" d="M525 245H610Q625 245 625 230V115Q625 100 640 100H700"/>
+  <path class="link" d="M610 245Q625 245 625 260V345Q625 360 640 360H700"/>
+  <text class="label" x="548" y="227">Invoke</text>
+  <path class="link" d="M870 360H950Q970 360 970 380V510H1000"/>
+  <text class="label" x="895" y="340">Turn on/off</text>
+  <path class="link" d="M875 635H950Q970 635 970 615V530Q970 510 990 510H1000"/>
+  <text class="label" x="885" y="605">Initialize first beam</text>
+  <path class="link" d="M1175 510H1340"/>
+  <text class="label" x="1190" y="487">Activate /</text><text class="label" x="1190" y="538">deactivate</text>
+  <!-- Rotation interaction has separate effects on relay behavior and UI. -->
+  <path class="link" d="M235 455H260Q275 455 275 440V405Q275 390 290 390H350"/>
+  <path class="link" d="M260 455Q275 455 275 470V515Q275 530 290 530H350"/>
+  <text class="label" x="282" y="335">IsAbleToRotate</text>
+  <text class="label" x="285" y="490">Appearance</text>
+  <!-- Components -->
+  <ellipse class="node" cx="430" cy="245" rx="95" ry="38"/><text class="component" x="430" y="245">LightReceiver</text>
+  <ellipse class="node" cx="785" cy="100" rx="85" ry="38"/><text class="component" x="785" y="100">DoorEvent</text>
+  <ellipse class="node" cx="785" cy="360" rx="85" ry="38"/><text class="component" x="785" y="360">LightEvent</text>
+  <ellipse class="node" cx="140" cy="455" rx="95" ry="38"/><text class="component" x="140" y="455">RotationTrigger</text>
+  <ellipse class="node" cx="430" cy="390" rx="80" ry="38"/><text class="component" x="430" y="390">LightRelay</text>
+  <ellipse class="node" cx="430" cy="530" rx="80" ry="38"/><text class="component" x="430" y="530">Prompt</text>
+  <ellipse class="node" cx="785" cy="635" rx="90" ry="38"/><text class="component" x="785" y="635">LightEmitter</text>
+  <ellipse class="node" cx="1087" cy="510" rx="87" ry="38"/><text class="component" x="1087" y="510">LightBeam</text>
+  <ellipse class="node" cx="1440" cy="510" rx="100" ry="38"/><text class="component" x="1440" y="510">LightReceiver</text>
+  <path class="group" d="M30 750H95"/><text class="legend" x="110" y="756">Component groups by role; overlapping groups share components.</text>
+</svg>
