@@ -2,806 +2,134 @@
 import BaseHead from '../../components/BaseHead.astro';
 import ProjectHeader from '../../components/ProjectHeader.astro';
 import ProjectFooter from '../../components/ProjectFooter.astro';
-
-const title = 'Odysseia';
-const description =
-  'A myth-inspired 3D adventure game developed by Gaucho Game Lab. I served as Puzzle Lead, designing and implementing systemic puzzle mechanics, levels, and gameplay systems in Unity.';
+const description = 'Puzzle design and gameplay systems for Odysseia, a myth-inspired 3D adventure by Gaucho Game Lab.';
+const steps = [ ['Emission', 'Connect a source to a receiver.'], ['Redirection', 'Build a path through relay nodes.'], ['Dispersion', 'Split white light into RGB channels.'], ['Fusion', 'Recombine channels into new colors.'], ['Filtering', 'Pass only the required channels.'] ];
 ---
-
 <!doctype html>
 <html lang="en">
-  <head>
-    <BaseHead title={title} description={description} />
-  </head>
-
-  <body>
-    <ProjectHeader />
-
-    <main>
-      <!-- =========================================================
-           HERO
-      ========================================================== -->
-      <section class="hero">
-        <div class="hero-brand">
-          <img
-            class="project-logo"
-            src="/projects/odysseia/logo.webp"
-            alt="Odysseia logo"
-          />
-        </div>
-
-        <p class="eyebrow">
-          GAME DEVELOPMENT · PUZZLE DESIGN · UNITY · C#
-        </p>
-
-        <h1>Odysseia</h1>
-
-        <p class="lead">
-          A myth-inspired 3D adventure game developed by Gaucho Game Lab.
-          As <strong> Puzzle Lead</strong>, I designed and implemented systemic
-          puzzle mechanics and mechanic-driven levels in Unity.
-        </p>
-
-        <div class="metadata">
-          <div>
-            <span>ROLE</span>
-            <strong> Puzzle Lead</strong>
-          </div>
-
-          <div>
-            <span>TEAM</span>
-            <strong> 15-20 Developers</strong>
-          </div>
-
-          <div>
-            <span>DURATION</span>
-            <strong> Sep 2024 - Mar 2025</strong>
-          </div>
-
-          <div>
-            <span>TOOLS</span>
-            <strong> Unity · C#</strong>
-          </div>
-        </div>
-
-        <nav class="section-nav" aria-label="Project sections">
-          <a href="#overview">My contribution ↗</a>
-          <a href="#tides">Tidal system</a>
-          <a href="#light">Light puzzles</a>
-          <a href="#implementation">Implementation ↓</a>
-          <a href="#collaboration">Team collaboration</a>
-        </nav>
-
-
-      </section>
-
-      <!-- =========================================================
-           01 OVERVIEW
-      ========================================================== -->
-      <section id="overview" class="content-section">
-        <div class="section-heading">
-          <p class="section-number">01</p>
-          <h2>Overview</h2>
-        </div>
-
-        <div class="prose">
-          <p class="intro">
-            My work on <em>Odysseia</em> focused on designing reusable puzzle
-            systems that could grow in complexity while remaining readable to
-            the player.
-          </p>
-
-          <p>
-            I developed the mechanics, implemented them in Unity, designed
-            levels around their interactions, and collaborated with the art
-            team to improve visual communication and puzzle readability.
-          </p>
-        </div>
-
-        <div class="contributions">
-          <p class="card-label">MY CONTRIBUTIONS</p>
-
-          <ul>
-            <li>
-              Designed and implemented the
-              <strong> dynamic tidal system</strong> and
-              <strong> time acceleration mechanic</strong>.
-            </li>
-
-            <li>
-              Built a modular
-              <strong> light puzzle system</strong> supporting redirection,
-              dispersion, color fusion, and filtering.
-            </li>
-
-            <li>
-              Designed <strong> two tidal levels</strong> and multiple
-              <strong> light puzzle levels</strong>, including the structure
-              and traversal flow of the <strong> Minotaur's Labyrinth</strong>,
-              which was integrated into the game.
-            </li>
-
-            <li>
-              Collaborated with artists to improve mechanic readability,
-              environmental communication, and level polish.
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- =========================================================
-           02 TIDAL SYSTEM
-      ========================================================== -->
-      <section id="tides" class="content-section">
-        <div class="section-heading">
-          <p class="section-number">02</p>
-          <h2>Dynamic Tidal System</h2>
-        </div>
-
-        <div class="prose">
-          <p class="intro">
-            The tidal system turns the environment itself into part of the
-            puzzle.
-          </p>
-
-          <p>
-            Water levels rise and fall with the game's day-night cycle,
-            dynamically changing which routes are available to the player.
-          </p>
-        </div>
-
-        <div class="two-image-grid">
-          <figure>
-            <img
-              src="/projects/odysseia/tide-high.webp"
-              alt="Odysseia environment during a higher tidal state"
-            />
-
-            <figcaption>
-              Higher water levels cover obstacles and change which routes are
-              traversable.
-            </figcaption>
-          </figure>
-
-          <figure>
-            <img
-              src="/projects/odysseia/tide-low.webp"
-              alt="Odysseia environment during a lower tidal state"
-            />
-
-            <figcaption>
-              Lower tides expose terrain, passages, and interactable areas.
-            </figcaption>
-          </figure>
-        </div>
-
-        <div class="prose after-media">
-          <p>
-            During ebb tide, previously submerged spaces, objects, or routes
-            can become accessible. During flood tide, rocks and reefs can
-            become submerged, opening paths that would otherwise be blocked.
-          </p>
-
-          <p>
-            For example, low tide allows a ship and its mast to pass through a
-            low-clearance channel, while high tide lets the ship travel over
-            submerged rocks and reefs. Different obstacles therefore require
-            different tidal states, making water level a condition the player
-            must reason about when planning a route.
-          </p>
-
-          <p>
-            The design shifts the player's reasoning from simply asking
-            <strong> “Where should I go?” </strong>
-            to also asking
-            <strong> “When should I act?” </strong>
-          </p>
-
-          <h3>Iteration: Making Tidal State Readable</h3>
-
-          <p>
-            The initial tidal levels had no water-level indicator. Players had
-            to judge by feel whether the water had reached its highest point,
-            making it difficult to tell whether they should act or keep waiting.
-          </p>
-
-          <p>
-            We later added a tidal indicator to make the water-level state
-            explicit. This gave players a clearer reference for timing their
-            actions and supported the mechanic's emphasis on planning around
-            changing environmental conditions.
-          </p>
-        </div>
-      </section>
-
-      <!-- =========================================================
-           03 TIME CONTROL
-      ========================================================== -->
-      <section class="content-section">
-        <div class="section-heading">
-          <p class="section-number">03</p>
-          <h2>Giving the Player Control Over Time</h2>
-        </div>
-
-        <div class="media-text">
-          <figure>
-            <!-- <img
-              src="/projects/odysseia/time-speed.webp"
-              alt="Time acceleration mechanic changing the day-night cycle"
-            /> -->
-            <video autoplay muted loop playsinline>
-                <source src="/projects/odysseia/time-speed.webm" type="video/webm" />
-            </video>
-
-            <figcaption>
-              The player accelerates the day-night cycle to manipulate tidal
-              states directly.
-            </figcaption>
-          </figure>
-
-          <div class="prose">
-            <p class="intro">
-              A time-driven environment creates an obvious design problem:
-              waiting is not an interesting puzzle interaction.
-            </p>
-
-            <p>
-              To solve this, I implemented a
-              <strong> Time Acceleration System</strong> that allows players to
-              deliberately advance the day-night cycle.
-            </p>
-
-            <p>
-              This gives players agency over environmental state. Tides become
-              something they can actively plan around and manipulate rather
-              than something they simply wait for.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- =========================================================
-           04 LIGHT SYSTEM
-      ========================================================== -->
-      <section id="light" class="content-section light-section">
-        <div class="section-heading">
-          <p class="section-number">04</p>
-          <h2>Progressive Light Puzzle System</h2>
-        </div>
-
-        <div class="prose">
-          <p class="intro">
-            I designed the light system around progressive complexity:
-            introduce one understandable rule, then repeatedly expand what that
-            rule can do.
-          </p>
-
-          <p>
-            At its foundation, light travels from an emitter to a receiver.
-            From this simple interaction, the mechanic expands into a larger
-            system.
-          </p>
-        </div>
-
-        <div class="progression">
-          <div class="progression-item">
-            <span class="step-number">01</span>
-            <h3>Emission</h3>
-            <p>A light source activates a receiver.</p>
-          </div>
-
-          <div class="progression-item">
-            <span class="step-number">02</span>
-            <h3>Redirection</h3>
-            <p>Relay nodes turn activation into path-building.</p>
-          </div>
-
-          <div class="progression-item">
-            <span class="step-number">03</span>
-            <h3>Dispersion</h3>
-            <p>White light splits into RGB channels.</p>
-          </div>
-
-          <div class="progression-item">
-            <span class="step-number">04</span>
-            <h3>Fusion</h3>
-            <p>Channels recombine into new color states.</p>
-          </div>
-
-          <div class="progression-item">
-            <span class="step-number">05</span>
-            <h3>Filtering</h3>
-            <p>Color constraints create selective routing.</p>
-          </div>
-        </div>
-
-        <figure class="wide-image">
-          <img
-            src="/projects/odysseia/light-relay.webp"
-            alt="Light beam redirected between puzzle nodes"
-          />
-
-          <figcaption>
-            Relay nodes expand the basic emitter-receiver interaction into a
-            path-building puzzle.
-          </figcaption>
-        </figure>
-
-        <div class="prose after-media">
-          <h3>From a Single Beam to a System</h3>
-
-          <p>
-            Relay nodes allow beams to be redirected across the environment.
-            This transforms a simple activation mechanic into a routing
-            problem, where players construct a path between multiple objects.
-          </p>
-
-          <p>
-            Prisms then split white light into red, green, and blue channels,
-            introducing branching paths and dependencies between simultaneous
-            signals.
-          </p>
-
-          <p>
-            At higher complexity levels, beams can be filtered or recombined.
-            New puzzle challenges therefore emerge from combinations of rules
-            the player has already learned.
-          </p>
-        </div>
-
-        <div class="two-image-grid">
-          <figure>
-            <img
-              src="/projects/odysseia/light-filter.webp"
-              alt="Light puzzle using a colored filtering surface"
-            />
-
-            <figcaption>
-              Colored surfaces selectively filter channels, introducing
-              constraint-based routing.
-            </figcaption>
-          </figure>
-
-          <figure>
-            <img
-              src="/projects/odysseia/light-complex.webp"
-              alt="Complex multi-room light routing puzzle"
-            />
-
-            <figcaption>
-              Multiple beams, receivers, and filters allow puzzle logic to
-              extend across larger spaces.
-            </figcaption>
-          </figure>
-        </div>
-      </section>
-
-      <!-- =========================================================
-           05 LABYRINTH
-      ========================================================== -->
-      <section class="content-section">
-        <div class="section-heading">
-          <p class="section-number">05</p>
-          <h2>Minotaur's Labyrinth</h2>
-        </div>
-
-        <div class="prose">
-          <p class="intro">
-            The Minotaur's Labyrinth explores how a single puzzle system can
-            shape the structure of an entire level rather than just an
-            individual room.
-          </p>
-
-          <!-- <p>
-            The labyrinth was integrated into the game. Several of the light
-            system screenshots above show puzzles within this level, connecting
-            the early layout concept below to its in-game implementation.
-          </p> -->
-
-          <p>
-            Maze design creates a tension between exploration and guidance.
-            A short solution path may cause players to skip much of the space,
-            while a long forced route can make the maze feel overly linear.
-          </p>
-        </div>
-
-        <figure class="concept-image">
-          <img
-            src="/projects/odysseia/labyrinth-concept.webp"
-            alt="Early concept sketch of the Minotaur's Labyrinth showing red green and blue light routes"
-          />
-
-          <figcaption>
-            Early concept sketch for the Minotaur's Labyrinth. RGB light routes
-            divide the maze into interconnected regions and structure player
-            traversal.
-          </figcaption>
-        </figure>
-
-        <div class="prose after-media">
-          <h3>From Concept to Playable Prototype</h3>
-          <p>
-            I built a playable graybox prototype to explore the spatial layout,
-            placement of light puzzle nodes, dependencies between puzzles, and
-            the routes players would take through the labyrinth.
-          </p>
-          <p>
-            I also shared the prototype with teammates as a playable demo to
-            collect their feedback. This let us discuss the layout and puzzle
-            flow through hands-on experience before the labyrinth's final
-            in-game implementation.
-          </p>
-        </div>
-
-        <figure class="wide-image">
-          <img
-            src="/projects/odysseia/labyrinth-prototype.webp"
-            alt="Graybox prototype of the Minotaur's Labyrinth with corridors, light puzzle nodes, and gates"
-            width="2936"
-            height="1578"
-            loading="lazy"
-          />
-          <figcaption>
-            Playable graybox demo used to explore layout, light node placement,
-            puzzle dependencies, and traversal routes, and to gather teammate
-            feedback.
-          </figcaption>
-        </figure>
-
-        <div class="prose after-media">
-          <p>
-            I used <strong> light dispersion</strong> as the structural backbone
-            of the labyrinth.
-          </p>
-
-          <p>
-            White light is divided into red, green, and blue routes, naturally
-            separating the maze into three major regions. Each region contains
-            a focused set of puzzles with enough depth to reward exploration
-            without forcing the player into one excessively long path.
-          </p>
-
-          <p>
-            Cross-region interactions reconnect the spaces. A beam originating
-            in one region can become necessary for solving a puzzle in another,
-            encouraging players to understand the labyrinth as one connected
-            system rather than several isolated rooms.
-          </p>
-
-          <p>
-            For example, a green beam from the Green Zone can be routed into
-            the Red Zone and combined with red light to produce yellow. That
-            combined beam can unlock a pathway that neither color could open
-            alone, making progress in one region depend on another.
-          </p>
-
-          <p>
-            Persistent beams also become a form of environmental communication.
-            Solved routes remain visible in the space, allowing the level
-            itself to record progress and suggest unexplored possibilities.
-          </p>
-        </div>
-      </section>
-
-      <!-- =========================================================
-           06 TECHNICAL IMPLEMENTATION
-      ========================================================== -->
-      <section id="implementation" class="technical-section">
-        <div class="technical-inner">
-          <div class="section-heading">
-            <p class="section-number">06</p>
-            <h2>Technical Implementation</h2>
-          </div>
-
-          <div class="prose">
-            <p class="intro">
-              The light puzzle system was implemented in Unity using C# with a
-              modular, event-driven architecture.
-            </p>
-
-            <p>
-              One of my main implementation goals was to separate
-              <strong> light propagation</strong> from
-              <strong> puzzle reactions</strong>.
-            </p>
-          </div>
-
-          <figure class="architecture-diagram">
-            <img
-              src="/projects/odysseia/light-architecture.webp"
-              alt="Architecture diagram of the Odysseia light puzzle system"
-            />
-
-            <figcaption>
-              System architecture showing how emitters, beams, receivers, and
-              independent gameplay events communicate.
-            </figcaption>
-          </figure>
-
-          <div class="technical-grid">
-            <article>
-              <p class="card-label">ARCHITECTURE</p>
-
-              <h3>Event-Driven Modularity</h3>
-
-              <p>
-                Light receivers emit activation and deactivation events instead
-                of directly controlling gameplay objects.
-              </p>
-
-              <p>
-                Independent components can respond by opening doors, activating
-                secondary beams, rotating objects, or triggering other gameplay
-                behavior.
-              </p>
-
-              <p>
-                This keeps the core light system independent from the specific
-                objects that react to it.
-              </p>
-            </article>
-
-            <article>
-              <p class="card-label">EXTENSIBILITY</p>
-
-              <h3>Specialized Receivers</h3>
-
-              <p>
-                A shared <code>LightReceiver</code> implementation handles
-                common behavior such as light dependencies, color aggregation,
-                activation state, and downstream propagation.
-              </p>
-
-              <p>
-                Specialized receiver types extend that behavior only where a
-                mechanic requires different interpretation of incoming light.
-              </p>
-            </article>
-          </div>
-
-          <div class="code-concepts">
-            <div>
-              <code>LightReceiver</code>
-
-              <p>
-                Shared receiver logic for incoming light, activation, and
-                propagation.
-              </p>
-            </div>
-
-            <div>
-              <code>FilterLightReceiver</code>
-
-              <p>
-                Selectively passes color channels to support filtering-based
-                puzzle constraints.
-              </p>
-            </div>
-
-            <div>
-              <code>SpecificLightReceiver</code>
-
-              <p>
-                Activates only when incoming light matches a required target
-                color.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- =========================================================
-           07 TEAM COLLABORATION
-      ========================================================== -->
-      <section id="collaboration" class="content-section">
-        <div class="section-heading">
-          <p class="section-number">07</p>
-          <h2>Team Collaboration &amp; Scrum</h2>
-        </div>
-
-        <div class="prose">
-          <p class="intro">
-            Our team developed Odysseia using Scrum, an Agile development
-            methodology, with a formal process for planning, review, and weekly
-            iteration.
-          </p>
-          <p>
-            Each week formed a one-week sprint. This gave our team a shared
-            rhythm for turning individual contributions into an integrated game
-            and using team feedback to plan the next iteration.
-          </p>
-        </div>
-
-        <div class="technical-grid">
-          <article>
-            <p class="card-label">BEFORE IMPLEMENTATION</p>
-            <h3>Proposal &amp; Time Sheet</h3>
-            <p>
-              Before starting work intended for a pull request, we submitted a
-              proposal describing its purpose, the implementation approach, and
-              the files we planned to modify.
-            </p>
-            <p>
-              An accompanying time sheet broke the work into steps and estimated
-              the time required for each. Both the proposal and time sheet needed
-              approval from the Game Lead and Tech Lead before work began.
-            </p>
-          </article>
-
-          <article>
-            <p class="card-label">DAILY COORDINATION</p>
-            <h3>Scrum Meetings</h3>
-            <p>
-              We held a Scrum meeting every day except Saturday. Each team member
-              discussed what they had completed since the previous meeting, what
-              they planned to do next, and any problems or blockers they faced.
-            </p>
-            <p>
-              These updates kept progress and dependencies visible across the
-              team and gave us a regular opportunity to coordinate support.
-            </p>
-          </article>
-
-          <article>
-            <p class="card-label">BEFORE MERGING</p>
-            <h3>Review by Both Leads</h3>
-            <p>
-              Every pull request required review from both the Game Lead and
-              Tech Lead. Contributors addressed the requested changes before
-              their work could be merged into the game.
-            </p>
-            <p>
-              The review process connected each contribution to the game's
-              design direction and technical implementation.
-            </p>
-          </article>
-
-          <article>
-            <p class="card-label">WEEKLY ITERATION</p>
-            <h3>Integrate, Reflect &amp; Plan</h3>
-            <p>
-              Each week, we integrated the team's completed work into the game
-              for team review and iteration. We discussed what worked
-              well and what needed improvement.
-            </p>
-            <p>
-              Those discussions informed the next week's to-do list and goals,
-              connecting each sprint's results to the following sprint's plan.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <!-- =========================================================
-           08 TAKEAWAYS
-      ========================================================== -->
-      <section class="content-section final-section">
-        <div class="section-heading">
-          <p class="section-number">08</p>
-          <h2>Takeaways</h2>
-        </div>
-
-        <div class="prose">
-          <p class="intro takeaway-lead">
-            Odysseia strengthened my ability to design reusable game systems
-            and carry them through planning, implementation, review, and
-            iteration within a larger team.
-          </p>
-
-          <p>
-            The light system demonstrated how a mechanic can gain depth through
-            combinations and extensions, while the tidal system explored how
-            changing environmental state can create another dimension of
-            reasoning.
-          </p>
-
-          <p>
-            Adding an indicator to the tidal levels reinforced the importance
-            of communicating system state. Players need a clear basis for
-            deciding when to act, alongside mechanics that give them control
-            over the environment.
-          </p>
-
-          <p>
-            Writing proposals and breaking work into time estimates helped me
-            make scope and implementation decisions explicit before coding.
-            Review by the Game Lead and Tech Lead required me to communicate
-            those decisions clearly and respond to feedback on both design and
-            implementation.
-          </p>
-
-          <p>
-            Daily coordination and weekly integration helped me connect my
-            work to the team's progress. Reviewing the game together informed
-            the next sprint's priorities, while collaboration across disciplines
-            kept gameplay logic, level design, and visual presentation aligned
-            around the same player experience.
-          </p>
-        </div>
-      </section>
-    </main>
-
-    <ProjectFooter />
-  </body>
+<head><BaseHead title="Odysseia" description={description} /></head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<ProjectHeader />
+<main id="main">
+  <section class="hero wrap">
+    <p class="kicker"><span>GAME DEVELOPMENT / 2024–25</span><span>GAUCHO GAME LAB</span></p>
+    <h1>Odysseia<span>A world of connected puzzles.</span></h1>
+    <div class="hero-copy"><p>A myth-inspired 3D adventure. As <strong>Puzzle Lead</strong>, I turned tides, time, and light into reusable mechanics and levels in Unity.</p><a class="button" href="#tides">Explore the systems <span>↓</span></a></div>
+    <figure class="cover"><img src="/projects/odysseia/cover.webp" alt="Odysseia title artwork showing a ship sailing through a mountainous coastal landscape" width="1672" height="941" fetchpriority="high" /><figcaption>ODYSSEIA / A MYTH-INSPIRED ADVENTURE · GAUCHO GAME LAB</figcaption></figure>
+    <dl class="metadata"><div><dt>ROLE</dt><dd>Puzzle Lead</dd></div><div><dt>TEAM</dt><dd>15–20 developers</dd></div><div><dt>DURATION</dt><dd>Sep 2024 – Mar 2025</dd></div><div><dt>TOOLS</dt><dd>Unity · C#</dd></div></dl>
+  </section>
+  <nav class="chapter-nav" aria-label="Project sections"><div class="wrap"><a href="#overview"><span>00</span>Contribution</a><a href="#tides"><span>01</span>Tides &amp; time</a><a href="#light"><span>02</span>Light puzzles</a><a href="#labyrinth"><span>03</span>Labyrinth</a><a href="#implementation"><span>04</span>Implementation</a></div></nav>
+  <section id="overview" class="contribution wrap">
+    <header><p class="eyebrow">MY CONTRIBUTION</p><h2>From a mechanic to a playable space.</h2></header>
+    <ul class="contribution-list">
+      <li><strong>Systems</strong><span>Designed and implemented the tidal, time acceleration, and modular light puzzle systems.</span></li>
+      <li><strong>Levels</strong><span>Designed two tidal levels and multiple light puzzle levels.</span></li>
+      <li><strong>Labyrinth</strong><span>Developed the layout, puzzle dependencies, and traversal flow of the Minotaur’s Labyrinth, which was integrated into the game.</span></li>
+    </ul>
+    <p class="contribution-note">Collaborated with artists to improve mechanic readability and environmental cues.</p>
+  </section>
+  <section id="tides" class="chapter wrap">
+    <header class="chapter-heading"><p class="eyebrow">01 / TIDES &amp; TIME</p><h2>Tides &amp; Time</h2><p class="chapter-subtitle">The right route. At the right moment.</p><p>Water rises and falls with the day-night cycle. A route is no longer just a place to discover; it is a condition to create.</p></header>
+    <div class="image-pair"><figure><img src="/projects/odysseia/tide-high.webp" alt="High tide in the coastal puzzle environment" loading="lazy" /><figcaption>FIG. 01 / HIGH TIDE — WATER COVERS OBSTACLES</figcaption></figure><figure><img src="/projects/odysseia/tide-low.webp" alt="Low tide exposing terrain and passages" loading="lazy" /><figcaption>FIG. 02 / LOW TIDE — TERRAIN BECOMES ACCESSIBLE</figcaption></figure></div>
+    <div class="notes"><article><span class="eyebrow">THE RULE</span><h3>Different obstacles, different tides</h3><p>Low water lets a ship’s mast pass beneath a low-clearance channel. High water lets the ship cross rocks and reefs. Players must plan both where to go and when to act.</p></article><article><span class="eyebrow">THE ITERATION</span><h3>Make the state readable</h3><p>Early levels left players guessing whether the tide had peaked. We added a tidal indicator so they could judge the water level and decide when to move.</p></article></div>
+    <div class="media-text"><figure><video autoplay muted loop playsinline controls preload="metadata" aria-label="Gameplay demonstration of time acceleration changing the tidal state"><source src="/projects/odysseia/time-speed.webm" type="video/webm" /></video><figcaption>FIG. 03 / TIME ACCELERATION IN ACTION</figcaption></figure><div><p class="eyebrow">PLAYER AGENCY</p><h3>Change time.<br />Don’t just wait for it.</h3><p>I implemented time acceleration so players could deliberately advance the day-night cycle. The environment becomes something to manipulate, turning passive waiting into an active puzzle decision.</p></div></div>
+  </section>
+  <section id="light" class="dark-section"><div class="chapter wrap">
+    <header class="chapter-heading"><p class="eyebrow">02 / THE LIGHT SYSTEM</p><h2>Modular Light Puzzle System</h2><p class="chapter-subtitle">One simple rule. Many ways to combine it.</p><p>Start with a beam and a receiver. Introduce one new operation at a time, then build depth through combinations of familiar rules.</p></header>
+    <ol class="progression">{steps.map(([name,text],i) => <li>
+      <span class="eyebrow">0{i+1} →</span>
+      <svg class="rule-diagram" viewBox="0 0 180 96" role="img" aria-label={[
+        'A white beam connects an emitter to a receiver.',
+        'A relay turns a beam toward another receiver.',
+        'A prism splits white light into red, green, and blue beams.',
+        'Red and green beams combine into a yellow beam.',
+        'A green filter passes green light and blocks red and blue.'
+      ][i]}>
+        {i === 0 && <g><circle cx="18" cy="48" r="9" fill="#f2f2de" /><path d="M29 48H148" stroke="#f2f2de" stroke-width="4" /><rect x="150" y="37" width="22" height="22" rx="2" fill="none" stroke="#b8ca91" stroke-width="2" /></g>}
+        {i === 1 && <g><circle cx="18" cy="72" r="7" fill="#f2f2de" /><path d="M27 72H90V23H149" fill="none" stroke="#f2f2de" stroke-width="4" /><circle cx="90" cy="72" r="7" fill="#22271f" stroke="#b8ca91" stroke-width="2" /><rect x="150" y="13" width="21" height="21" fill="none" stroke="#b8ca91" stroke-width="2" /></g>}
+        {i === 2 && <g><path d="M8 48H70" stroke="#f2f2de" stroke-width="4" /><path d="M72 48L166 15" stroke="#ee8d82" stroke-width="3" /><path d="M72 48H166" stroke="#9fc685" stroke-width="3" /><path d="M72 48L166 81" stroke="#82b9e7" stroke-width="3" /><path d="M74 29L92 63H56Z" fill="#22271f" stroke="#d7ddca" stroke-width="2" /><text x="171" y="19">R</text><text x="171" y="52">G</text><text x="171" y="85">B</text></g>}
+        {i === 3 && <g><path d="M8 17L86 48" stroke="#ee8d82" stroke-width="3" /><path d="M8 79L86 48" stroke="#9fc685" stroke-width="3" /><path d="M90 48H167" stroke="#ffe000" stroke-width="5" /><circle cx="87" cy="48" r="9" fill="#22271f" stroke="#d7ddca" stroke-width="2" /><text x="9" y="11">R</text><text x="9" y="94">G</text><text x="139" y="34">R+G</text></g>}
+        {i === 4 && <g><path d="M8 24H79" stroke="#774e49" stroke-width="3" /><path d="M8 48H168" stroke="#a0ed76" stroke-width="5" /><path d="M8 72H79" stroke="#456379" stroke-width="3" /><rect x="80" y="12" width="20" height="72" fill="#9fc685" fill-opacity=".2" stroke="#9fc685" stroke-width="2" /><path d="M112 20L120 28M120 20L112 28M112 68L120 76M120 68L112 76" stroke="#59614e" stroke-width="2" /><text x="154" y="35">G</text></g>}
+      </svg><h3>{name}</h3><p>{text}</p>
+    </li>)}</ol>
+    <p class="system-reasoning">Redirection turns a simple source-to-receiver connection into a routing problem. Dispersion creates branching paths, while fusion and filtering introduce dependencies between them, allowing more complex puzzles to emerge from familiar rules.</p>
+    <figure class="light-feature"><img src="/projects/odysseia/light-relay.webp" alt="Light beams redirected between puzzle relay nodes" loading="lazy" /><figcaption>FIG. 04 / RELAY NODES TURN ACTIVATION INTO PATH-BUILDING</figcaption></figure>
+    <div class="image-pair"><figure><img src="/projects/odysseia/light-filter.webp" alt="Colored surface filtering a beam in a light puzzle" loading="lazy" /><figcaption>FIG. 05 / FILTERING — SELECT WHICH CHANNELS PASS</figcaption></figure><figure><img src="/projects/odysseia/light-complex.webp" alt="Multi-room light puzzle with beams and receivers" loading="lazy" /><figcaption>FIG. 06 / COMPOSITION — CONNECT RULES ACROSS ROOMS</figcaption></figure></div>
+  </div></section>
+  <section id="labyrinth" class="chapter wrap">
+    <header class="chapter-heading"><p class="eyebrow">03 / MINOTAUR’S LABYRINTH</p><h2>Minotaur’s Labyrinth</h2><p class="chapter-subtitle">A mechanic becomes the map.</p><p>I wanted players to explore the labyrinth without either skipping most of it or following one long, prescribed route. I used three interconnected color regions to balance local puzzle solving with dependencies across the larger space.</p></header>
+    <figure class="concept">
+      <svg class="annotated-maze" viewBox="0 0 1140 1130" role="img" aria-labelledby="maze-title maze-desc">
+        <title id="maze-title">Minotaur’s Labyrinth: RGB routes and cross-region dependencies</title>
+        <desc id="maze-desc">An enlarged crop of the original design sketch. Red routes occupy the left region, green routes the lower middle, and blue routes the right. A green beam enters the red region near the upper left and combines into yellow. The Minotaur is drawn in the central chamber.</desc>
+        <svg x="40" y="80" width="1060" height="1010" viewBox="20 25 1040 1000"><image href="/projects/odysseia/labyrinth-concept.webp" width="1925" height="1090" /></svg>
+        <g class="map-label"><rect x="45" y="12" width="245" height="44" rx="2" fill="#943d36" /><text x="60" y="41">A / RED ROUTES</text><rect x="430" y="12" width="270" height="44" rx="2" fill="#39715a" /><text x="445" y="41">B / GREEN ROUTES</text><rect x="840" y="12" width="255" height="44" rx="2" fill="#336b99" /><text x="855" y="41">C / BLUE ROUTES</text></g>
+        <g class="map-pin"><circle cx="180" cy="630" r="22" fill="#943d36" /><text x="180" y="638">A</text><circle cx="660" cy="855" r="22" fill="#39715a" /><text x="660" y="863">B</text><circle cx="980" cy="620" r="22" fill="#336b99" /><text x="980" y="628">C</text><circle cx="330" cy="130" r="24" fill="#866622" /><text x="330" y="138">D</text><circle cx="610" cy="535" r="24" fill="#30392a" /><text x="610" y="543">E</text></g>
+      </svg>
+      <figcaption>FIG. 07 / LABYRINTH DESIGN SKETCH — COLOR ROUTES &amp; CROSS-REGION DEPENDENCIES</figcaption>
+    </figure>
+    <div class="maze-key"><p><b>D / CROSS-REGION DEPENDENCY</b>Green enters the red region; red + green produces yellow to unlock a route.</p><p><b>E / CENTRAL GOAL</b>The Minotaur’s chamber anchors the maze’s connected regions.</p></div>
+    <a class="text-link" href="/projects/odysseia/labyrinth-concept.webp" target="_blank" rel="noopener">Open original sketch &amp; handwritten notes ↗</a>
+    <div class="labyrinth-explanation"><p>Each region offers focused puzzles without forcing one long, linear solution.</p><p>Solved beams remain visible, recording progress in the environment and suggesting routes still to explore.</p></div>
+    <div class="prototype-group">
+    <figure class="prototype"><img src="/projects/odysseia/labyrinth-prototype.webp" alt="Playable labyrinth graybox showing corridors, gates, and light puzzle nodes" width="2936" height="1578" loading="lazy" /><figcaption>FIG. 08 / PLAYABLE GRAYBOX — LAYOUT, NODE PLACEMENT &amp; PUZZLE DEPENDENCIES</figcaption></figure>
+    <p class="media-note">I shared the playable graybox with teammates to test traversal and puzzle flow, collecting feedback before the labyrinth’s final in-game implementation.</p>
+    </div>
+  </section>
+  <section id="implementation" class="implementation"><div class="chapter wrap">
+    <header class="chapter-heading"><p class="eyebrow">04 / UNDER THE HOOD</p><h2>Light System Architecture</h2><p class="chapter-subtitle">Propagate light. Decouple the reaction.</p><p>A modular, event-driven C# architecture keeps the light system independent from the gameplay objects it activates.</p></header>
+    <figure class="architecture-overview">
+      <ol class="system-flow" aria-label="Light system data flow">
+        <li><span class="eyebrow">01 / PROPAGATION</span><h3>Propagate light</h3><p>Emitters → beams → receivers</p><span class="flow-detail">Route and transmit color channels.</span></li>
+        <li><span class="eyebrow">02 / RECEIVER STATE</span><h3>Resolve the input</h3><p>Dependencies + color aggregation</p><span class="flow-detail">Evaluate activation and propagate downstream.</span></li>
+        <li><span class="eyebrow">03 / GAMEPLAY RESPONSE</span><h3>React through events</h3><p>Activated / deactivated</p><span class="flow-detail">Open a door, rotate an object, or activate another beam.</span></li>
+      </ol>
+      <figcaption>FIG. 09 / SIMPLIFIED SYSTEM FLOW — LIGHT LOGIC AND GAMEPLAY RESPONSES REMAIN INDEPENDENT</figcaption>
+    </figure>
+    <a class="text-link" href="/projects/odysseia/light-architecture.webp" target="_blank" rel="noopener">View full class diagram ↗</a>
+    <div class="notes"><article><h3>Events connect the systems</h3><p>Receivers emit activation and deactivation events. Independent components respond by opening doors, rotating objects, or activating secondary beams.</p></article><article><h3>Shared logic, specialized rules</h3><p>A shared <code>LightReceiver</code> handles dependencies, color aggregation, activation state, and downstream propagation. Specialized receivers selectively pass color channels or activate only when the incoming light matches a target color.</p></article></div>
+  </div></section>
+  <section class="chapter wrap collaboration"><div class="foundation"><div><p class="eyebrow">WORKING WITH THE TEAM</p><h2>Team Collaboration</h2><p class="chapter-subtitle">Build. Review. Play. Refine.</p></div><div><p>One-week Scrum sprints connected my work to a team of 15–20 developers. Proposals and time estimates made scope explicit; daily meetings surfaced dependencies; both the Game Lead and Tech Lead reviewed each pull request.</p><p>Weekly integration and team playthroughs informed the next sprint. Alongside artists, I refined visual cues so gameplay logic and presentation supported the same player experience.</p></div></div><div class="closing"><p class="eyebrow">WHAT THIS PROJECT TAUGHT ME</p><p>A puzzle system needs more than interesting rules. Players need to read its state, control its possibilities, and understand how one action connects to the next. Adding the tidal indicator showed me how making system state explicit can help players decide when to act.</p></div></section>
+</main>
+<ProjectFooter />
+<script>
+  const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const updateVideos = () => document.querySelectorAll('video').forEach(video => {
+    if (preference.matches) { video.pause(); video.autoplay = false; }
+    else { video.autoplay = true; video.play().catch(() => {}); }
+  });
+  updateVideos();
+  preference.addEventListener('change', updateVideos);
+</script>
+</body>
 </html>
-
 <style>
-  :global(*) { box-sizing: border-box; }
-  :global(body) { background: #fff; }
-  :global(html) { scroll-behavior: smooth; scroll-padding-top: 32px; }
-  main { width: min(1120px, calc(100% - 2.5rem)); max-width: 100%; margin: auto; padding: 32px 40px 0; font-size: 18px; }
-  main a { color: inherit; text-underline-offset: 5px; }
-  main a:focus-visible { outline: 3px solid #287e92; outline-offset: 6px; }
-  .back-link { font-size: 14px; text-decoration: none; }
-  .hero { padding: 70px 0 65px; }
-  .hero-brand { margin-bottom: 28px; }
-  .project-logo { width: min(420px, 85%); display: block; }
-  .eyebrow, .section-number, .card-label, .step-number {
-    font-size: 11px; font-weight: 700; letter-spacing: .16em;
-    text-transform: uppercase; color: #416d79; margin: 0 0 20px;
-  }
-  h1 { font-size: clamp(48px, 7.6vw, 88px); line-height: 1.06; letter-spacing: -.065em; font-weight: 600; margin: 0 0 30px; }
-  h2 { font-size: clamp(28px, 3.6vw, 40px); line-height: 1.2; letter-spacing: -.045em; font-weight: 600; margin: 0; }
-  h3 { font-size: 19px; line-height: 1.4; font-weight: 600; margin: 0 0 12px; }
-  p { margin: 0 0 18px; }
-  .lead { max-width: 720px; font-size: 20px; line-height: 1.7; color: #52636b; }
-  .metadata { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin-top: 32px; padding: 24px 0; border-block: 1px solid #d4e0e4; }
-  .metadata div { display: flex; flex-direction: column; gap: 8px; }
-  .metadata span { font-size: 11px; letter-spacing: .14em; color: #416d79; }
-  .metadata strong { font-size: 15px; font-weight: 500; }
-  .section-nav { display: flex; flex-wrap: wrap; gap: 16px 26px; margin-top: 28px; font-size: 13px; font-weight: 600; }
-  .section-nav a { text-decoration: none; }
-  figure { margin: 0; min-width: 0; }
-  figure img, video { width: 100%; height: auto; display: block; border-radius: 12px; }
-  figcaption { font-size: 12px; line-height: 1.6; color: #647881; margin-top: 12px; max-width: 850px; }
-  .content-section, .technical-section { padding: 65px 0; border-top: 1px solid #d4e0e4; }
-  .section-heading { margin-bottom: 24px; max-width: 800px; }
-  .section-number { margin-bottom: 15px; }
-  .prose { max-width: 740px; }
-  .prose p { color: #52636b; font-size: 16px; line-height: 1.8; margin-bottom: 18px; }
-  .prose .intro { font-size: 18px; line-height: 1.7; }
-  .after-media { margin-top: 32px; }
-  .contributions { margin-top: 32px; padding: 28px 30px; border: 1px solid #d4e0e4; border-radius: 12px; background: #f7fafb; }
-  .contributions ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 40px; margin: 0; padding-left: 18px; }
-  .contributions li { color: #52636b; font-size: 15px; padding-left: 4px; }
-  .two-image-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 32px; }
-  .two-image-grid img { aspect-ratio: 16 / 9; object-fit: cover; }
-  .wide-image, .concept-image, .architecture-diagram { margin-top: 32px; }
-  .concept-image img, .architecture-diagram img { background: white; border: 1px solid #d4e0e4; }
-  .media-text { display: grid; grid-template-columns: 1.2fr 1fr; gap: 32px; align-items: center; }
-  .media-text .prose { min-width: 0; }
-  video { background: #254a58; }
-  .progression { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin: 32px 0; }
-  .progression-item { min-width: 0; border: 1px solid #d4e0e4; border-radius: 12px; padding: 22px 16px; background: #f7fafb; }
-  .step-number { display: block; color: #438597; margin-bottom: 24px; }
-  .progression-item h3 { font-size: 16px; }
-  .progression-item p { font-size: 14px; color: #52636b; margin: 0; }
-  .technical-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 32px; }
-  .technical-grid article { padding: 28px; border: 1px solid #d4e0e4; border-radius: 12px; background: #f7fafb; }
-  .technical-grid p { font-size: 15px; color: #52636b; }
-  .technical-grid .card-label { font-size: 11px; color: #416d79; }
-  .code-concepts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 20px; }
-  .code-concepts > div { background: #e8f2f5; border-radius: 12px; padding: 24px 20px; }
-  code { font-size: 13px; background: #e8f2f5; color: #254a58; overflow-wrap: anywhere; }
-  .code-concepts code { padding: 0; font-weight: 600; }
-  .code-concepts p { font-size: 14px; color: #52636b; margin: 14px 0 0; }
-  .final-section { padding-bottom: 65px; }
-  @media (max-width: 800px) {
-    main { padding: 24px 24px 0; }
-    .hero { padding: 50px 0 45px; }
-    .content-section, .technical-section { padding: 45px 0; }
-    .metadata { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .media-text { grid-template-columns: 1fr; }
-    .progression { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .code-concepts { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 480px) {
-    main { padding: 24px 20px 0; }
-    .lead { font-size: 18px; }
-    .two-image-grid, .technical-grid, .contributions ul { grid-template-columns: 1fr; }
-    .contributions, .technical-grid article { padding: 24px 20px; }
-    .progression { grid-template-columns: 1fr; }
-    .step-number { margin-bottom: 12px; }
-  }
-  @media (prefers-reduced-motion: reduce) { :global(html) { scroll-behavior: auto; } }
+:global(*){box-sizing:border-box}:global(html){scroll-behavior:smooth;scroll-padding-top:85px}:global(body){background:#f3f1eb;color:#272b26;font-family:var(--font-atkinson),sans-serif;font-size:16px;line-height:1.65}
+main{width:100%;max-width:none;margin:0;padding:0}.wrap{width:min(1200px,calc(100% - 96px));margin-inline:auto}.wrap>*{min-width:0}p{margin:0 0 22px;color:#62675c}h1,h2,h3{font-weight:400;color:inherit}h1{font-size:clamp(64px,8.3vw,112px);letter-spacing:-.065em;line-height:1;margin:0 0 35px}h1 span{display:block;color:#849064;font-size:.5em;letter-spacing:-.045em;margin-top:18px}h2{font-size:clamp(36px,4.5vw,64px);letter-spacing:-.045em;line-height:1.08;margin:0 0 28px}h3{font-size:23px;line-height:1.3;letter-spacing:-.025em;margin:0 0 16px}a{color:inherit;text-underline-offset:5px}a:hover{color:#6c7845}a:focus-visible{outline:3px solid #a0b16b;outline-offset:6px}.eyebrow,.kicker,.feature-line,dt,figcaption{font-family:monospace;font-size:11px;letter-spacing:.08em}.eyebrow{color:#72834e;display:block;margin-bottom:25px}.hero{padding-top:56px}.kicker{display:flex;justify-content:space-between;color:#73796a;margin-bottom:38px}.hero-copy{display:flex;align-items:center;justify-content:space-between;gap:50px;margin-bottom:42px}.hero-copy p{max-width:700px;font-size:18px;margin:0}.hero-copy strong{font-weight:400;color:#30392a}.button{display:inline-flex;gap:35px;justify-content:space-between;background:#30392a;color:#f4f3eb;padding:15px 22px;font-size:12px;text-decoration:none;white-space:nowrap}.button:hover{background:#52603d;color:white}figure{margin:0;min-width:0}img,video{display:block;width:100%;height:auto;border-radius:0}figcaption{font-size:10px;color:#757a6b;margin-top:16px;line-height:1.7}.cover img{aspect-ratio:1672/941;object-fit:cover}.metadata{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin:0;padding:30px 0 45px}.metadata dt{color:#7b846c;font-size:10px;margin-bottom:8px}.metadata dd{margin:0;font-size:13px}.chapter-nav{position:sticky;top:0;z-index:5;background:#f3f1ebed;backdrop-filter:blur(12px);border-block:1px solid #d4d5c8}.chapter-nav>div{display:flex;justify-content:space-between;gap:28px;overflow:auto;padding-block:18px}.chapter-nav a{flex-shrink:0;font-size:12px;text-decoration:none;white-space:nowrap}.chapter-nav a span{font-family:monospace;color:#929b7f;margin-right:12px}.foundation{display:grid;grid-template-columns:1fr 1.3fr;gap:90px;padding-block:85px;border-bottom:1px solid #d4d5c8}.foundation h2{font-size:40px}.foundation p:last-child{margin-bottom:0}.feature-line{border-top:1px solid #d4d5c8;padding-top:20px;color:#6e7957;font-size:10px}.chapter{padding-block:96px}.chapter-heading{max-width:800px;margin-bottom:48px}.chapter-heading>p:last-child{max-width:660px;font-size:17px}.image-pair{display:grid;grid-template-columns:1fr 1fr;gap:24px}.image-pair img{aspect-ratio:16/9;object-fit:contain;background:#252b25}.notes{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:45px}.notes p{font-size:15px}.notes .eyebrow{font-size:10px;margin-bottom:16px}.media-text{display:grid;grid-template-columns:1.4fr 1fr;gap:60px;align-items:center;margin-top:45px}.media-text h3{font-size:36px}.media-text p{font-size:15px}.dark-section{background:#22271f;color:#eceee4}.dark-section p{color:#b5bba9}.dark-section .eyebrow{color:#b4c68d}.dark-section figcaption{color:#a9b39a}.progression{display:grid;grid-template-columns:repeat(5,1fr);padding:0;margin:0 0 45px;list-style:none;border-block:1px solid #48503e}.progression li{padding:24px 20px;border-right:1px solid #48503e}.progression li:first-child{padding-left:0}.progression li:last-child{border:0}.progression h3{font-size:18px}.progression p{font-size:13px;margin:0}.progression .eyebrow{margin-bottom:28px}.system-reasoning{max-width:800px;margin:0 0 40px;font-size:16px}.light-feature{max-width:960px;margin:0 auto 40px}.labyrinth-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:70px;align-items:center}.concept img{background:white}.labyrinth-layout h3{font-size:32px}.prototype{margin-top:48px}.media-note{max-width:740px;font-size:14px;margin-top:25px}.implementation{background:#e8e9df}.implementation>.chapter{padding-inline:24px}.diagram{padding:30px;background:#fafbf5}.diagram img{max-height:590px;object-fit:contain}.notes article{min-width:0}code{font-size:12px;background:#dce1cf;color:#485c35;overflow-wrap:anywhere}.collaboration .foundation{padding-top:0}.closing{max-width:800px;padding-top:65px}.closing>p:last-child{font-size:28px;line-height:1.5;letter-spacing:-.025em;color:#404a36;margin:0}.skip{position:absolute;left:20px;top:-100px;background:white;padding:12px;z-index:20}.skip:focus{top:10px}
+@media(max-width:900px){.wrap{width:calc(100% - 48px)}.hero-copy{gap:25px}.foundation,.media-text,.labyrinth-layout{gap:40px}.notes{gap:30px}.progression{grid-template-columns:repeat(3,1fr)}.progression li{border-bottom:1px solid #48503e}.progression li:first-child{padding-left:20px}.progression li:nth-child(3){border-right:0}}
+@media(max-width:600px){.wrap{width:calc(100% - 36px)}.hero{padding-top:35px}.kicker{font-size:9px;gap:20px;margin-bottom:30px}h1{font-size:64px}h1 span{font-size:32px;line-height:1.1}.hero-copy{display:block}.hero-copy p{font-size:16px}.button{margin-top:22px}.metadata{grid-template-columns:1fr 1fr;padding-bottom:30px}.metadata dd{font-size:12px}.chapter-nav a{font-size:11px}.foundation,.media-text,.labyrinth-layout,.notes,.image-pair{grid-template-columns:1fr}.foundation{padding-block:55px;gap:15px}.foundation h2{font-size:34px}.chapter{padding-block:60px}h2{font-size:39px}.chapter-heading{margin-bottom:30px}.chapter-heading>p:last-child{font-size:16px}.notes{gap:18px;margin-top:30px}.notes p{margin-bottom:10px}.media-text{margin-top:30px;gap:28px}.media-text h3{font-size:30px}.progression{grid-template-columns:1fr 1fr}.progression li{padding:20px 14px}.progression li:first-child{padding-left:14px}.progression li:nth-child(3){border-right:1px solid #48503e}.progression li:nth-child(even){border-right:0}.progression li:last-child{grid-column:1/-1}.progression .eyebrow{margin-bottom:15px}.image-pair{gap:30px}.labyrinth-layout{gap:30px}.prototype{margin-top:30px}.diagram{padding:14px}.closing{padding-top:45px}.closing>p:last-child{font-size:24px}}
+@media(prefers-reduced-motion:reduce){:global(html){scroll-behavior:auto}}
+/* Case-study hierarchy and readable supporting diagrams. */
+.contribution{padding-block:60px;border-bottom:1px solid #d4d5c8}.contribution header h2{font-size:30px;letter-spacing:-.025em;margin-bottom:28px}.contribution-list{list-style:none;padding:0;margin:0}.contribution-list li{display:grid;grid-template-columns:145px 1fr;gap:25px;padding:18px 0;border-top:1px solid #d4d5c8;font-size:16px}.contribution-list strong{font-weight:700;color:#465638}.contribution-list span{color:#62675c;max-width:850px}.contribution-note{font-size:14px;margin:22px 0 0}.chapter-heading{max-width:960px}.chapter-heading h2{font-size:clamp(36px,4.5vw,58px);margin-bottom:16px}.chapter-subtitle{font-size:23px;line-height:1.35;color:#72834e;margin-bottom:24px;letter-spacing:-.02em}.dark-section .chapter-subtitle{color:#b4c68d}.rule-diagram{display:block;width:100%;height:auto;margin-bottom:24px;overflow:visible}.rule-diagram text{font:11px monospace;fill:#d7ddca}.progression .eyebrow{margin-bottom:18px}.concept{width:100%;background:#fff}.annotated-maze{display:block;width:100%;height:auto;max-height:1000px}.concept figcaption{padding:0 24px 20px;margin-top:0}.map-label text{font:22px monospace;letter-spacing:1px;fill:#fff}.map-pin circle{stroke:#fff;stroke-width:3}.map-pin text{font:24px monospace;text-anchor:middle;fill:#fff}.maze-key{display:grid;grid-template-columns:1fr 1fr;gap:45px;margin-top:24px}.maze-key p{font-size:14px}.maze-key b{display:block;font:10px monospace;letter-spacing:.07em;color:#6e7957;margin-bottom:8px}.text-link{display:inline-block;font-size:12px;margin-top:10px}.labyrinth-explanation{max-width:800px;margin-top:30px}.labyrinth-explanation p{font-size:15px}.prototype-group{max-width:960px;margin:40px auto 0}.prototype{margin-top:0}.prototype-group .media-note{max-width:none}.system-flow{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;padding:0;margin:0;background:#f5f5ee;border-block:1px solid #c7cdbb}.system-flow li{position:relative;padding:30px 26px;min-width:0}.system-flow li+li{border-left:1px solid #c7cdbb}.system-flow li:not(:last-child)::after{content:'→';position:absolute;right:-13px;top:80px;background:#f5f5ee;padding:0 4px;color:#72834e;font-size:22px;z-index:1}.system-flow .eyebrow{font-size:10px}.system-flow h3{font-size:24px}.system-flow p{font-size:14px;margin-bottom:15px;color:#49553d}.flow-detail{font-size:13px;color:#757d6a;display:block}.collaboration .chapter-subtitle{font-size:20px}
+@media(max-width:900px){.system-flow li{padding:24px 18px}.system-flow h3{font-size:21px}.system-flow .eyebrow{font-size:9px}.system-flow p{font-size:13px}}
+@media(max-width:600px){.contribution{padding-block:40px}.contribution header h2{font-size:26px}.contribution-list li{grid-template-columns:1fr;gap:6px;font-size:15px;padding:16px 0}.chapter-heading h2{font-size:37px}.chapter-subtitle{font-size:20px}.rule-diagram{max-width:180px;min-height:80px}.maze-key,.system-flow{grid-template-columns:1fr}.maze-key{gap:10px}.concept figcaption{padding:12px;font-size:8px}.system-flow li+li{border-left:0;border-top:1px solid #c7cdbb}.system-flow li:not(:last-child)::after{content:'↓';top:auto;bottom:-16px;right:24px}.system-flow h3{font-size:23px}.system-flow .eyebrow{font-size:10px}.system-flow p{font-size:14px}.prototype-group{margin-top:30px}}
+@media print{
+  @page{size:A4;margin:14mm 13mm}
+  :global(html){scroll-behavior:auto;scroll-padding-top:0}
+  :global(body){background:white;font-size:10pt;line-height:1.5;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  .skip,.chapter-nav,.button{display:none!important}.wrap{width:100%;max-width:none}
+  .hero{padding-top:20pt}.hero h1{font-size:46pt;margin-bottom:20pt}.hero h1 span{font-size:23pt}.kicker{margin-bottom:20pt;font-size:8pt}
+  .hero-copy{margin-bottom:20pt}.hero-copy p{font-size:11pt}.cover img{max-height:65mm;object-fit:contain}.metadata{grid-template-columns:repeat(4,1fr);padding:16pt 0 20pt}.metadata dd{font-size:9pt}.metadata dt{font-size:7pt}
+  .chapter{padding-block:24pt}.chapter-heading{margin-bottom:18pt;break-inside:avoid;break-after:avoid-page}.chapter-heading h2{font-size:29pt}.chapter-heading>p:last-child{font-size:10.5pt}.chapter-subtitle{font-size:15pt;margin-bottom:12pt}
+  .contribution{padding-block:20pt;break-inside:avoid-page}.contribution header h2{font-size:19pt;margin-bottom:16pt}.contribution .eyebrow{margin-bottom:10pt}.contribution-list li{grid-template-columns:65pt 1fr;padding:9pt 0;gap:12pt;font-size:10pt}.contribution-note{font-size:9pt;margin-top:12pt}
+  .eyebrow{font-size:8pt;margin-bottom:14pt}figcaption{font-size:7pt;margin-top:8pt}figure,figure img,figcaption,.notes article,.progression,.progression li,.system-flow,.prototype-group,.maze-key,.closing{break-inside:avoid-page}h2,h3{break-after:avoid-page}p{orphans:3;widows:3}
+  #tides,#light,#labyrinth,#implementation{break-before:page}
+  .notes{gap:24pt;margin-top:22pt}.notes p,.media-text p{font-size:9.5pt}.notes h3{font-size:15pt}.notes .eyebrow{font-size:7pt}.media-text{gap:24pt;margin-top:22pt;break-inside:avoid-page}.media-text h3{font-size:22pt}
+  .dark-section{background:#fff;color:#272b26}.dark-section p,.dark-section figcaption{color:#62675c}.dark-section .eyebrow,.dark-section .chapter-subtitle{color:#72834e}
+  .progression{grid-template-columns:repeat(5,1fr);margin-bottom:22pt;border-color:#c7cdbb}.progression li{padding:12pt 9pt;border-color:#c7cdbb}.progression li:first-child{padding-left:0}.progression h3{font-size:11pt}.progression p{font-size:8pt}.progression .eyebrow{font-size:7pt;margin-bottom:10pt}.rule-diagram{background:#22271f;margin-bottom:12pt;min-height:0}.system-reasoning{font-size:10pt;margin-bottom:20pt;break-inside:avoid-page}.light-feature{max-width:150mm;margin-bottom:22pt}
+  .image-pair{gap:15pt}.annotated-maze{max-height:140mm}.concept figcaption{font-size:7pt;padding:6pt 12pt}.maze-key{gap:20pt;margin-top:12pt;break-after:avoid-page}.maze-key p{font-size:9pt;margin-bottom:6pt}.maze-key b{font-size:7pt}.text-link{font-size:8pt;margin-top:8pt}.labyrinth-explanation{margin-top:16pt}.labyrinth-explanation p,.media-note{font-size:9pt}.prototype-group{max-width:160mm;margin-top:20pt}.prototype{margin:0}.media-note{margin-top:10pt}
+  .implementation{background:#f1f2e9}.system-flow{grid-template-columns:repeat(3,minmax(0,1fr))}.system-flow li{padding:18pt 13pt}.system-flow .eyebrow{font-size:7pt}.system-flow h3{font-size:16pt}.system-flow p{font-size:9pt}.flow-detail{font-size:9pt}.system-flow li:not(:last-child)::after{top:52pt;font-size:16pt}
+  .collaboration{padding-bottom:0}.collaboration .foundation{padding-block:22pt;gap:30pt;grid-template-columns:1fr 1.4fr;break-inside:avoid-page}.foundation h2{font-size:24pt}.foundation p{font-size:10pt}.collaboration .chapter-subtitle{font-size:13pt}.closing{padding-top:22pt}.closing>p:last-child{font-size:17pt}
+}
 </style>
