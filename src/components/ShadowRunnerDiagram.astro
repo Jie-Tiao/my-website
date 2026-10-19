@@ -1,0 +1,32 @@
+---
+interface Props { version: 'prototype' | 'release' }
+const { version } = Astro.props;
+const prototype = version === 'prototype';
+const pins = prototype ? [[370,200,'A'],[865,395,'A'],[905,275,'B']] : [[400,240,'A'],[860,410,'A'],[903,220,'B']];
+const switchPin = prototype ? [290,232] : [235,200];
+---
+<figure>
+  <p class="label">{prototype ? '01 / PROTOTYPE' : '02 / RELEASE'} <span>REAL WORLD / SHADOW WORLD</span></p>
+  <a href={`/projects/shadow-runner/${version}-walls-annotated.svg`} aria-label={`Open ${version} wall detail at full size`}>
+    <svg viewBox="0 0 1200 500" role="img" aria-label={`${version}: A marks both wall ends; B marks the shadow character's safe position behind the longer wall.`}>
+      <image href={`/projects/shadow-runner/${version}-walls.webp`} width="1200" height="500" />
+      <path d="M600 0V500" stroke="#f3f1eb" stroke-width="2" opacity=".5" />
+      {pins.map(([x,y,label]) => <g><circle cx={x} cy={y} r={label === 'B' ? 40 : 26} fill="none" stroke={label === 'B' ? '#8ef0de' : '#f4d27d'} stroke-width="4" stroke-dasharray={label === 'B' ? '8 5' : undefined}/><rect x={Number(x)+28} y={Number(y)-18} width="36" height="36" rx="18" fill={label === 'B' ? '#8ef0de' : '#f4d27d'}/><text x={Number(x)+46} y={Number(y)+7} text-anchor="middle">{label}</text></g>)}
+    </svg>
+  </a>
+  <div class="detail-label">LINKED SWITCH &amp; ENEMY ENCLOSURE / ANOTHER MOMENT IN THE SAME LEVEL</div>
+  <a href={`/projects/shadow-runner/${version}-switch-annotated.svg`} aria-label={`Open ${version} switch and enclosure detail at full size`}>
+    <svg viewBox="0 0 1200 281.25" role="img" aria-label={`${version}: C marks the switch in the real world; D marks the enemy enclosure in the shadow world.`}>
+      <image href={`/projects/shadow-runner/${version}-switch.webp`} width="1200" height="281.25" />
+      <path d="M600 0V282" stroke="#f3f1eb" stroke-width="2" opacity=".5" />
+      <circle cx={switchPin[0]} cy={switchPin[1]} r="33" fill="none" stroke="#8ef0de" stroke-width="4" />
+      <g><rect x={switchPin[0]+38} y={switchPin[1]-18} width="36" height="36" rx="18" fill="#8ef0de"/><text x={switchPin[0]+56} y={switchPin[1]+7} text-anchor="middle">C</text></g>
+      <rect x="630" y="4" width="250" height="148" rx="10" fill="none" stroke="#f4d27d" stroke-width="4" stroke-dasharray="9 6" />
+      <rect x="891" y="60" width="36" height="36" rx="18" fill="#f4d27d"/><text x="909" y="85" text-anchor="middle">D</text>
+    </svg>
+  </a>
+  <figcaption>{prototype ? 'GRAYBOX / WALL LENGTHS ESTABLISH THE SAFE POSITION' : 'FINISHED SCENE / STONE WALLS REINFORCE THE SAME SPATIAL CLUE'} · Select an image to enlarge.</figcaption>
+</figure>
+<style>
+figure{margin:0;min-width:0}.label{display:flex;justify-content:space-between;gap:20px;color:#e5e7db;font:12px/1.6 monospace;letter-spacing:.08em;margin:0 0 14px}.label span{color:#b2bf98;font-size:10px}svg{width:100%;height:auto;display:block;background:#171923}text{font:700 24px monospace;fill:#192822}.detail-label{background:#303831;padding:12px 16px;color:#c3ccb6;font:10px/1.6 monospace;letter-spacing:.06em}a{display:block}a:focus-visible{outline:3px solid #8ef0de;outline-offset:5px}figcaption{color:#b2bf98;font:10px/1.7 monospace;letter-spacing:.06em;margin-top:14px}@media(max-width:600px){.label{display:block}.label span{display:block;margin-top:4px}.detail-label{font-size:9px;padding:10px}figcaption{font-size:9px}}
+</style>
