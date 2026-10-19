@@ -21,59 +21,79 @@ const steps = [
     <BaseHead title={`${title} — Chao Bian`} description="An OCaml course project implementing a functional language interpreter, static type checker, and constraint-based type inference engine." />
   </head>
   <body>
+    <a class="skip" href="#main">Skip to content</a>
     <ProjectHeader />
-    <main>
+    <main id="main">
       <header class="hero">
-        <p class="eyebrow">UCSB CS162 · Programming Languages · Course Project</p>
-        <h1>Small language.<br /><span>Deep foundations.</span></h1>
-        <p class="project-title">{title}</p>
-        <p class="intro">From evaluating expressions to reasoning about their types: implementing the core algorithms of a small functional language in OCaml.</p>
-        <ul class="tags" aria-label="Project topics">
-          {['OCaml', 'Operational semantics', 'Type systems', 'Unification'].map(tag => <li>{tag}</li>)}
-        </ul>
-        <nav aria-label="Page sections">
-          <a href="#contribution">My contribution <span aria-hidden="true">↗</span></a>
-          <a href="#inference">Explore type inference <span aria-hidden="true">↓</span></a>
-        </nav>
+        <div class="kicker"><span>PROGRAMMING LANGUAGES / COURSE PROJECT</span><span>UCSB CS162 · OCAML</span></div>
+        <h1>λ⁺ Interpreter &amp;<br />Type Inference<span>Small language. Deep foundations.</span></h1>
+        <p class="lead">From evaluating expressions to reasoning about their types: implementing the core algorithms of a small functional language in OCaml.</p>
+        <div class="metadata"><div><span>MY ROLE</span><strong>Core language algorithms</strong></div><div><span>STACK</span><strong>OCaml</strong></div><div><span>FOCUS</span><strong>Evaluation · Type inference</strong></div><div><span>CONTEXT</span><strong>UCSB CS162 · Course project</strong></div></div>
+        <div class="hero-links"><span>Operational semantics. Type systems. Unification.</span><a href="#inference">Explore type inference ↓</a></div>
       </header>
 
-      <section class="overview" aria-labelledby="overview-title">
+      <figure class="cover"><img src="/projects/cs162/cover.svg" alt="Syntax tree of the identity function and its inferred type α → α" width="1200" height="675" fetchpriority="high" /><figcaption><span>FIG. 01 / FROM EXPRESSIONS TO TYPES</span><span>Identity function · λx. x : α → α</span></figcaption></figure>
+      <nav class="chapter-nav" aria-label="Case study chapters"><div><a href="#overview"><span>00</span>Overview</a><a href="#contribution"><span>01</span>My contribution</a><a href="#interpreter"><span>02</span>Interpreter</a><a href="#inference"><span>03</span>Type inference</a><a href="#takeaway"><span>04</span>Takeaway</a></div></nav>
+      <section id="overview" class="overview" aria-labelledby="overview-title">
         <div><p class="eyebrow">The project</p><h2 id="overview-title">Turning language rules<br />into working algorithms.</h2></div>
         <div><p>Across a sequence of assignments, I implemented the core evaluation and type-analysis algorithms for λ⁺. The work progressed from substitution-based evaluation to checking annotated programs and inferring types through constraints.</p></div>
       </section>
 
       <section id="contribution" aria-labelledby="contribution-title">
-        <p class="eyebrow">Implementation scope</p><h2 id="contribution-title">My contribution</h2>
+        <p class="eyebrow">01 / Implementation scope</p><h2 id="contribution-title">My contribution</h2>
         <p class="section-intro">The course supplied the AST, parser, supporting utilities, and interactive interface. Within that framework, I implemented the following core algorithms.</p>
         <div class="cards">{contributions.map(([number, heading, description]) => <article class="card"><span class="number">{number}</span><h3>{heading}</h3><p>{description}</p></article>)}</div>
         <p class="aside">Additional work: simultaneous substitution, alpha-equivalence checking, lazy internal choices, and type cardinality calculations.</p>
       </section>
 
-      <section class="interpreter" aria-labelledby="interpreter-title">
-        <p class="eyebrow">01 / Runtime</p><h2 id="interpreter-title">Building the interpreter</h2>
+      <section id="interpreter" class="interpreter" aria-labelledby="interpreter-title">
+        <p class="eyebrow">02 / Runtime</p><h2 id="interpreter-title">Building the interpreter</h2>
         <p>The interpreter recursively evaluates the abstract syntax tree. For function application, it evaluates the function and argument, substitutes the resulting argument value into the function body, and evaluates that body.</p>
-        <div class="flow" aria-label="Function application evaluation sequence"><span>Evaluate function</span><b aria-hidden="true">→</b><span>Evaluate argument</span><b aria-hidden="true">→</b><span>Substitute value</span><b aria-hidden="true">→</b><span>Evaluate body</span></div>
+        <div class="flow" aria-label="Function application evaluation sequence"><span>Evaluate function</span><b aria-hidden="true"></b><span>Evaluate argument</span><b aria-hidden="true"></b><span>Substitute value</span><b aria-hidden="true"></b><span>Evaluate body</span></div>
         <div class="columns"><div><h3>Respecting variable scope</h3><p>Free-variable analysis distinguishes references from names introduced by functions, let expressions, and pattern matching. Substitution stops beneath a binding that shadows the variable being replaced.</p></div><div><h3>Extending the language</h3><p>Lists, conditional execution, and recursion through a fixed-point operator enable recursive computations within the same evaluation model.</p></div></div>
         
       </section>
 
       <section id="inference" aria-labelledby="inference-title">
-        <p class="eyebrow">02 / Static analysis</p><h2 id="inference-title">From type checking<br />to type inference.</h2>
+        <p class="eyebrow">03 / Static analysis</p><h2 id="inference-title">From type checking<br />to type inference.</h2>
         <p class="section-intro">The type checker translates typing rules into recursive checks. The inference engine introduces fresh type variables for missing annotations, generates equality constraints, and solves them through unification.</p>
         <div class="example"><div class="expression"><p class="eyebrow">A minimal example</p><pre><code>lambda x. x</code></pre><div class="result"><span>Inferred type</span><strong>α → α</strong></div></div><ol>{steps.map(([heading, description]) => <li><h3>{heading}</h3><p>{description}</p></li>)}</ol></div>
         <div class="columns"><div><h3>Connecting types through constraints</h3><p>For function application, the function’s type is constrained to an arrow from the argument type to a fresh result type. Unification propagates these relationships across the expression.</p></div><div><h3>Rejecting infinite types</h3><p>The occurs check rejects equations such as <code>α = α → β</code>, which would require an infinite type.</p></div></div>
       </section>
 
-      <section class="reflection" aria-labelledby="reflection-title"><p class="eyebrow">Reflection</p><h2 id="reflection-title">Formal ideas, executable systems.</h2><p>Evaluation rules became recursive interpreter cases; typing judgments became environment-based checks; and unknown types became constraints that could be solved systematically.</p><p>The project strengthened my understanding of variable scope, recursive data structures, and the distinction between runtime evaluation and static analysis—foundations relevant to scripting systems and language tools in graphics and game development.</p></section>
+      <section id="takeaway" class="reflection" aria-labelledby="reflection-title"><p class="eyebrow">04 / Reflection</p><h2 id="reflection-title">Formal ideas, executable systems.</h2><p>Evaluation rules became recursive interpreter cases; typing judgments became environment-based checks; and unknown types became constraints that could be solved systematically.</p><p>The project strengthened my understanding of variable scope, recursive data structures, and the distinction between runtime evaluation and static analysis—foundations relevant to scripting systems and language tools in graphics and game development.</p></section>
     </main>
     <ProjectFooter />
   </body>
 </html>
 
 <style>
-  :global(*){box-sizing:border-box} :global(html){scroll-behavior:smooth;scroll-padding-top:32px} :global(body){background:#fff;line-height:1.7} main a{color:inherit;text-underline-offset:5px} :global(a:focus-visible){outline:3px solid #527b41;outline-offset:6px} :global(code){font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
-  main{width:min(1120px,calc(100% - 2.5rem));max-width:100%;margin:auto;padding:32px 40px 0;font-size:18px}.back-link{font-size:14px;text-decoration:none}.expression pre{padding:0;background:transparent}.expression code{background:transparent;color:inherit;padding:0} .hero{padding:100px 0 70px;border-bottom:1px solid #d4d9ce}.eyebrow{text-transform:uppercase;font-size:11px;font-weight:700;letter-spacing:.16em;color:#58684f;margin:0 0 20px}h1{font-size:clamp(48px,7.6vw,88px);line-height:1.06;letter-spacing:-.065em;font-weight:600;margin:0 0 30px}h1 span{color:#65834c}.project-title{font-size:24px;letter-spacing:-.025em;margin:0 0 12px}.intro{max-width:630px;font-size:18px;color:#556052}.tags{display:flex;flex-wrap:wrap;gap:9px;list-style:none;padding:0;margin:27px 0 32px}.tags li{border:1px solid #cbd3c3;border-radius:30px;padding:5px 13px;font-size:12px}nav{display:flex;flex-wrap:wrap;gap:25px;font-size:13px;font-weight:600}nav a{text-decoration:none}nav span{margin-left:8px}section{padding:65px 0;border-bottom:1px solid #d4d9ce}h2{font-size:clamp(28px,3.6vw,40px);line-height:1.2;letter-spacing:-.045em;font-weight:600;margin:0 0 24px}h3{font-size:17px;line-height:1.4;font-weight:600;margin:0 0 12px}p{margin:0 0 18px}section p{color:#52604f}.section-intro{max-width:740px}.overview{display:grid;grid-template-columns:1fr 1fr;gap:48px}.overview .validation{font-size:13px;color:#35572c;padding-left:15px;border-left:3px solid #86a365}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:32px 0 22px}.card{border:1px solid #d4d9ce;border-radius:12px;padding:24px 20px;background:#faf9f5}.number{display:block;color:#6b8458;font-size:12px;margin-bottom:30px}.card p{font-size:14px;margin:0}.aside{font-size:12px;color:#64715e;margin-top:24px;max-width:850px}.columns{display:grid;grid-template-columns:1fr 1fr;gap:45px;margin-top:32px}.columns p{font-size:15px;margin:0}.flow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:26px 22px;background:#e9eddf;border-radius:12px;margin:30px 0;font-size:13px}.flow b{color:#7c9364;font-weight:400}.example{display:grid;grid-template-columns:1fr 1.1fr;border:1px solid #cbd3c3;border-radius:14px;overflow:hidden;margin:35px 0}.expression{padding:35px;background:#25382a;color:#f0f3e8}.expression .eyebrow{color:#b7cca2}pre{font-size:clamp(18px,2.5vw,26px);white-space:pre-wrap;overflow-wrap:anywhere;margin:35px 0 45px}.result{border-top:1px solid #52654f;padding-top:20px;display:flex;justify-content:space-between;align-items:center}.result span{font-size:12px;color:#c0cdb7}.result strong{font-size:28px;font-weight:500}.example ol{margin:0;padding:30px 30px 20px 55px}.example li{padding-left:7px;margin-bottom:22px}.example li::marker{color:#63824a;font-size:13px}.example h3{font-size:15px;margin-bottom:6px}.example li p{font-size:14px;margin:0}.reflection{max-width:800px;border:0;padding-bottom:55px}.reflection p{font-size:16px}footer{display:flex;justify-content:space-between;gap:20px;padding:24px 0 40px;border-top:1px solid #d4d9ce;font-size:12px;color:#64715e}
-  @media(max-width:800px){main{padding:0 24px}.hero{padding-top:65px}.cards{grid-template-columns:repeat(2,1fr)}.overview,.example{grid-template-columns:1fr}.overview{gap:15px}.flow{flex-wrap:wrap;justify-content:flex-start}.columns{gap:25px}section{padding:45px 0}}
-  @media(max-width:480px){main{padding:0 20px}.cards,.columns{grid-template-columns:1fr}.number{margin-bottom:15px}.project-title{font-size:21px}.flow{flex-direction:column;align-items:flex-start}.flow b{transform:rotate(90deg);margin-left:45px}.expression{padding:25px}footer{flex-direction:column;gap:8px}}
+  :global(*){box-sizing:border-box}
+  :global(html){scroll-behavior:smooth;scroll-padding-top:80px}
+  :global(body){background:#f3f1eb;color:#272b26;font-family:var(--font-atkinson),sans-serif;font-size:16px;line-height:1.65}
+  main{width:100%;max-width:none;padding:0;margin:0}
+  .hero,.cover,section{width:min(1200px,calc(100% - 96px));margin-inline:auto;min-width:0}
+  a{color:inherit;text-underline-offset:5px}a:hover{color:#6c7845}a:focus-visible{outline:3px solid #a0b16b;outline-offset:6px}
+  .hero{padding:56px 0 0}.kicker{display:flex;justify-content:space-between;gap:20px;color:#73796a;margin-bottom:38px}
+  .kicker,.eyebrow,.metadata span,.number,figcaption{font-family:monospace;font-size:11px;letter-spacing:.09em;font-weight:400}
+  h1,h2,h3{color:inherit;font-weight:400}h1{font-size:clamp(56px,8.3vw,112px);line-height:1;letter-spacing:-.065em;margin:0 0 35px}h1 span{display:block;color:#849064;font-size:.57em;letter-spacing:-.05em;margin-top:16px}
+  h2{font-size:clamp(36px,4.5vw,64px);line-height:1.08;letter-spacing:-.045em;margin:0 0 28px}h3{font-size:21px;line-height:1.3;margin:0 0 13px}
+  p{margin:0 0 22px;color:#62675c}.lead{max-width:660px;font-size:18px}.section-intro{max-width:800px;font-size:17px}.eyebrow{color:#72834e;text-transform:uppercase;margin-bottom:25px}
+  .metadata{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;padding:24px 0;margin-top:35px;border-block:1px solid #d4d5c8}.metadata div{display:flex;flex-direction:column;gap:10px}.metadata span{font-size:10px;color:#72834e}.metadata strong{font-size:14px;font-weight:400}
+  .hero-links{display:flex;justify-content:space-between;gap:20px;padding:25px 0 36px;font-size:12px;color:#62675c}.hero-links a{color:#333b2d}
+  .cover{background:#151713;padding:32px 8% 18px;margin-bottom:50px}.cover img{display:block;width:100%;max-height:520px;object-fit:contain;border-radius:0}.cover figcaption{display:flex;justify-content:space-between;gap:15px;color:#a6ab99;margin-top:22px;font-size:10px}
+  .chapter-nav{position:sticky;top:0;z-index:5;background:#f3f1ebed;backdrop-filter:blur(12px);border-block:1px solid #d4d5c8}.chapter-nav>div{display:flex;justify-content:space-between;gap:28px;overflow:auto;width:min(1200px,calc(100% - 96px));margin:auto;padding-block:18px}.chapter-nav a{white-space:nowrap;font-size:12px;text-decoration:none}.chapter-nav span{font-family:monospace;color:#929b7f;margin-right:12px}
+  section{padding:96px 0;border-bottom:1px solid #d4d5c8}.overview{display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:center}.overview p:last-child{margin-bottom:0}
+  .cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;margin:45px 0 30px}.card{border-top:1px solid #bec6af;padding-top:24px}.number{display:block;color:#72834e;margin-bottom:24px}.card h3{font-size:19px}.card p{font-size:14px;margin:0}.aside{font-size:12px;color:#73796a;max-width:900px}
+  .columns{display:grid;grid-template-columns:1fr 1fr;gap:90px;margin-top:40px}.columns>*{min-width:0}.columns p{font-size:15px;margin:0}
+  .flow{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:24px;margin:40px 0 18px;border-block:1px solid #cfd3c3;background:#e8e9df;font-family:monospace;font-size:12px;color:#657a42}.flow b{display:block;position:relative;flex:0 0 48px;min-width:48px;max-width:48px;height:12px;color:#72834e}.flow b::before{content:"";position:absolute;left:0;right:1px;top:5px;border-top:1.5px solid currentColor}.flow b::after{content:"";position:absolute;right:2px;top:2px;width:7px;height:7px;border-top:1.5px solid currentColor;border-right:1.5px solid currentColor;transform:rotate(45deg)}
+  code{font-family:monospace;font-size:14px;background:#e6e7dd;color:#48583a;border-radius:0}
+  #inference{width:100%;background:#22271f;color:#eceee4;padding-inline:max(48px,calc((100% - 1200px)/2));border:0}#inference p{color:#b5bba9}#inference .eyebrow{color:#b4c68d}#inference code{background:#333d2b;color:#d5dfbf}
+  .example{display:grid;grid-template-columns:1fr 1.1fr;border-block:1px solid #48503e;margin:45px 0}.expression{padding:40px;background:#151713;min-width:0}.expression pre{padding:0;background:transparent;border-radius:0;font-size:clamp(24px,3vw,40px);white-space:pre-wrap;overflow-wrap:anywhere;margin:40px 0 55px}.expression pre code{font-size:inherit;background:transparent!important;color:#eceee4!important;padding:0}.result{border-top:1px solid #48503e;padding-top:24px;display:flex;justify-content:space-between;align-items:center;gap:16px}.result span{font-family:monospace;font-size:11px;color:#a6ab99}.result strong{font-size:36px;font-weight:400;color:#b4c68d}.example ol{margin:0;padding:40px 35px 20px 60px}.example li{padding-left:8px;margin-bottom:26px}.example li::marker{color:#b4c68d;font-family:monospace;font-size:12px}.example h3{font-size:19px;margin-bottom:8px}.example li p{font-size:14px;margin:0}
+  .reflection{border:0}.reflection>p:not(.eyebrow){max-width:800px}.reflection>h2+p{font-size:26px;line-height:1.5;color:#404a36;letter-spacing:-.02em}
+  .skip{position:absolute;top:-100px;left:20px;background:white;padding:12px;z-index:20}.skip:focus{top:10px}
+  @media(max-width:900px){.hero,.cover,section,.chapter-nav>div{width:calc(100% - 48px)}.overview,.columns{gap:40px}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:30px}#inference{padding-inline:24px}.kicker{font-size:10px}.flow{gap:10px;padding-inline:16px;font-size:11px}}
+  @media(max-width:600px){.hero,.cover,section,.chapter-nav>div{width:calc(100% - 36px)}.hero{padding-top:35px}.kicker{font-size:9px;margin-bottom:30px;flex-wrap:wrap;gap:8px}h1{font-size:clamp(39px,9.8vw,58px)}h1 span{font-size:32px;line-height:1.1}h2{font-size:39px}.lead,.section-intro{font-size:16px}.metadata{grid-template-columns:1fr 1fr;gap:24px 18px}.hero-links{flex-direction:column;gap:12px}.cover{padding:15px 10px}.cover figcaption{display:block;font-size:8px}.cover figcaption span{display:block}.chapter-nav a{font-size:11px}section{padding-block:60px}.overview,.cards,.columns,.example{grid-template-columns:1fr;gap:24px}.cards{margin-top:30px}.number{margin-bottom:16px}.flow{flex-direction:column;font-size:12px;padding:24px 18px;gap:10px}.flow b{flex:none;width:24px;min-width:24px;max-width:24px;margin-block:6px;transform:rotate(90deg)}#inference{padding-inline:18px}.example{gap:0}.expression{padding:26px}.example ol{padding:28px 24px 8px 45px}.reflection>h2+p{font-size:22px}}
   @media(prefers-reduced-motion:reduce){:global(html){scroll-behavior:auto}}
+  @media print{:global(body){background:white;font-size:10pt}.skip,.chapter-nav{display:none}.hero,.cover,section{width:100%}.hero{padding-top:24pt}h1{font-size:44pt}h2{font-size:30pt}section{padding-block:28pt}.cards,.columns,.overview{gap:20pt}.card,.example{break-inside:avoid}#inference{background:white;color:#272b26;padding-inline:0}#inference p{color:#62675c}.expression{background:#e8e9df}.expression pre code{color:#272b26!important}.result strong,#inference .eyebrow{color:#657a42}}
 </style>
