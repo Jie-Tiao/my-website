@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="520" viewBox="0 0 1100 520" role="img" aria-labelledby="title desc">
+<title id="title">Card definitions and runtime instances</title>
+<desc id="desc">CSV tables load card definitions indexed by ID. Initial hand or reward IDs call AddCard(id) to create a card instance and UI, assigning a reference to the definition found by ID. Selecting and confirming resolves the effect. Rewards supply new IDs. If consumed, only the instance and UI are removed; definitions remain available.</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#925344" stroke-width="1.4"/></marker></defs>
+<style>text{font-family:Arial,sans-serif;fill:#30362c;font-size:19px} .small{font-size:15px;fill:#65685d}.label{font-size:15px;fill:#925344}.box{fill:#f3f1eb;stroke:#adb0a0;stroke-width:1}.accent{stroke:#925344;stroke-width:1.5}.line{fill:none;stroke:#925344;stroke-width:1.4;marker-end:url(#arrow)}.mono{font-family:monospace;font-size:16px}</style>
+<text x="30" y="30" class="small" letter-spacing="2">SHARED CONFIGURATION</text>
+<rect x="30" y="58" width="210" height="86" class="box"/><text x="135" y="108" text-anchor="middle">CSV tables</text>
+<path d="M240 101H410" class="line"/><text x="325" y="85" class="label" text-anchor="middle">Load definitions</text>
+<rect x="410" y="58" width="310" height="86" class="box accent"/><text x="565" y="94" text-anchor="middle">Card definitions</text><text x="565" y="121" class="small" text-anchor="middle">Indexed by ID · retained for reuse</text>
+<path d="M565 144V266" class="line"/><text x="585" y="193" class="label">Look up by ID</text><text x="585" y="217" class="label">Assign definition reference</text>
+<text x="30" y="237" class="small" letter-spacing="2">RUNTIME HAND</text>
+<rect x="30" y="267" width="210" height="100" class="box"/><text x="135" y="308" text-anchor="middle">Initial hand</text><text x="135" y="335" text-anchor="middle">or reward IDs</text>
+<path d="M240 317H410" class="line"/><text x="325" y="300" class="label mono" text-anchor="middle">AddCard(id)</text>
+<rect x="410" y="267" width="310" height="100" class="box accent"/><text x="565" y="307" text-anchor="middle">Card instance + UI</text><text x="565" y="335" class="small" text-anchor="middle">References its shared definition</text>
+<path d="M720 317H855" class="line"/><text x="788" y="277" class="label" text-anchor="middle">Select and</text><text x="788" y="299" class="label" text-anchor="middle">confirm</text>
+<rect x="855" y="267" width="215" height="100" class="box"/><text x="962" y="307" text-anchor="middle">Resolve card</text><text x="962" y="335" text-anchor="middle">effect</text>
+<path d="M962 367V430" class="line"/><text x="978" y="407" class="label">If consumed</text>
+<rect x="815" y="430" width="255" height="65" class="box"/><text x="942" y="470" text-anchor="middle">Remove instance + UI</text>
+<path d="M855 345H775V465H135V367" class="line"/><text x="450" y="451" class="label" text-anchor="middle">Award new cards → supply reward IDs</text>
+</svg>
