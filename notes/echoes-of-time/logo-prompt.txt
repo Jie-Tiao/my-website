@@ -1,0 +1,4 @@
+Built-in image_gen edit. Source: public/projects/echoes-of-time/cover.webp
+Replace only the original title in its existing position with ECHOES OF TIME: two-line pixel-art fantasy wordmark in warm ivory and muted gold, dark olive outline, subtle echo lettering, and an integrated hourglass. Preserve the courtyard, character, statue, camera framing, START and QUIT buttons.
+
+Revision (built-in image_gen): Remove translucent offset ghost lettering behind the logo and restore the grass/paving. Preserve the main gold/ivory wordmark, hourglass, close-fitting outline, flourishes and original game scene.
