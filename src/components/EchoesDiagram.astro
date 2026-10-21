@@ -1,0 +1,72 @@
+---
+interface Props { stage: 'record' | 'enable' | 'cooperate' | 'passage' | 'lesson' }
+const {stage} = Astro.props;
+const descriptions = {
+ lesson: 'Echo holds switch while Player passes the open gate.',
+ record: 'Player keeps moving against closed Gate A even while blocked. Lower switch A opens this gate; upper switch B opens lower gate B.',
+ enable: 'Player holds lower switch A, opening upper gate A. Echo moves right through A toward switch B. Lower gate B remains closed.',
+ cooperate: 'Echo holds upper switch B, opening lower gate B so Player can move right through it.',
+ passage: 'A bracket identifies the shared narrow passage between the two walls on the left. Player and Echo are labeled; no walkable area or passage order is inferred.'
+};
+---
+<svg class="diagram" viewBox={stage === 'passage' ? '0 0 1280 560' : '0 0 1280 718'} role="img" aria-label={descriptions[stage]}>
+ <defs><marker id={`${stage}-arrow`} markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L8,3 z" fill="#fff3bc" /></marker><marker id={`${stage}-player-arrow`} markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L8,3 z" fill="#a4f0df" /></marker></defs>
+ {stage !== 'passage' && <image href={`/projects/echoes-of-time/${stage === 'lesson' ? 'switch-lesson' : stage}.webp`} width="1280" height="718" />}
+ {stage === 'lesson' && <>
+ <g class="lesson-label" transform="translate(65 190)"><rect width="490" height="70"/><text x="18" y="48">Echo holds switch</text></g>
+ <path class="leader" d="M305 260 V345"/>
+ <g class="lesson-label" transform="translate(620 500)"><rect width="580" height="70"/><text x="18" y="48">Player passes gate</text></g>
+ <path class="leader" d="M780 500 L758 410"/>
+ </>}
+ {stage === 'record' && <>
+ <rect class="gate" x="665" y="210" width="65" height="198"/><circle class="switch" cx="905" cy="391" r="72"/><circle class="switch" cx="884" cy="665" r="62"/>
+ <path class="move" d="M550 375 H650" marker-end={`url(#${stage}-arrow)`}/>
+ <g transform="translate(405 280)"><rect width="220" height="48"/><text x="14" y="34">Player →</text></g>
+ <g transform="translate(730 225)"><rect width="270" height="48"/><text x="14" y="34">Gate A · closed</text></g>
+ <g transform="translate(795 475)"><rect width="250" height="48"/><text x="14" y="34">Switch B</text></g>
+ <g transform="translate(555 590)"><rect width="270" height="48"/><text x="14" y="34">Switch A</text></g>
+ <g transform="translate(1010 580)"><rect width="240" height="48"/><text x="14" y="34">Gate B · closed</text></g>
+ </>}
+ {stage === 'enable' && <>
+ <circle class="switch" cx="735" cy="411" r="89"/><rect class="gate" x="513" y="72" width="62" height="82"/>
+ <path class="link" d="M650 400 L475 400 V110 H510"/>
+ <g transform="translate(690 65)"><rect width="185" height="48"/><text x="14" y="34">Switch B</text></g>
+ <path class="move" d="M600 120 H705" marker-end={`url(#${stage}-arrow)`}/>
+ <g transform="translate(245 75)"><rect width="250" height="48"/><text x="14" y="34">Gate A · open</text></g>
+ <g transform="translate(590 190)"><rect width="300" height="48"/><text x="14" y="34">Echo → Switch B</text></g>
+ <g transform="translate(450 515)"><rect width="355" height="48"/><text x="14" y="34">Player · Switch A</text></g>
+ <g transform="translate(865 435)"><rect width="240" height="48"/><text x="14" y="34">Gate B · closed</text></g>
+ </>}
+ {stage === 'cooperate' && <>
+ <g transform="translate(40 75)"><rect width="230" height="48"/><text x="14" y="34">Gate A · closed</text></g>
+ <g transform="translate(330 525)"><rect width="185" height="48"/><text x="14" y="34">Switch A</text></g>
+ <circle class="switch" cx="664" cy="125" r="95"/><rect class="gate" x="779" y="316" width="70" height="122"/>
+ <path class="link" d="M700 110 H935 V345 H850"/>
+ <path class="move" d="M755 398 H1010" marker-end={`url(#${stage}-arrow)`}/>
+ <g transform="translate(330 210)"><rect width="355" height="48"/><text x="14" y="34">Echo · Switch B</text></g>
+ <g transform="translate(885 280)"><rect width="250" height="48"/><text x="14" y="34">Gate B · open</text></g>
+ <g transform="translate(605 485)"><rect width="205" height="48"/><text x="14" y="34">Player →</text></g>
+ </>}
+ {stage === 'passage' && <>
+ <image href="/projects/echoes-of-time/passage-left.webp" x="0" y="100" width="600" height="337" />
+ 
+ <g transform="translate(20 445)"><rect width="155" height="48"/><text x="14" y="34">Player</text></g>
+ <path class="leader" d="M95 445 L90 295"/>
+ <g transform="translate(310 395)"><rect width="145" height="48"/><text x="14" y="34">Echo</text></g>
+ <path class="leader" d="M320 395 L255 295"/>
+ <svg x="640" y="100" width="640" height="337" viewBox="65 245 550 290" preserveAspectRatio="xMidYMid meet">
+  <image href="/projects/echoes-of-time/passage-left.webp" width="1280" height="718" />
+  <path class="passage-bracket" fill="none" stroke="#fff3bc" stroke-width="3" d="M240 360 V338 H515 V360"/>
+  <g transform="translate(75 475)"><rect width="145" height="42"/><text class="inset-label" x="12" y="30">Player</text></g><path class="inset-leader" d="M180 475 L190 425"/>
+  <g transform="translate(450 275)"><rect width="105" height="42"/><text class="inset-label" x="12" y="30">Echo</text></g><path class="inset-leader" d="M500 317 L540 365"/>
+ </svg>
+ <path class="leader" d="M900 73 V155"/>
+ <g transform="translate(680 25)"><rect width="475" height="48"/><text x="14" y="34">Shared narrow passage</text></g>
+ </>}
+
+</svg>
+<style>
+.diagram{display:block;width:100%;height:auto;border:1px solid #c7cabb}g rect{fill:#20291f;fill-opacity:.95;rx:6}text{font:30px Arial,sans-serif;fill:#fff8df;letter-spacing:0}.move{fill:none;stroke:#fff3bc;stroke-width:6}.later{stroke-dasharray:12 9}.link{fill:none;stroke:#a4f0df;stroke-width:5;stroke-dasharray:11 8}.gate{fill:#fff3bc;fill-opacity:.12;stroke:#fff3bc;stroke-width:5}.switch{fill:none;stroke:#a4f0df;stroke-width:5}.leader{fill:none;stroke:#fff3bc;stroke-width:3}.conflict{fill:#a54e39;fill-opacity:.45;stroke:#fff3bc;stroke-width:5}
+.order{font-size:16px;paint-order:stroke;stroke:#20291f;stroke-width:5px;stroke-linejoin:round}.lesson-label text{font-size:48px}
+.passage-bracket{fill:none;stroke:#fff3bc;stroke-width:3;stroke-linecap:square}.inset-label{font-size:24px}.inset-leader{fill:none;stroke:#fff3bc;stroke-width:2px}
+</style>

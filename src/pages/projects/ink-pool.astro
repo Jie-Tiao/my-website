@@ -31,7 +31,6 @@ const flow = [
   <section id="gameplay" class="section wrap">
     <header class="section-heading"><p class="eyebrow">01 / THE PLAYABLE LOOP</p><h2>Actions become the next chapter.</h2><p>Using a card changes the scene and can add new cards to the hand. A small set of effect types carries the player through seven configured scenes.</p></header>
     <figure><video controls playsinline preload="none" poster="/projects/ink-pool/courtyard.webp" aria-label="Full gameplay walkthrough of Strange Tales of the Ink Pool"><source src="/projects/ink-pool/gameplay.mp4" type="video/mp4" /></video><figcaption>FULL PLAYTHROUGH / APPROX. 65 SECONDS · ORIGINAL GAME AUDIO</figcaption></figure>
-    <p class="submission"><a href="https://www.gmhub.com/game/7508" target="_blank" rel="noopener noreferrer">Original Jam Submission (Chinese) ↗</a></p>
     <ol class="flow">{flow.map(([number, title, text]) => <li><span class="eyebrow">{number}</span><h3>{title}</h3><p>{text}</p></li>)}</ol>
     <div class="feature"><figure><img src="/projects/ink-pool/card-selected.webp" alt="The selected Enter the Dream card is raised above the neighboring Fire Starter card in the hand" width="1440" height="900" loading="lazy" /><figcaption>HAND INTERACTION / THE SELECTED CARD RISES ABOVE THE HAND</figcaption></figure><div><p class="eyebrow">FROM INPUT TO FEEDBACK</p><h3>Select. Confirm. Rearrange.</h3><p>Selecting a card raises it above the hand; clicking it again uses it. As cards are awarded or consumed, the remaining cards move into their new positions.</p></div></div>
   </section>
