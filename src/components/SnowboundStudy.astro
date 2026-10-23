@@ -1,0 +1,13 @@
+---
+interface Props { study: 'stairs' | 'launch' }
+const { study } = Astro.props;
+const stairs = study === 'stairs';
+const points = stairs
+  ? [{x:85,y:155,label:'A'},{x:145,y:545,label:'B'},{x:510,y:530,label:'1'},{x:820,y:460,label:'2'},{x:1020,y:340,label:'3'}]
+  : [{x:95,y:485,label:'B'},{x:180,y:530,label:'A'},{x:290,y:490,label:'1'},{x:655,y:100,label:'2'},{x:410,y:560,label:'3'}];
+---
+<svg viewBox="0 0 1100 629" role="img" aria-label={stairs ? 'Annotated stair layout: A starts on the upper route, B on the lower route. Steps 1 and 2 mark snowball-assisted climbs; 3 marks the meeting point on the right.' : 'Annotated launch layout: A and B start together below the ledge. 1 marks pickup and aim, 2 the upper landing, and 3 the pressure mechanism in the early sketch.'}>
+  <image href={`/projects/snowbound/plan-${stairs ? 2 : 3}.webp`} width="1100" height="629" />
+  {points.map(({x,y,label}) => <g><circle cx={x} cy={y} r="24" fill={label === 'A' ? '#316981' : label === 'B' ? '#86532d' : '#f3f1eb'} stroke={label === 'B' ? '#86532d' : '#316981'} stroke-width="3" /><text x={x} y={y+1} fill={label === 'A' || label === 'B' ? 'white' : '#294c62'}>{label}</text></g>)}
+</svg>
+<style>svg{display:block;width:100%;height:auto;border:1px solid #ccd1d2;background:white}text{font:700 23px sans-serif;text-anchor:middle;dominant-baseline:middle}</style>
