@@ -3,10 +3,8 @@ interface Props { src: string; title: string; alt: string; eager?: boolean }
 const { src, title, alt, eager = false } = Astro.props;
 ---
 <figure>
-  <a href={src} target="_blank" rel="noopener" aria-label={`${title}: open full capture`}>
     <div class="crop"><img src={src} alt={alt} width="1920" height="1080" loading={eager ? 'eager' : 'lazy'} /></div>
-  </a>
-  <figcaption><strong>{title}</strong><a href={src} target="_blank" rel="noopener">Full capture ↗</a></figcaption>
+  <figcaption><strong>{title}</strong></figcaption>
 </figure>
 <style>
   figure{margin:0;min-width:0}figure>a{display:block;overflow:hidden;background:#d9d6c9}.crop{position:relative;aspect-ratio:720 / 820;overflow:hidden}.crop img{position:absolute;width:266.666667%;max-width:none;height:auto;left:-83.333333%;top:-12.195122%;display:block;border-radius:0}figcaption{display:flex;justify-content:space-between;gap:12px;padding-top:12px;font-size:12px;line-height:1.5;color:#626a58}strong{font-weight:500;color:#30362a}a{color:inherit;text-decoration:none}figcaption a{font-size:11px;text-decoration:underline;text-underline-offset:3px}a:focus-visible{outline:3px solid #71884c;outline-offset:4px}
