@@ -1,0 +1,21 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import ProjectHeader from '../../components/ProjectHeader.astro';
+import ProjectFooter from '../../components/ProjectFooter.astro';
+---
+<!doctype html>
+<html lang="en">
+  <head><BaseHead title="PBR Shader Study — Source & Setup" description="Shader source, Unity setup, references, and art dependencies for the PBR Shader Study." /></head>
+  <body><ProjectHeader /><main>
+    <a href="/projects/pbr-shader">← Back to the project</a>
+    <p class="eyebrow">UNITY PBR SHADER STUDY</p><h1>Source &amp; setup</h1>
+    <p>Two shader files from the implementation shown in the case study. These downloads contain shader source; models, textures, the HDR environment, and a configured Unity scene are separate dependencies.</p>
+    <section><h2>Shader files</h2><ul><li><a href="/projects/pbr-shader/source/PBR_simple.shader" download>PBR_simple.shader ↓</a> — direct lighting, simple ambient, and emission.</li><li><a href="/projects/pbr-shader/source/PBR_IBL.shader" download>PBR_IBL.shader ↓</a> — direct lighting plus SH/lightmaps and reflection-probe sampling.</li></ul></section>
+    <section><h2>Run in Unity</h2><ol><li>Use Unity 2022.3.36f1 with the Built-in Render Pipeline and Linear color space.</li><li>Import the shader files into an Assets/Shaders folder. Create a material and select PBR_IBL or PBR_Simple in its Shader menu.</li><li>Assign albedo and a normal map. The Metallic Map uses R for metallic and Alpha for smoothness; Smoothness defaults to 0.75. AO uses the Occlusion texture’s G channel.</li><li>Add a directional light. For PBR_IBL, configure an HDR skybox and update environment lighting; add and bake a Reflection Probe for local reflections. SH/lightmap data is supplied by Unity.</li><li>For a Standard comparison, use the same model, camera, lighting, texture inputs, and smoothness scaling. Disable Standard’s Height Map to match the custom shader’s inputs.</li></ol><p>These shaders target opaque ForwardBase shading. Compiling and rendering in your local Unity project is required; the website build does not validate Unity shader compilation.</p></section>
+    <section><h2>References</h2><ul><li>Timro: <a href="https://zhuanlan.zhihu.com/p/1893699752635369165">PBR | Unity实现</a> and <a href="https://zhuanlan.zhihu.com/p/1894174112563324389">PBR | IBL 基于图像的光照</a>.</li><li>Unity 2022.3 Built-in source: UnityStandardBRDF.cginc and UnityGlobalIllumination.cginc.</li></ul></section>
+    <section><h2>External art dependencies</h2><ul><li>Models and textures: <a href="https://assetstore.unity.com/packages/3d/props/clothing/armor/pbr-corinthian-helmets-230928">PBR Corinthian Helmets</a> by Ferocious Industries, via Unity Asset Store.</li><li>HDR environment: <a href="https://polyhaven.com/a/mirrored_hall">Mirrored Hall</a> by Grzegorz Wronkowski, via Poly Haven (CC0).</li></ul></section>
+  </main><ProjectFooter /></body>
+</html>
+<style>
+  :global(body){background:#f4f3eb;color:#30362a;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.8}main{box-sizing:border-box;width:min(900px,calc(100% - 36px));max-width:none;padding:65px 0;margin:auto}h1,h2{color:inherit;letter-spacing:-.04em;font-weight:500}h1{font-size:clamp(40px,7vw,68px)}h2{font-size:28px}section{border-top:1px solid #cfd3c3;padding-top:28px;margin-top:38px}p,li{color:#58624c}li{margin-bottom:14px}a{color:#425a2e;text-underline-offset:4px}.eyebrow{font:10px/1.6 monospace;letter-spacing:.1em;margin-top:40px}a:focus-visible{outline:3px solid #71884c;outline-offset:4px}
+</style>

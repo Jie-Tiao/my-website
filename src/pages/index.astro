@@ -127,6 +127,19 @@ const description =
             </div>
           </a>
 
+          <!-- PBR SHADER -->
+          <a class="project-card" href="/projects/pbr-shader">
+            <div class="project-image pbr-cover">
+              <img src="/projects/pbr-shader/custom-bronze.png" alt="Custom PBR bronze helmet reflecting a bright historic interior" width="1920" height="1080" loading="lazy" />
+            </div>
+            <div class="project-content">
+              <div class="project-meta"><span>COMPUTER GRAPHICS</span><span>UNITY · HLSL / CG</span></div>
+              <h3>Unity PBR Shader Study</h3>
+              <p>A real-time shading study implementing a microfacet BRDF and integrating Unity environment lighting. I refined the material response against Standard and traced a key visual difference to smoothness texture inputs.</p>
+              <span class="project-link">View Project →</span>
+            </div>
+          </a>
+
           <!-- SHADOW RUNNER -->
           <a class="project-card" href="/projects/shadow-runner">
             <div class="project-image">
@@ -405,6 +418,9 @@ const description =
   .placeholder span {
     opacity: 0.4;
   }
+
+  .pbr-cover img{object-position:center;transform:scale(1.55)}
+  .project-card:hover .pbr-cover img{transform:scale(1.58)}
 
   .project-meta {
     display: flex;

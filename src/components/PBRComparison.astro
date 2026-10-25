@@ -1,0 +1,29 @@
+---
+interface Props { material: string; custom: string; standard: string; id: string }
+const { material, custom, standard, id } = Astro.props;
+---
+<figure class="comparison" style="--split:50%">
+  <figcaption><strong>{material}</strong><span>Custom PBR ↔ Unity Standard</span></figcaption>
+  <div class="images">
+    <div class="layer"><img src={standard} width="1920" height="1080" alt={`${material} rendered with Unity Standard`} loading="lazy" /></div>
+    <div class="layer custom"><img src={custom} width="1920" height="1080" alt={`${material} rendered with the custom PBR shader`} loading="lazy" /></div>
+    <span class="tag left">Custom PBR</span><span class="tag right">Standard</span>
+    <div class="divider" aria-hidden="true"><span>↔</span></div>
+  </div>
+  <label for={id}>Slide to compare <output for={id}>50% custom</output></label>
+  <input id={id} type="range" min="0" max="100" value="50" aria-label={`${material}: proportion of custom shader visible`} />
+  <div class="links"><a href={custom} target="_blank" rel="noopener">Custom / Full capture ↗</a><a href={standard} target="_blank" rel="noopener">Standard / Full capture ↗</a></div>
+</figure>
+<script>
+  document.querySelectorAll<HTMLElement>('.comparison').forEach((figure) => {
+    const input = figure.querySelector('input');
+    const output = figure.querySelector('output');
+    input?.addEventListener('input', () => {
+      figure.style.setProperty('--split', `${input.value}%`);
+      if (output) output.value = `${input.value}% custom`;
+    });
+  });
+</script>
+<style>
+  figure{margin:0;min-width:0}figcaption{display:flex;justify-content:space-between;gap:12px;align-items:baseline;margin-bottom:14px;color:#30362a}figcaption strong{font-size:20px;font-weight:500}figcaption span{font-size:10px;color:#626a58}.images{position:relative;aspect-ratio:720/820;overflow:hidden;background:#d9d6c9}.layer{position:absolute;inset:0;overflow:hidden}.layer img{position:absolute;width:266.666667%;max-width:none;height:auto;left:-83.333333%;top:-12.195122%;border-radius:0}.custom{clip-path:inset(0 calc(100% - var(--split)) 0 0)}.divider{position:absolute;top:0;bottom:0;left:var(--split);width:2px;background:white;transform:translateX(-50%);pointer-events:none}.divider span{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#f4f3eb;color:#30362a;box-shadow:0 1px 8px #0005}.tag{position:absolute;top:14px;background:#20271dd9;color:#fff;padding:5px 9px;font-size:10px}.left{left:12px}.right{right:12px}label{display:flex;justify-content:space-between;font-size:12px;margin-top:15px;color:#626a58}input{display:block;width:100%;margin:10px 0 16px;accent-color:#62754a;cursor:ew-resize;min-height:24px}input:focus-visible{outline:3px solid #71884c;outline-offset:3px}.links{display:flex;justify-content:space-between;gap:12px;font-size:11px}.links a{color:#475b35;text-underline-offset:3px}@media(max-width:600px){figcaption span{font-size:9px}figcaption strong{font-size:18px}}@media print{input,label{display:none}.links{margin-top:12px}}
+</style>
