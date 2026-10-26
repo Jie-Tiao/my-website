@@ -1,11 +1,14 @@
+---
+import BrandMark from './BrandMark.astro';
+---
 <header class="project-header">
-  <a class="wordmark" href="/">CHAO BIAN<span> / SELECTED WORK</span></a>
+  <a class="wordmark" href="/" aria-label="Chao Bian home"><BrandMark size={30} />CHAO BIAN<span> / SELECTED WORK</span></a>
   <a href="/#projects">All projects ↗</a>
 </header>
 <style>
   .project-header{box-sizing:border-box;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:27px 48px;border-bottom:1px solid #d4d5c8;font-size:12px;line-height:1.65;color:#272b26}
   a{color:inherit;text-decoration:none}a:hover{color:#6c7845}a:focus-visible{outline:3px solid #a0b16b;outline-offset:6px}
-  .wordmark{font-size:13px;font-weight:700;letter-spacing:.12em}.wordmark span{font-weight:400;color:#858a7d;font-size:10px;margin-left:12px}
+  .wordmark{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.12em}.wordmark span{font-weight:400;color:#858a7d;font-size:10px;margin-left:12px}
   @media(max-width:900px){.project-header{padding:22px 24px}}
   @media(max-width:600px){.project-header{padding:20px 18px}.wordmark span{display:none}}
   @media print{.project-header{position:static;padding:0 0 12pt}}
