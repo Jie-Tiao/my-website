@@ -5,14 +5,15 @@ import ProjectFooter from '../../components/ProjectFooter.astro';
 const title = 'λ⁺ Interpreter & Type Inference';
 const contributions = [
   ['01', 'Evaluation', 'Free-variable analysis, substitution, and call-by-value function application.'],
-  ['02', 'Language extensions', 'Arithmetic, conditionals, lists, pattern matching, and recursive definitions.'],
+  ['02', 'Additional language constructs', 'Arithmetic, conditionals, lists, pattern matching, and recursive definitions.'],
   ['03', 'Static analysis', 'Environment-based type checking and constraint-based type inference.'],
   ['04', 'Constraint solving', 'Type substitution and unification with an occurs check.'],
 ];
 const steps = [
-  ['Introduce an unknown', 'Assign the parameter x a fresh type variable α.'],
-  ['Analyze the body', 'The body refers to x, so its type is also α.'],
-  ['Construct the function type', 'Combine the parameter and result types: α → α.'],
+  ['Introduce unknowns', 'Assign f the fresh type α and x the fresh type β.'],
+  ['Generate a constraint', 'Give the application f x a fresh result type γ. Applying f to x requires α = β → γ.'],
+  ['Unify and substitute', 'Solve the equation with the substitution α ↦ β → γ, then apply it to the provisional type α → β → γ.'],
+  ['Construct the function type', 'The resulting type is (β → γ) → β → γ.'],
 ];
 ---
 <!doctype html>
@@ -43,7 +44,7 @@ const steps = [
         <p class="eyebrow">01 / Implementation scope</p><h2 id="contribution-title">My contribution</h2>
         <p class="section-intro">The course supplied the AST, parser, supporting utilities, and interactive interface. Within that framework, I implemented the following core algorithms.</p>
         <div class="cards">{contributions.map(([number, heading, description]) => <article class="card"><span class="number">{number}</span><h3>{heading}</h3><p>{description}</p></article>)}</div>
-        <p class="aside">Additional work: simultaneous substitution, alpha-equivalence checking, lazy internal choices, and type cardinality calculations.</p>
+        <p class="aside">Additional work: simultaneous substitution and alpha-equivalence checking.</p>
       </section>
 
       <section id="interpreter" class="interpreter" aria-labelledby="interpreter-title">
@@ -57,11 +58,11 @@ const steps = [
       <section id="inference" aria-labelledby="inference-title">
         <p class="eyebrow">03 / Static analysis</p><h2 id="inference-title">From type checking<br />to type inference.</h2>
         <p class="section-intro">The type checker translates typing rules into recursive checks. The inference engine introduces fresh type variables for missing annotations, generates equality constraints, and solves them through unification.</p>
-        <div class="example"><div class="expression"><p class="eyebrow">A minimal example</p><pre><code>lambda x. x</code></pre><div class="result"><span>Inferred type</span><strong>α → α</strong></div></div><ol>{steps.map(([heading, description]) => <li><h3>{heading}</h3><p>{description}</p></li>)}</ol></div>
-        <div class="columns"><div><h3>Connecting types through constraints</h3><p>For function application, the function’s type is constrained to an arrow from the argument type to a fresh result type. Unification propagates these relationships across the expression.</p></div><div><h3>Rejecting infinite types</h3><p>The occurs check rejects equations such as <code>α = α → β</code>, which would require an infinite type.</p></div></div>
+        <div class="example"><div class="expression"><p class="eyebrow">Function application</p><pre><code>λf. λx. f x</code></pre><div class="result"><span>Inferred type</span><strong>(β → γ) → β → γ</strong></div></div><ol>{steps.map(([heading, description]) => <li><h3>{heading}</h3><p>{description}</p></li>)}</ol></div>
+        <div class="columns"><div><h3>Rejecting infinite types</h3><p>In <code>λx. x x</code>, the same x acts as both function and argument. With x : α and a fresh result type β, the application requires <code>α = α → β</code>. The occurs check rejects this constraint because α appears within its own replacement, which would require an infinite type.</p></div></div>
       </section>
 
-      <section id="takeaway" class="reflection" aria-labelledby="reflection-title"><p class="eyebrow">04 / Reflection</p><h2 id="reflection-title">Formal ideas, executable systems.</h2><p>Evaluation rules became recursive interpreter cases; typing judgments became environment-based checks; and unknown types became constraints that could be solved systematically.</p><p>The project strengthened my understanding of variable scope, recursive data structures, and the distinction between runtime evaluation and static analysis—foundations relevant to scripting systems and language tools in graphics and game development.</p></section>
+      <section id="takeaway" class="reflection" aria-labelledby="reflection-title"><p class="eyebrow">04 / Reflection</p><h2 id="reflection-title">Formal ideas, executable systems.</h2><p>Evaluation rules became recursive interpreter cases; typing judgments became environment-based checks; and unknown types became constraints that could be solved systematically.</p><p>The project deepened my understanding of how bindings determine variable scope, how expressions evaluate at runtime, and how static analysis reasons about a program before execution.</p></section>
     </main>
     <ProjectFooter />
   </body>
@@ -89,7 +90,7 @@ const steps = [
   .flow{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:24px;margin:40px 0 18px;border-block:1px solid #cfd3c3;background:#e8e9df;font-family:monospace;font-size:12px;color:#657a42}.flow b{display:block;position:relative;flex:0 0 48px;min-width:48px;max-width:48px;height:12px;color:#72834e}.flow b::before{content:"";position:absolute;left:0;right:1px;top:5px;border-top:1.5px solid currentColor}.flow b::after{content:"";position:absolute;right:2px;top:2px;width:7px;height:7px;border-top:1.5px solid currentColor;border-right:1.5px solid currentColor;transform:rotate(45deg)}
   code{font-family:monospace;font-size:14px;background:#e6e7dd;color:#48583a;border-radius:0}
   #inference{width:100%;background:#22271f;color:#eceee4;padding-inline:max(48px,calc((100% - 1200px)/2));border:0}#inference p{color:#b5bba9}#inference .eyebrow{color:#b4c68d}#inference code{background:#333d2b;color:#d5dfbf}
-  .example{display:grid;grid-template-columns:1fr 1.1fr;border-block:1px solid #48503e;margin:45px 0}.expression{padding:40px;background:#151713;min-width:0}.expression pre{padding:0;background:transparent;border-radius:0;font-size:clamp(24px,3vw,40px);white-space:pre-wrap;overflow-wrap:anywhere;margin:40px 0 55px}.expression pre code{font-size:inherit;background:transparent!important;color:#eceee4!important;padding:0}.result{border-top:1px solid #48503e;padding-top:24px;display:flex;justify-content:space-between;align-items:center;gap:16px}.result span{font-family:monospace;font-size:11px;color:#a6ab99}.result strong{font-size:36px;font-weight:400;color:#b4c68d}.example ol{margin:0;padding:40px 35px 20px 60px}.example li{padding-left:8px;margin-bottom:26px}.example li::marker{color:#b4c68d;font-family:monospace;font-size:12px}.example h3{font-size:19px;margin-bottom:8px}.example li p{font-size:14px;margin:0}
+  .example{display:grid;grid-template-columns:1fr 1.1fr;border-block:1px solid #48503e;margin:45px 0}.expression{padding:40px;background:#151713;min-width:0}.expression pre{padding:0;background:transparent;border-radius:0;font-size:clamp(24px,3vw,40px);white-space:pre-wrap;overflow-wrap:anywhere;margin:40px 0 55px}.expression pre code{font-size:inherit;background:transparent!important;color:#eceee4!important;padding:0}.result{border-top:1px solid #48503e;padding-top:24px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px}.result span{font-family:monospace;font-size:11px;color:#a6ab99}.result strong{font-size:clamp(24px,3vw,36px);font-weight:400;color:#b4c68d}.example ol{margin:0;padding:40px 35px 20px 60px}.example li{padding-left:8px;margin-bottom:26px}.example li::marker{color:#b4c68d;font-family:monospace;font-size:12px}.example h3{font-size:19px;margin-bottom:8px}.example li p{font-size:14px;margin:0}
   .reflection{border:0}.reflection>p:not(.eyebrow){max-width:800px}.reflection>h2+p{font-size:26px;line-height:1.5;color:#404a36;letter-spacing:-.02em}
   .skip{position:absolute;top:-100px;left:20px;background:white;padding:12px;z-index:20}.skip:focus{top:10px}
   @media(max-width:900px){.hero,.cover,section,.chapter-nav>div{width:calc(100% - 48px)}.overview,.columns{gap:40px}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:30px}#inference{padding-inline:24px}.kicker{font-size:10px}.flow{gap:10px;padding-inline:16px;font-size:11px}}
