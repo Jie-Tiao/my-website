@@ -1,0 +1,21 @@
+---
+import { Code } from 'astro:components';
+import BaseHead from '../../components/BaseHead.astro';
+import ProjectHeader from '../../components/ProjectHeader.astro';
+import ProjectFooter from '../../components/ProjectFooter.astro';
+const sources = import.meta.glob('../../data/ssao/*', { query: '?raw', import: 'default', eager: true });
+const names = ['SSAO.cs', 'SSAO.shader', 'SSAO.cginc', 'BilateralBlur.shader', 'NormalCompare.cs', 'NormalCompare.shader'];
+---
+<!doctype html>
+<html lang="en">
+  <head><BaseHead title="SSAO Implementation — Chao Bian" description="Source snapshot of the Unity SSAO camera component, occlusion shader, geometry helpers, guided blur, and normal visualization." /></head>
+  <body><ProjectHeader /><main>
+    <p><a href="/projects/ssao">← Back to the SSAO study</a></p>
+    <h1>SSAO implementation</h1><p>The six supplied implementation files: camera orchestration, occlusion estimation, shared geometry helpers, filtering, and normal visualization.</p>
+    <nav aria-label="Source files">{names.map(name => <a href={`#${name.replaceAll('.', '-')}`}>{name}</a>)}</nav>
+    {names.map(name => <section id={name.replaceAll('.', '-')}><h2>{name}</h2><Code code={String(sources[`../../data/ssao/${name}`])} lang={name.endsWith('.cs') ? 'csharp' : 'hlsl'} theme="github-dark" /></section>)}
+  </main><ProjectFooter /></body>
+</html>
+<style>
+  :global(body){background:#f4f3eb;color:#30362a;font-family:Arial,Helvetica,sans-serif;font-size:16px}main{box-sizing:border-box;width:min(1200px,calc(100% - 48px));max-width:none;margin:auto;padding:45px 0}h1{font-size:clamp(36px,6vw,64px);letter-spacing:-.04em}h1,h2{color:inherit}p{max-width:800px}a{color:inherit;text-underline-offset:4px}nav{display:flex;gap:12px 24px;flex-wrap:wrap;padding:24px 0;border-block:1px solid #cfd3c3;font-size:14px}section{padding-top:40px;min-width:0}section :global(pre){padding:24px;font-size:13px;line-height:1.8;overflow-x:auto;max-width:100%;box-sizing:border-box}a:focus-visible{outline:3px solid #71884c;outline-offset:4px}
+</style>

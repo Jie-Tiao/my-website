@@ -3,6 +3,7 @@ import BaseHead from '../../components/BaseHead.astro';
 import ProjectHeader from '../../components/ProjectHeader.astro';
 import ProjectFooter from '../../components/ProjectFooter.astro';
 import PBRCapture from '../../components/PBRCapture.astro';
+import PBRComparison from '../../components/PBRComparison.astro';
 const stages = [
   ['01', 'Material inputs', 'Albedo, tangent-space normals, metallic R, smoothness A, occlusion G, and emission.'],
   ['02', 'Direct lighting', 'GGX distribution, Smith joint visibility approximation, Schlick Fresnel, and Disney diffuse.'],
@@ -25,9 +26,16 @@ const stages = [
         <figure class="hero-render"><div class="hero-image"><img src="/projects/pbr-shader/custom-bronze-combined.png" alt="Refined bronze Corinthian helmet reflecting the Mirrored Hall environment" width="1920" height="1080" fetchpriority="high" /></div><figcaption><span>Bronze / Custom PBR · Mirrored Hall environment</span></figcaption></figure>
       </header>
 
-      <nav class="chapter-nav" aria-label="Project sections"><div class="wrap"><a href="#overview">01 / Overview</a><a href="#lighting">02 / Lighting</a><a href="#debugging">03 / Debugging</a><a href="#reflection">04 / Takeaways</a></div></nav>
+      <nav class="chapter-nav" aria-label="Project sections"><div class="wrap"><a href="#comparison">00 / Comparison</a><a href="#overview">01 / Overview</a><a href="#lighting">02 / Lighting</a><a href="#debugging">03 / Debugging</a><a href="#reflection">04 / Takeaways</a></div></nav>
 
-<section id="overview" class="wrap chapter overview">
+      <section id="comparison" class="wrap chapter">
+        <p class="eyebrow">00 / Visual reference</p><h2>Comparing with<br />Unity Standard.</h2>
+        <p class="intro">After aligning the shading conventions and smoothness inputs, the helmet materials produced a close visual match in the tested scene.</p>
+        <div class="comparison-grid"><PBRComparison material="Bronze" custom="/projects/pbr-shader/custom-bronze-combined.png" standard="/projects/pbr-shader/standard-bronze-combined.png" id="bronze-comparison" /><PBRComparison material="Oxidized metal" custom="/projects/pbr-shader/custom-rust-combined.png" standard="/projects/pbr-shader/standard-rust-combined.png" id="rust-comparison" /></div>
+        <p class="comparison-note">The tested materials and scene show a close visual match, with subtle local brightness differences remaining along the lower cheek guards, most visibly in bronze. Both pairs use the same crop and scale; the implementation focuses on opaque ForwardBase shading.</p>
+      </section>
+
+      <section id="overview" class="wrap chapter overview">
         <div><p class="eyebrow">01 / The project</p><h2>Understanding what<br />makes a material<br />look right.</h2></div>
         <div><p class="intro">This study connects the microfacet BRDF to a working real-time material, using Unity Standard as a visual and implementation reference.</p><p>The project includes two shaders, refined through comparison with Unity’s Built-in implementation. <code>PBR_simple</code> evaluates direct lighting with a simple ambient term. <code>PBR_IBL</code> extends the same material model with Unity’s environment-lighting data.</p><p>My work covers the shading logic, material input conventions, and debugging. Unity supplies the lightmaps, SH coefficients, and prefiltered probe textures; I implemented how the shader reads and combines them.</p></div>
       </section>
@@ -37,12 +45,18 @@ const stages = [
           <p class="eyebrow">02 / Implementation</p><h2>One material.<br />Two sources of light.</h2>
           <p class="intro">Direct light is evaluated from the scene light. Environment light is reconstructed from data prepared by Unity, with the material still controlling the response at runtime.</p>
           <ol class="pipeline">{stages.map(([number, heading, description]) => <li><span>{number}</span><h3>{heading}</h3><p>{description}</p></li>)}</ol>
-          <div class="lighting-formula"><span class="formula">f<sub>specular</sub> = D × V × F</span></div>
+          <div class="lighting-formula"><span class="formula">f<sub>specular</sub> = D × V × F</span><p>D describes the microfacet normal distribution; V includes masking, shadowing, and denominator normalization; F is Fresnel reflectance.</p></div>
           <h3 class="breakdown-heading">Lighting breakdown</h3>
           <div class="lighting-breakdown" aria-label="Lighting contributions on the bronze helmet">
             <article><PBRCapture src="/projects/pbr-shader/direct.png" title="Direct lighting" alt="Bronze helmet with direct lighting only: concentrated highlights and mostly dark unlit regions" /><p>Main-light diffuse and specular contributions.</p></article>
             <article><PBRCapture src="/projects/pbr-shader/environment.png" title="Environment lighting" alt="Bronze helmet illuminated by environment lighting, showing broad reflections and surface detail" /><p>Skybox SH supplies environment diffuse; reflection probes supply environment specular.</p></article>
             <article><PBRCapture src="/projects/pbr-shader/custom-bronze-combined.png" title="Combined / Final render" alt="Bronze helmet with direct and environment lighting combined" /><p>Main-light and environment contributions combined.</p></article>
+          </div>
+          <p class="lighting-observation">Under this lighting setup, environment reflections dominate the bronze helmet’s appearance, while the main light adds localized highlights.</p>
+          <div class="lighting-data" aria-label="Unity lighting data used by the shader">
+            <article><h4>SH &amp; Light Probes</h4><p>SH compactly represents low-frequency directional lighting; Light Probes provide spatial lighting samples. The shader evaluates SH using the surface normal for environment diffuse.</p></article>
+            <article><h4>Reflection Probes</h4><p>Probes store the surrounding environment in cubemaps. The shader samples by reflection direction and selects a prefiltered mip by roughness. Box Projection corrects parallax in local reflections.</p></article>
+            <article><h4>Lightmaps</h4><p>Lightmaps store baked illumination in surface textures. The shader reads them using lightmap UVs for baked diffuse lighting.</p></article>
           </div>
           <div class="equation">Final color = direct lighting + indirect diffuse + indirect specular + emission</div>
         </div>
@@ -72,6 +86,7 @@ alpha = max(roughness * roughness, 0.002);`}</code></pre><p>With a varying Alpha
   .comparison-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px 24px;margin-top:35px}.comparison-heading{font:11px/1.5 monospace;letter-spacing:.08em;color:#626a58;border-bottom:1px solid #cfd3c3;padding-bottom:12px}.hero-render{margin:35px 0 0}.hero-render>.hero-image{display:block;aspect-ratio:16/9;overflow:hidden}.hero-render img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 44%;transform:scale(1.25);border-radius:0}.connection-title{margin-top:38px}.hero-render figcaption{display:flex;justify-content:space-between;gap:16px;font-size:12px;color:#626a58;margin-top:12px}.hero-render a{color:inherit}.project-connection{font-size:16px;line-height:1.8}.capture-caption{font-size:12px;line-height:1.7;margin-top:20px;max-width:850px}
   @media(max-width:600px){.comparison-grid{grid-template-columns:1fr;gap:35px}.comparison-heading{font-size:10px}.hero-captures{grid-template-columns:1fr 1fr;gap:12px}}
   .breakdown-heading,.iteration-heading{margin:38px 0 0}.lighting-formula{display:flex;align-items:center;gap:35px;margin:30px 0}.lighting-formula .formula{white-space:nowrap;margin:0}.lighting-formula p{font-size:13px;margin:0;max-width:400px}.lighting-breakdown{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:35px}.lighting-breakdown article{min-width:0}.lighting-breakdown article>p{font-size:12px;margin:16px 0 0}.lighting-breakdown :global(figcaption strong){color:#f0f1e8}.lighting-breakdown :global(figcaption),.lighting-breakdown :global(figcaption a){color:#c1c8b6}.lighting-caption{font-size:11px;max-width:850px;margin:25px 0 0}.lighting-breakdown :global(figcaption){flex-wrap:wrap;gap:5px 12px}@media(max-width:700px){.lighting-breakdown{grid-template-columns:1fr;gap:30px}.lighting-formula{display:block}.lighting-formula p{margin-top:15px}.lighting-breakdown article{max-width:440px;margin-inline:auto;width:100%}}
+  .lighting-data{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:35px;padding-top:25px;border-top:1px solid #525c46}.lighting-data h4{font-size:16px;margin:0 0 12px}.lighting-data p{font-size:14px;line-height:1.8;margin:0}.lighting-observation{font-size:16px;line-height:1.7;max-width:850px;margin:28px 0 0}@media(max-width:700px){.lighting-data{grid-template-columns:1fr;gap:24px}}
   @media(prefers-reduced-motion:reduce){:global(html){scroll-behavior:auto}}
   @media print{.skip,.chapter-nav{display:none}.wrap{width:100%}.chapter{padding-block:30px}.hero{padding-top:20px}.dark{background:white;color:#30362a}.dark p{color:#626a58}.dark .eyebrow,.formula{color:#6e7b57}.columns,.overview{gap:25px}h1{font-size:60px}h2{font-size:36px}figure,.fixes article{break-inside:avoid}.pipeline{grid-template-columns:1fr 1fr}.code-study{padding:15px}pre{white-space:pre-wrap}}
 </style>

@@ -1,0 +1,92 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import ProjectHeader from '../../components/ProjectHeader.astro';
+import ProjectFooter from '../../components/ProjectFooter.astro';
+const filters = [
+  { file: 'raw_ao', title: 'Raw AO', note: 'Hemisphere sampling captures occlusion, with visible sampling noise.' },
+  { file: 'gaussian', title: 'Gaussian', note: 'Spatial smoothing reduces noise but spreads occlusion across the mirror silhouette.' },
+  { file: 'guided', title: 'Normal + depth guided', note: 'Geometry weights reduce mixing across surfaces and preserve the narrow mirror frame.' },
+];
+const stages = [
+  ['01', 'Reconstruct', 'Rebuild world positions from camera depth and the inverse view-projection matrix; decode normals into world space.'],
+  ['02', 'Sample', 'Construct an orthonormal basis around the normal, rotate hemisphere samples per pixel, and compare projected samples with scene depth.'],
+  ['03', 'Filter', 'Apply horizontal and vertical 7-tap filtering at full resolution, with optional normal and depth guidance.'],
+  ['04', 'Composite', 'Use filtered visibility to modulate the source image, with separate raw and filtered AO debug outputs.'],
+];
+---
+<!doctype html>
+<html lang="en">
+  <head><BaseHead title="Screen-Space Ambient Occlusion — Chao Bian" description="A Unity SSAO implementation study: depth reconstruction, hemisphere sampling, and normal and depth guided filtering with visual comparisons." /></head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <ProjectHeader />
+    <main id="main">
+      <header class="wrap hero">
+        <p class="eyebrow">COMPUTER GRAPHICS / UNITY BUILT-IN · HLSL / CG</p>
+        <h1>Screen-Space<br />Ambient Occlusion<span>From noisy samples to clearer contact.</span></h1>
+        <p class="intro">A rendering study in reconstructing scene geometry, estimating local occlusion, and preserving surface boundaries during filtering.</p>
+        <dl><div><dt>MY WORK</dt><dd>SSAO implementation &amp; debugging</dd></div><div><dt>FOCUS</dt><dd>Depth, normals &amp; multi-pass filtering</dd></div><div><dt>PROJECT TYPE</dt><dd>Reference-based implementation study</dd></div></dl>
+        <div class="links"><a href="#result">Compare the result ↓</a><a href="/projects/ssao-source">Read the implementation ↗</a></div>
+      </header>
+
+      <section id="result" class="wrap chapter">
+        <p class="eyebrow">01 / FINAL RESULT</p>
+        <h2>Grounding the scene.</h2>
+        <p class="intro">Occlusion strengthens the contact beneath the bed and chair, along wall corners, and where the ceiling beams meet. Compare the same camera view with and without the effect.</p>
+        <figure class="result" style="--split:50%">
+          <div class="image-stack">
+            <img src="/projects/ssao/no_ao.webp" width="1920" height="1080" alt="Cabin interior without the custom SSAO effect" />
+            <img class="with-ao" src="/projects/ssao/composite.webp" width="1920" height="1080" alt="Same cabin interior with guided SSAO applied" />
+            <span class="tag left">With SSAO</span><span class="tag right">No AO</span><span class="divider" aria-hidden="true">↔</span>
+          </div>
+          <figcaption><label for="ao-split">Slide to compare</label><output for="ao-split">50% with SSAO</output></figcaption>
+          <input id="ao-split" type="range" min="0" max="100" value="50" aria-label="Percentage of the image showing SSAO" />
+        </figure>
+        <p class="note">This is a post-process approximation: visibility modulates the full rendered image, including direct lighting and highlights, rather than only an isolated ambient-light term.</p>
+      </section>
+
+      <section class="dark"><div class="wrap chapter">
+        <p class="eyebrow">02 / IMPLEMENTATION</p><h2>Depth to visibility.</h2>
+        <ol class="pipeline">{stages.map(([number, title, text]) => <li><span>{number}</span><h3>{title}</h3><p>{text}</p></li>)}</ol>
+        <p class="note">The occlusion pass rejects background and off-screen samples, applies a depth bias, and attenuates contributions across large depth differences. Material and temporary render texture lifetimes are managed in the C# camera component.</p>
+      </div></section>
+
+      <section id="filtering" class="wrap chapter">
+        <p class="eyebrow">03 / FILTERING STUDY</p><h2>Smoothing noise.<br />Keeping the boundary.</h2>
+        <p class="intro">The mirror and the wall behind it make the tradeoff visible. Both filtered versions use the same spatial kernel and full-resolution passes; guidance adds normal similarity and eye-depth weights.</p>
+        <div class="filter-grid">{filters.map(({file, title, note}) => <figure><h3>{title}</h3><a class="crop" href={`/projects/ssao/${file}.webp`} aria-label={`Open full-resolution ${title} image`}><img src={`/projects/ssao/${file}.webp`} width="1920" height="1080" loading="lazy" alt={`${title}: close-up of the standing mirror and adjacent wall`} /></a><figcaption>{note}<a href={`/projects/ssao/${file}.webp`}>View full image ↗</a></figcaption></figure>)}</div>
+        <p class="note">All three crops show the same region at the same scale. Guidance improves edge preservation, while residual grain and low-frequency patches remain visible on broad surfaces.</p>
+      </section>
+
+      <section class="tinted"><div class="wrap chapter">
+        <p class="eyebrow">04 / DEBUGGING &amp; TAKEAWAYS</p><h2>The filter footprint matters.</h2>
+        <div class="columns"><div><h3>Matching horizontal and vertical sampling</h3><p>The earlier pipeline filtered horizontally into a half-resolution texture, then vertically back to full resolution. Because each pass used its input texture’s texel size, the vertical sample spacing was twice the horizontal spacing.</p><p>I changed both intermediate textures to full resolution, giving the two directions a consistent pixel footprint. I then reduced the sampling interval from 3 to 2 for the presentation captures.</p></div><div><h3>A controlled comparison</h3><p>The Gaussian mode disables geometry guidance while retaining the spatial weights and two-pass structure. This makes the edge comparison about the contribution of normals and depth.</p><p>The 7-tap kernel reaches three sample intervals on either side. At an interval of 2, its furthest samples are ±6 pixels away in each pass.</p></div></div>
+        <p class="takeaway">Reducing noise is only half the problem: the filter also needs to respect which surfaces the samples belong to.</p>
+        <a href="/projects/ssao-source">Explore the six implementation files ↗</a>
+      </div></section>
+
+      <footer class="wrap credits">
+        <p class="eyebrow">SCOPE &amp; CREDITS</p>
+        <p>Implementation reference: “后处理效果 | SSAO 屏幕空间环境光遮蔽”, Zhihu. This study builds on a reference implementation, with revisions to resource management, normal decoding, sampling, and filtering.</p>
+        <p>Scene assets: Furnished Cabin, imported third-party environment assets. My contribution is the SSAO and filtering implementation; the room models, textures, and scene artwork are not my work.</p>
+        <p>Scope: screen-space occlusion and spatial filtering. Off-screen geometry is unavailable, no temporal accumulation is implemented, and these captures are visual comparisons rather than GPU performance measurements.</p>
+        <a href="/projects/pbr-shader">Related study / Unity PBR Shader ↗</a>
+      </footer>
+    </main>
+    <ProjectFooter />
+  </body>
+</html>
+<script>
+  const slider = document.querySelector<HTMLInputElement>('#ao-split');
+  const figure = document.querySelector<HTMLElement>('.result');
+  const output = figure?.querySelector('output');
+  slider?.addEventListener('input', () => {
+    figure?.style.setProperty('--split', `${slider.value}%`);
+    if (output) output.value = `${slider.value}% with SSAO`;
+  });
+</script>
+<style>
+  :global(body){background:#f4f3eb;color:#30362a;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.7}main{width:100%;max-width:none;margin:0;padding:0}.wrap{width:min(1200px,calc(100% - 96px));margin-inline:auto}h1,h2,h3{color:inherit;font-weight:500}h1,h2{letter-spacing:-.055em}h1{font-size:clamp(54px,7.5vw,100px);line-height:1;margin:32px 0}h1 span{display:block;font-size:clamp(22px,3vw,36px);color:#7a865f;letter-spacing:-.03em;margin-top:24px}h2{font-size:clamp(36px,5vw,62px);line-height:1.06;margin:0 0 28px}h3{font-size:22px;letter-spacing:-.025em}p{color:#626a58;margin:0 0 20px}.eyebrow,dt{font:10px/1.7 monospace;letter-spacing:.1em;color:#6e7b57}.intro{max-width:790px;font-size:20px;line-height:1.6}.hero{padding-block:50px 35px}.chapter{padding-block:65px}.links{display:flex;flex-wrap:wrap;gap:24px;font-size:13px}dl{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:35px 0 25px;padding-block:22px;border-block:1px solid #cfd3c3}dd{margin:6px 0 0;font-size:13px}figure{margin:0;min-width:0}a{color:inherit;text-underline-offset:4px}a:hover{color:#6e7b49}a:focus-visible,input:focus-visible{outline:3px solid #71884c;outline-offset:5px}.image-stack{position:relative;aspect-ratio:16/9;overflow:hidden;background:#25271f}.image-stack img{display:block;position:absolute;inset:0;width:100%;height:100%;border-radius:0}.with-ao{clip-path:inset(0 calc(100% - var(--split)) 0 0)}.tag{position:absolute;top:16px;padding:5px 10px;background:#20271de8;color:white;font-size:12px}.left{left:16px}.right{right:16px}.divider{position:absolute;left:var(--split);top:0;bottom:0;width:2px;background:white;display:flex;align-items:center;justify-content:center;color:white;text-shadow:0 1px 3px black;pointer-events:none}.result figcaption{display:flex;justify-content:space-between;gap:12px;font-size:12px;margin-top:14px}input{display:block;width:100%;margin:8px 0 0;min-height:30px;accent-color:#62754a;cursor:ew-resize}.note{font-size:13px;max-width:900px;margin:24px 0 0}.dark{background:#272e24;color:#f0f1e8}.dark p{color:#c1c8b6}.dark .eyebrow,.pipeline span{color:#b5c495}.pipeline{display:grid;grid-template-columns:repeat(4,1fr);list-style:none;padding:0;margin:38px 0;border-block:1px solid #525c46}.pipeline li{padding:25px 22px;border-right:1px solid #525c46}.pipeline li:first-child{padding-left:0}.pipeline li:last-child{border-right:0}.pipeline h3{margin:16px 0 12px}.pipeline p{font-size:14px;margin:0}.pipeline span{font:12px monospace}.filter-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:35px}.filter-grid h3{font-size:19px}.crop{display:block;position:relative;aspect-ratio:3/4;overflow:hidden;background:white}.crop img{position:absolute;width:480%;max-width:none;height:auto;left:-75%;top:-65.625%;border-radius:0}.filter-grid figcaption{font-size:13px;color:#626a58;margin-top:18px}.filter-grid figcaption a{display:block;margin-top:12px}.tinted{background:#e8ebdf}.columns{display:grid;grid-template-columns:1fr 1fr;gap:60px}.takeaway{font-size:26px;line-height:1.5;max-width:850px;margin:28px 0;color:#414e34}.credits{padding-block:40px}.credits p,.credits>a{font-size:12px}.skip{position:absolute;left:20px;top:-100px;background:white;padding:10px;z-index:5}.skip:focus{top:10px}
+  @media(max-width:900px){.wrap{width:calc(100% - 48px)}.pipeline{grid-template-columns:1fr 1fr}.pipeline li:first-child{padding-left:22px}.pipeline li:nth-child(2){border-right:0}.filter-grid{gap:16px}.columns{gap:30px}}
+  @media(max-width:600px){.wrap{width:calc(100% - 36px)}.hero{padding-top:30px}.chapter{padding-block:45px}dl,.columns,.filter-grid,.pipeline{grid-template-columns:1fr}.intro{font-size:18px}.filter-grid{gap:30px}.filter-grid figure{width:100%;max-width:400px;margin:auto}.pipeline li,.pipeline li:first-child{padding:20px 0;border-right:0;border-bottom:1px solid #525c46}.pipeline li:last-child{border-bottom:0}.tag{font-size:10px;top:8px}.left{left:8px}.right{right:8px}.takeaway{font-size:23px}}
+</style>

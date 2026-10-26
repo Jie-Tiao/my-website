@@ -12,7 +12,6 @@ const { material, custom, standard, id } = Astro.props;
   </div>
   <label for={id}>Slide to compare <output for={id}>50% custom</output></label>
   <input id={id} type="range" min="0" max="100" value="50" aria-label={`${material}: proportion of custom shader visible`} />
-  <div class="links"><a href={custom} target="_blank" rel="noopener">Custom / Full capture ↗</a><a href={standard} target="_blank" rel="noopener">Standard / Full capture ↗</a></div>
 </figure>
 <script>
   document.querySelectorAll<HTMLElement>('.comparison').forEach((figure) => {
