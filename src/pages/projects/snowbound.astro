@@ -60,7 +60,7 @@ const mechanics = [
 </section>
 <section id="debugging" class="tinted"><div class="section wrap split">
 <header><p class="eyebrow">03 / A DEVELOPMENT LESSON</p><h2>Standing still.<br />Unable to jump.</h2></header>
-<div><p>A character could stand on a moving platform but could not jump. This exposed an integration problem between platform support and the template’s grounded condition.</p><p>The experience taught me to understand a template’s collision, ground detection, and control logic before extending its movement rules.</p></div>
+<div><p>A character could stand on a moving platform but could not jump. This exposed an integration problem between platform support and the template’s grounded condition: being carried by a trigger did not count as being grounded, because the template’s ground detection ignores triggers.</p><p>The implementation separates those responsibilities: a trigger carries the character by the platform’s displacement each physics step, while a separate non-trigger collider provides the surface detected by the template’s ground check, which gates jumping.</p><p>The experience taught me to understand a template’s collision, ground detection, and control logic before extending its movement rules.</p></div>
 </div></section>
 <section class="credits wrap" aria-labelledby="credits-heading"><h2 id="credits-heading">Credits &amp; References</h2><p>Characters are inspired by Nunu &amp; Willump from <em>League of Legends</em>; the original characters belong to Riot Games. Character artwork was generated with AI using those designs as references. The prototype was built on a Unity platformer template.</p></section>
 </main>

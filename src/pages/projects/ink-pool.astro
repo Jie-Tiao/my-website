@@ -2,7 +2,7 @@
 import BaseHead from '../../components/BaseHead.astro';
 import ProjectHeader from '../../components/ProjectHeader.astro';
 import ProjectFooter from '../../components/ProjectFooter.astro';
-const description = 'Core card gameplay and configuration-driven storytelling for Strange Tales of the Ink Pool, made in 48 hours at the 2025 CiGA Game Jam.';
+const description = 'From data designed with the game designer to card definitions, runtime instances, and shared interaction logic: Strange Tales of the Ink Pool, a 48-hour CiGA Game Jam project.';
 const flow = [
   ['01', 'Observe the pond', 'Discover a koi in the pond and gain new ways to continue the journey.'],
   ['02', 'Enter the dream', 'Summon the koi in a dream and use cards to extinguish the flames.'],
@@ -35,20 +35,20 @@ const flow = [
     <div class="feature"><figure><img src="/projects/ink-pool/card-selected.webp" alt="The selected Enter the Dream card is raised above the neighboring Fire Starter card in the hand" width="1440" height="900" loading="lazy" /><figcaption>HAND INTERACTION / THE SELECTED CARD RISES ABOVE THE HAND</figcaption></figure><div><p class="eyebrow">FROM INPUT TO FEEDBACK</p><h3>Select. Confirm. Rearrange.</h3><p>Selecting a card raises it above the hand; clicking it again uses it. As cards are awarded or consumed, the remaining cards move into their new positions.</p></div></div>
   </section>
   <section id="configuration" class="tinted"><div class="section wrap">
-    <header class="section-heading"><p class="eyebrow">02 / WORKING WITH THE DESIGNER</p><h2>From a card idea<br />to a playable rule.</h2><p>The designer proposed cards and their intended behaviors. Together with the other programmer, we discussed which values those behaviors needed and turned them into configuration fields. The designer then authored the content in spreadsheets.</p></header>
+    <header class="section-heading"><p class="eyebrow">02 / WORKING WITH THE DESIGNER</p><h2>From shared data design<br />to playable interactions.</h2><p>The designer proposed cards and their intended behaviors. Together with the other programmer, we defined what the data needed to express: effect types, targets, animations, interaction values, and rewards. The designer then authored the content in spreadsheets, using the fields we had agreed on.</p></header>
     <div class="runtime"><h3>From configuration to playable cards</h3>
-      <p>Card definitions are loaded from CSV and indexed by ID. Initial hands and rewards use these IDs to create playable cards, each referencing its definition for artwork and effects.</p>
+      <p>The CSV configuration is loaded into card definitions indexed by ID. Initial hands and rewards use those IDs to create runtime instances and their UI. Each instance references its definition for artwork and effects; consuming it removes the instance and UI while leaving the definition available for future cards.</p>
       <figure class="card-diagram"><div class="diagram-scroll"><img src="/projects/ink-pool/card-lifecycle.svg" width="1100" height="520" alt="CSV tables supply card definitions indexed by ID. Initial hand or reward IDs call AddCard(id) to create a card instance and UI that reference the definition. Selecting and confirming resolves the effect, awards new cards, and removes only the instance and UI if consumed." loading="lazy" /></div><figcaption>Consuming a card removes its runtime instance and UI; the definition remains available for reuse. <a href="/projects/ink-pool/card-lifecycle.svg" target="_blank" rel="noopener">Open diagram ↗</a></figcaption></figure>
     </div>
     <div class="example"><div><p class="eyebrow">A CARD DEFINED IN DATA</p><h3>“Observe the pond”</h3><p>Observing the pond and extinguishing fires use the same interaction logic. Different configurations select the target, animation, and rewards, allowing each encounter to advance the story without a separate execution path.</p></div><div class="table-scroll"><table><caption>Selected fields from Card.csv · card 201</caption><tbody><tr><th scope="row">Effect type</th><td>Interact</td></tr><tr><th scope="row">Target tag</th><td>chitang</td></tr><tr><th scope="row">Animation</th><td>jump</td></tr><tr><th scope="row">Interaction value</th><td>1</td></tr><tr><th scope="row">Reward cards</th><td>202 · Koi / 203 · Move</td></tr></tbody></table><p class="phase-note">The target’s <code>phase</code> tracks its remaining interaction stages. The interaction value reduces it; rewards are granted when it reaches zero or below.</p></div></div>
   </div></section>
   <section id="debugging" class="section wrap debugging">
-    <div><p class="eyebrow">03 / A DEBUGGING CASE</p><h2>Following the hitch<br />to its source.</h2><p>After the scene loaded, the game briefly stalled. I initially suspected redundant card data, but further debugging traced the hitch to loading a large BGM resource.</p><p>I resolved the issue through Unity’s audio import and loading settings. The experience taught me to revisit my initial assumptions and trace a problem beyond the gameplay system I was working on.</p></div>
+    <div><p class="eyebrow">03 / A DEBUGGING CASE</p><h2>A stall traced<br />to BGM loading.</h2><p>After the scene loaded, the game briefly stalled. I initially suspected redundant card data. Further debugging traced the hitch to loading a large BGM resource. I resolved it by adjusting Unity’s audio import and loading settings.</p></div>
     <figure><img src="/projects/ink-pool/temple.webp" alt="The scholar inside a blue-lit temple, with a Fire Starter card in hand" width="1280" height="672" loading="lazy" /><figcaption>THE TEMPLE / CARDS CONNECT THE SCENE TO THE STORY</figcaption></figure>
   </section>
   <section class="learning wrap" aria-labelledby="learning-title">
     <p class="eyebrow">WORKING WITH THE TEAM</p><h2 id="learning-title">What I learned</h2>
-    <p>Working with a professional game designer gave me a practical understanding of how programmers and designers turn gameplay ideas into implementable rules. Agreeing on what the data needed to express was a shared design task, shaping both the content and the code. The 48-hour jam taught me how closely gameplay implementation depends on that shared understanding.</p>
+    <p>This 48-hour jam connected each step of gameplay implementation: defining data with the designer, organizing configuration into card definitions, creating runtime instances, and executing different interactions through shared logic. Deciding what the data needs to express is itself design work shared by programmers and designers.</p>
   </section>
 </main>
 <ProjectFooter />

@@ -10,7 +10,7 @@ const filters = [
 const stages = [
   ['01', 'Input / reconstruct', 'Reconstruct world-space positions from camera depth using the inverse view-projection matrix, and read normals in world space.', ''],
   ['02', 'Occlusion estimation', 'Orient hemisphere samples around the surface normal and project them into screen space. Compare sample depths with the scene depth to estimate occlusion.', 'raw_ao'],
-  ['03', 'Guided filtering', 'Smooth raw AO with horizontal and vertical 7-tap passes, using normal and depth differences to reduce blending across surface boundaries.', 'guided'],
+  ['03', 'Guided filtering', 'Apply normal- and depth-guided bilateral filtering to raw AO with horizontal and vertical 7-tap passes, reducing blending across surface boundaries.', 'guided'],
   ['04', 'Composition', 'Apply filtered visibility to the rendered scene. Separate raw and filtered AO outputs support debugging and comparison.', 'composite'],
 ];
 ---
